@@ -13,9 +13,9 @@
     nav a { color: white; padding: 8px 12px; text-align: center; transition: background 0.2s; }
     nav a:hover { background: #222; border-radius: 5px; }
     section { min-height: 100vh; display: flex; justify-content: center; align-items: center; text-align: center; padding: 40px 20px; }
-    h1 { font-size: 3em; }
-    h2 { font-size: 2em; }
-    p { font-size: 1.2em; }
+    h1 { font-size: 3em; margin-bottom: 0.5em; }
+    h2 { font-size: 2em; margin-bottom: 0.5em; }
+    p { font-size: 1.2em; margin: 0.2em 0; }
     a { color: #00aaff; }
     .quote { font-size: 0.8em; font-style: italic; color: #aaa; text-align: right; padding: 20px; }
   </style>
@@ -45,21 +45,13 @@
 
   <script>
     function toggleMenu() {
-      const nav = document.getElementById('nav');
-      nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+      document.getElementById('nav').style.display = document.getElementById('nav').style.display === 'flex' ? 'none' : 'flex';
     }
 
-    window.onclick = e => {
-      if (!e.target.closest('header')) document.getElementById('nav').style.display = 'none';
-    };
+    window.onclick = e => { if (!e.target.closest('header')) document.getElementById('nav').style.display = 'none'; };
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) history.replaceState(null, null, `#${entry.target.id}`);
-      });
-    }, { threshold: 0.5 });
-    
-    document.querySelectorAll('section').forEach(section => observer.observe(section));
+    new IntersectionObserver(entries => entries.forEach(entry => entry.isIntersecting && history.replaceState(null, null, `#${entry.target.id}`)), { threshold: 0.5 })
+      .observe(document.querySelectorAll('section'));
   </script>
 
 </body>
