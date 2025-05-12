@@ -144,19 +144,22 @@
 
     const sections = document.querySelectorAll("section");
     const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
+      (entries) => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            history.replaceState(null, null, `#${entry.target.id}`);
+            // Verwende pushState für stabiles Hinzufügen zur Historie
+            history.pushState(null, null, `#${entry.target.id}`);
           }
         });
       },
       {
-        threshold: 0.5
+        threshold: 0.5, // 50% des Abschnitts muss im Sichtbereich sein
+        rootMargin: "0px",
       }
     );
 
-    sections.forEach(section => {
+    // Abschnitte beobachten
+    sections.forEach((section) => {
       observer.observe(section);
     });
   </script>
