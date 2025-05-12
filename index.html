@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>nexio.network</title>
   <style>
     * {
@@ -17,7 +17,6 @@
       color: #fff;
       font-family: 'Segoe UI', sans-serif;
       scroll-behavior: smooth;
-      touch-action: manipulation; /* verhindert Doppeltippen-Zoom auf manchen Geräten */
     }
 
     header {
@@ -44,7 +43,7 @@
       background: rgba(0, 0, 0, 0.85);
       border-radius: 8px;
       padding: 10px;
-      width: 180px;
+      width: 160px;
       text-align: center;
     }
 
@@ -104,9 +103,9 @@
   <header>
     <button class="menu-button" aria-label="Toggle menu" onclick="toggleMenu()">☰</button>
     <nav id="nav">
-      <a href="#home">Home</a>
-      <a href="#what">What is this?</a>
-      <a href="#contact">Contact</a>
+      <a href="#Home">Home</a>
+      <a href="#Whatisthis?">What is this?</a>
+      <a href="#Contact">Contact</a>
     </nav>
   </header>
 
@@ -136,7 +135,6 @@
       nav.style.display = nav.style.display === "flex" ? "none" : "flex";
     }
 
-    // Menü automatisch schließen beim Klicken außerhalb
     window.addEventListener("click", (e) => {
       const nav = document.getElementById("nav");
       const button = document.querySelector(".menu-button");
@@ -145,13 +143,12 @@
       }
     });
 
-    // URL beim Scrollen aktualisieren
     const sections = document.querySelectorAll("section");
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            history.replaceState(null, null, `#${entry.target.id}`);
+            history.replaceState(null, null, #${entry.target.id});
           }
         });
       },
