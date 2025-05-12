@@ -34,7 +34,8 @@
   <main>
     <section id="Home"><h1>nexio.network</h1></section>
     <section id="Whatisthis?"><h2>What is this?</h2><p>More is coming soon.</p></section>
-    <section id="Contact"><h2>Contact</h2>
+    <section id="Contact">
+      <h2>Contact</h2>
       <p>Reddit: <a href="https://reddit.com/user/xXnexioXx/" target="_blank" rel="noopener">click</a></p>
       <p>GitHub: <a href="https://github.com/xXnexioXx/" target="_blank" rel="noopener">click</a></p>
       <p>Discord: <a href="https://discord.com/users/641448096756269116/" target="_blank" rel="noopener">click</a></p>
@@ -45,13 +46,21 @@
 
   <script>
     function toggleMenu() {
-      document.getElementById('nav').style.display = document.getElementById('nav').style.display === 'flex' ? 'none' : 'flex';
+      const nav = document.getElementById('nav');
+      nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
     }
 
-    window.onclick = e => { if (!e.target.closest('header')) document.getElementById('nav').style.display = 'none'; };
+    window.addEventListener('click', (e) => {
+      if (!e.target.closest('header')) document.getElementById('nav').style.display = 'none';
+    });
 
-    new IntersectionObserver(entries => entries.forEach(entry => entry.isIntersecting && history.replaceState(null, null, `#${entry.target.id}`)), { threshold: 0.5 })
-      .observe(document.querySelectorAll('section'));
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) history.replaceState(null, null, `#${entry.target.id}`);
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('section').forEach(section => observer.observe(section));
   </script>
 
 </body>
