@@ -43,6 +43,8 @@
       background: rgba(0, 0, 0, 0.85);
       border-radius: 8px;
       padding: 10px;
+      width: 180px; /* Breite angepasst */
+      text-align: center; /* Inhalte zentrieren */
     }
 
     nav a {
@@ -50,6 +52,7 @@
       text-decoration: none;
       padding: 8px 12px;
       transition: background 0.2s;
+      white-space: nowrap; /* verhindert Zeilenumbruch */
     }
 
     nav a:hover {
@@ -100,23 +103,23 @@
   <header>
     <button class="menu-button" aria-label="Toggle menu" onclick="toggleMenu()">☰</button>
     <nav id="nav">
-      <a href="#Home">Home</a>
-      <a href="#Whatisthis?">What is this?</a>
-      <a href="#Contact">Contact</a>
+      <a href="#home">Home</a>
+      <a href="#what">What is this?</a>
+      <a href="#contact">Contact</a>
     </nav>
   </header>
 
   <main>
-    <section class="section" id="Home">
+    <section class="section" id="home">
       <h1>nexio.network</h1>
     </section>
 
-    <section class="section" id="Whatisthis?">
+    <section class="section" id="what">
       <h2>What is this?</h2>
-      <p>More is coming soon...</p>
+      <p>More is coming soon.</p>
     </section>
 
-    <section class="section" id="Contact">
+    <section class="section" id="contact">
       <h2>Contact</h2>
       <p>Reddit: <a href="https://reddit.com/user/xXnexioXx/" target="_blank" rel="noopener">click</a></p>
       <p>GitHub: <a href="https://github.com/xXnexioXx/" target="_blank" rel="noopener">click</a></p>
@@ -124,7 +127,6 @@
     </section>
   </main>
 
-  <!-- Zitat am unteren Ende der Seite, nicht fixiert -->
   <div class="quote">Malo periculosam libertatem quam quietum servitium.</div>
 
   <script>
