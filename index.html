@@ -147,18 +147,18 @@
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Verwende pushState für stabiles Hinzufügen zur Historie
-            history.pushState(null, null, `#${entry.target.id}`);
+            // Verwende replaceState, um die URL zu ändern, ohne die Historie zu beeinflussen
+            history.replaceState(null, null, `#${entry.target.id}`);
           }
         });
       },
       {
-        threshold: 0.5, // 50% des Abschnitts muss im Sichtbereich sein
+        threshold: 0.5, // 50% des Abschnitts muss sichtbar sein
         rootMargin: "0px",
       }
     );
 
-    // Abschnitte beobachten
+    // Beobachte alle Abschnitte
     sections.forEach((section) => {
       observer.observe(section);
     });
