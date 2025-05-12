@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>nexio.network</title>
   <style>
     * {
@@ -17,6 +17,7 @@
       color: #fff;
       font-family: 'Segoe UI', sans-serif;
       scroll-behavior: smooth;
+      touch-action: manipulation; /* verhindert Doppeltippen-Zoom auf manchen Geräten */
     }
 
     header {
@@ -43,8 +44,8 @@
       background: rgba(0, 0, 0, 0.85);
       border-radius: 8px;
       padding: 10px;
-      width: 180px; /* Breite angepasst */
-      text-align: center; /* Inhalte zentrieren */
+      width: 180px;
+      text-align: center;
     }
 
     nav a {
@@ -52,7 +53,7 @@
       text-decoration: none;
       padding: 8px 12px;
       transition: background 0.2s;
-      white-space: nowrap; /* verhindert Zeilenumbruch */
+      white-space: nowrap;
     }
 
     nav a:hover {
