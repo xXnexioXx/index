@@ -43,7 +43,6 @@
       background: rgba(0, 0, 0, 0.85);
       border-radius: 8px;
       padding: 10px;
-      min-width: 200px; /* Breitere Breite des Menüs */
     }
 
     nav a {
@@ -51,7 +50,6 @@
       text-decoration: none;
       padding: 8px 12px;
       transition: background 0.2s;
-      text-align: center; /* Zentriert den Text */
     }
 
     nav a:hover {
@@ -94,9 +92,6 @@
       color: #aaa;
       text-align: right;
       padding: 20px;
-      position: fixed; /* Festes Positionieren */
-      bottom: 0; /* Am unteren Rand */
-      right: 20px; /* Rechtsbündig */
     }
   </style>
 </head>
@@ -152,7 +147,7 @@
       entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            history.replaceState(null, null, `#${entry.target.id}`);
+            history.replaceState(null, null, #${entry.target.id});
           }
         });
       },
