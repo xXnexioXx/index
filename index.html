@@ -43,8 +43,6 @@
       background: rgba(0, 0, 0, 0.85);
       border-radius: 8px;
       padding: 10px;
-      width: 160px;
-      text-align: center;
     }
 
     nav a {
@@ -52,7 +50,6 @@
       text-decoration: none;
       padding: 8px 12px;
       transition: background 0.2s;
-      white-space: nowrap;
     }
 
     nav a:hover {
@@ -90,11 +87,12 @@
     }
 
     .quote {
+      position: absolute;
+      right: 20px;
+      bottom: 10px;
       font-size: 0.8em;
       font-style: italic;
       color: #aaa;
-      text-align: right;
-      padding: 20px;
     }
   </style>
 </head>
@@ -103,9 +101,9 @@
   <header>
     <button class="menu-button" aria-label="Toggle menu" onclick="toggleMenu()">☰</button>
     <nav id="nav">
-      <a href="#Home">Home</a>
-      <a href="#Whatisthis?">What is this?</a>
-      <a href="#Contact">Contact</a>
+      <a href="#home">Home</a>
+      <a href="#what">What is this?</a>
+      <a href="#contact">Contact</a>
     </nav>
   </header>
 
@@ -135,6 +133,7 @@
       nav.style.display = nav.style.display === "flex" ? "none" : "flex";
     }
 
+    // Optional: Close menu when clicking outside
     window.addEventListener("click", (e) => {
       const nav = document.getElementById("nav");
       const button = document.querySelector(".menu-button");
@@ -143,12 +142,13 @@
       }
     });
 
+    // Update URL on scroll
     const sections = document.querySelectorAll("section");
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            history.replaceState(null, null, #${entry.target.id});
+            history.replaceState(null, null, `#${entry.target.id}`);
           }
         });
       },
