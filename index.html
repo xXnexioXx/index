@@ -1,1 +1,380 @@
-<!DOCTYPE html><html lang=en><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>nexio.network</title><style>*{margin:0;padding:0;box-sizing:border-box}html,body{height:100%;background:#000;color:#fff;font-family:'Segoe UI',sans-serif;scroll-behavior:smooth}header{position:fixed;top:20px;right:20px}.menu-button{font-size:30px;background:none;border:none;color:#fff;cursor:pointer}nav{display:none;flex-direction:column;align-items:center;position:absolute;top:40px;right:0;background:rgba(0,0,0,.85);border-radius:8px;padding:10px;min-width:150px}nav a{color:#fff;text-decoration:none;padding:10px;width:100%;text-align:center;white-space:nowrap;transition:.2s}nav a:hover{background:#222;border-radius:5px}.section{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:40px 20px;text-align:center}h1{font-size:3em;margin-bottom:.5em}h2{font-size:2em;margin-bottom:.5em}p{font-size:1.2em;margin:.2em 0}a{color:#0af}.quote{font-size:.8em;font-style:italic;color:#aaa;text-align:right;padding:20px}</style><body><header><button class=menu-button onclick=toggleMenu()>☰</button><nav id=nav><a href=#Home>Home</a><a href=#Whatisthis?>What is this?</a><a href=#Contact>Contact</a></nav></header><main><section class=section id=Home><h1>nexio.network</h1></section><section class=section id=Whatisthis?><h2>What is this?</h2><p>More is coming soon.</p></section><section class=section id=Contact><h2>Contact</h2><p>Reddit: <a href=https://reddit.com/user/xXnexioXx/ target=_blank rel=noopener>click</a></p><p>GitHub: <a href=https://github.com/xXnexioXx/ target=_blank rel=noopener>click</a></p><p>Discord: <a href=https://discord.com/users/641448096756269116/ target=_blank rel=noopener>click</a></p></section></main><div class=quote>Malo periculosam libertatem quam quietum servitium.</div><script>function toggleMenu(){const n=document.getElementById("nav");n.style.display=n.style.display==="flex"?"none":"flex"}window.addEventListener("click",e=>{const n=document.getElementById("nav"),b=document.querySelector(".menu-button");if(!n.contains(e.target)&&e.target!==b)n.style.display="none"});document.querySelectorAll("section").forEach(s=>new IntersectionObserver(e=>e.forEach(i=>{if(i.isIntersecting)history.replaceState(null,null,"#"+i.target.id)}),{threshold:.5}).observe(s))</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nexio.network</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            overflow-x: hidden;
+            color: white;
+            background-color: #000;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 0.5em;
+        }
+
+        h2 {
+            font-size: 2em;
+            margin-bottom: 0.5em;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin: 0.2em 0;
+        }
+
+        a {
+            color: #0af;
+            text-decoration: none;
+        }
+
+        .menu-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.15); /* Hellerer Grauton */
+            border: none;
+            border-radius: 6px;
+            padding: 10px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .menu-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .menu-btn span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background-color: white; /* Immer weiß */
+            transition: all 0.2s;
+        }
+
+        .menu {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            width: auto;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 999;
+            display: none;
+            flex-direction: column;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+            padding: 8px 0;
+            min-width: 150px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .menu.active {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .menu a {
+            color: white;
+            padding: 10px 20px;
+            width: 100%;
+            text-align: center;
+            white-space: nowrap;
+            transition: 0.2s;
+        }
+
+        .menu a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .quote {
+            font-size: 0.7em;
+            font-style: italic;
+            color: #aaa;
+            text-align: right;
+            padding: 5px 10px 10px 0;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        footer {
+            min-height: 25vh;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            .menu-btn {
+                top: 15px;
+                right: 15px;
+                background: rgba(255, 255, 255, 0.15); /* Auch auf Mobile gleich */
+            }
+            .quote {
+                padding: 5px 10px 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <nav class="menu" id="menu" aria-hidden="true">
+        <a href="#Home">Home</a>
+        <a href="#Whatisthis">What is this?</a>
+        <a href="#Contact">Contact</a>
+    </nav>
+
+    <main>
+        <section id="Home">
+            <h1>nexio.network</h1>
+        </section>
+
+        <section id="Whatisthis">
+            <h2>What is this?</h2>
+            <p>More is coming soon.</p>
+        </section>
+
+        <section id="Contact">
+            <h2>Contact</h2>
+            <p>Reddit: <a href="https://reddit.com/user/xXnexioXx/" target="_blank" rel="noopener noreferrer">click</a></p>
+            <p>GitHub: <a href="https://github.com/xXnexioXx/" target="_blank" rel="noopener noreferrer">click</a></p>
+            <p>Discord: <a href="https://discord.com/users/641448096756269116/" target="_blank" rel="noopener noreferrer">click</a></p>
+        </section>
+
+        <footer>
+            <div class="quote">Malo periculosam libertatem quam quietum servitium.</div>
+        </footer>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hamburger Menu
+            const menuBtn = document.getElementById('menuBtn');
+            const menu = document.getElementById('menu');
+
+            function toggleMenu() {
+                const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+                menuBtn.setAttribute('aria-expanded', !isExpanded);
+                menu.setAttribute('aria-hidden', isExpanded);
+                menu.classList.toggle('active');
+            }
+
+            menuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleMenu();
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!menu.contains(e.target) && e.target !== menuBtn) {
+                    menuBtn.setAttribute('aria-expanded', 'false');
+                    menu.setAttribute('aria-hidden', 'true');
+                    menu.classList.remove('active');
+                }
+            });
+
+            // Smooth scrolling for menu links
+            document.querySelectorAll('.menu a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    toggleMenu();
+                    
+                    const targetId = link.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                        
+                        setTimeout(() => {
+                            history.replaceState(null, null, targetId);
+                        }, 1000);
+                    }
+                });
+            });
+
+            // Update URL hash when scrolling
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        history.replaceState(null, null, "#" + entry.target.id);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            document.querySelectorAll("section").forEach(section => {
+                observer.observe(section);
+            });
+
+            // Particle background with increased particle count
+            if (typeof particlesJS === 'function') {
+                particlesJS('particles-js', {
+                    "particles": {
+                        "number": {
+                            "value": 95, 
+                            "density": {
+                                "enable": true,
+                                "value_area": 800
+                            }
+                        },
+                        "color": {
+                            "value": "#888888"
+                        },
+                        "shape": {
+                            "type": "circle",
+                            "stroke": {
+                                "width": 0,
+                                "color": "#000000"
+                            },
+                            "polygon": {
+                                "nb_sides": 5
+                            }
+                        },
+                        "opacity": {
+                            "value": 0.5,
+                            "random": false,
+                            "anim": {
+                                "enable": false,
+                                "speed": 1,
+                                "opacity_min": 0.1,
+                                "sync": false
+                            }
+                        },
+                        "size": {
+                            "value": 3,
+                            "random": true,
+                            "anim": {
+                                "enable": false,
+                                "speed": 40,
+                                "size_min": 0.1,
+                                "sync": false
+                            }
+                        },
+                        "line_linked": {
+                            "enable": true,
+                            "distance": 150,
+                            "color": "#555555",
+                            "opacity": 0.4,
+                            "width": 1
+                        },
+                        "move": {
+                            "enable": true,
+                            "speed": 2,
+                            "direction": "none",
+                            "random": false,
+                            "straight": false,
+                            "out_mode": "out",
+                            "bounce": false,
+                            "attract": {
+                                "enable": false,
+                                "rotateX": 600,
+                                "rotateY": 1200
+                            }
+                        }
+                    },
+                    "interactivity": {
+                        "detect_on": "canvas",
+                        "events": {
+                            "onhover": {
+                                "enable": true,
+                                "mode": "grab"
+                            },
+                            "onclick": {
+                                "enable": true,
+                                "mode": "push"
+                            },
+                            "resize": true
+                        },
+                        "modes": {
+                            "grab": {
+                                "distance": 140,
+                                "line_linked": {
+                                    "opacity": 1
+                                }
+                            },
+                            "bubble": {
+                                "distance": 400,
+                                "size": 40,
+                                "duration": 2,
+                                "opacity": 8,
+                                "speed": 3
+                            },
+                            "repulse": {
+                                "distance": 200,
+                                "duration": 0.4
+                            },
+                            "push": {
+                                "particles_nb": 4
+                            },
+                            "remove": {
+                                "particles_nb": 2
+                            }
+                        }
+                    },
+                    "retina_detect": true
+                });
+            }
+        });
+    </script>
+</body>
+</html>
