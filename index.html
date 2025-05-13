@@ -64,7 +64,7 @@
             right: 20px;
             z-index: 1000;
             cursor: pointer;
-            background: rgba(255, 255, 255, 0.15); /* Hellerer Grauton */
+            background: rgba(255, 255, 255, 0.15);
             border: none;
             border-radius: 6px;
             padding: 10px;
@@ -85,7 +85,7 @@
             display: block;
             width: 24px;
             height: 2px;
-            background-color: white; /* Immer weiß */
+            background-color: white;
             transition: all 0.2s;
         }
 
@@ -159,7 +159,7 @@
             .menu-btn {
                 top: 15px;
                 right: 15px;
-                background: rgba(255, 255, 255, 0.15); /* Auch auf Mobile gleich */
+                background: rgba(255, 255, 255, 0.15);
             }
             .quote {
                 padding: 5px 10px 10px 0;
@@ -266,114 +266,131 @@
                 observer.observe(section);
             });
 
-            // Particle background with increased particle count
-            if (typeof particlesJS === 'function') {
-                particlesJS('particles-js', {
-                    "particles": {
-                        "number": {
-                            "value": 95, 
-                            "density": {
-                                "enable": true,
-                                "value_area": 800
-                            }
-                        },
-                        "color": {
-                            "value": "#888888"
-                        },
-                        "shape": {
-                            "type": "circle",
-                            "stroke": {
-                                "width": 0,
-                                "color": "#000000"
-                            },
-                            "polygon": {
-                                "nb_sides": 5
-                            }
-                        },
-                        "opacity": {
-                            "value": 0.5,
-                            "random": false,
-                            "anim": {
-                                "enable": false,
-                                "speed": 1,
-                                "opacity_min": 0.1,
-                                "sync": false
-                            }
-                        },
-                        "size": {
-                            "value": 3,
-                            "random": true,
-                            "anim": {
-                                "enable": false,
-                                "speed": 40,
-                                "size_min": 0.1,
-                                "sync": false
-                            }
-                        },
-                        "line_linked": {
-                            "enable": true,
-                            "distance": 150,
-                            "color": "#555555",
-                            "opacity": 0.4,
-                            "width": 1
-                        },
-                        "move": {
-                            "enable": true,
-                            "speed": 2,
-                            "direction": "none",
-                            "random": false,
-                            "straight": false,
-                            "out_mode": "out",
-                            "bounce": false,
-                            "attract": {
-                                "enable": false,
-                                "rotateX": 600,
-                                "rotateY": 1200
-                            }
-                        }
-                    },
-                    "interactivity": {
-                        "detect_on": "canvas",
-                        "events": {
-                            "onhover": {
-                                "enable": true,
-                                "mode": "grab"
-                            },
-                            "onclick": {
-                                "enable": true,
-                                "mode": "push"
-                            },
-                            "resize": true
-                        },
-                        "modes": {
-                            "grab": {
-                                "distance": 140,
-                                "line_linked": {
-                                    "opacity": 1
+            // Particle configuration with responsive count
+            const initParticles = () => {
+                const isMobile = window.innerWidth < 768;
+                const particleCount = isMobile ? 40 : 95; // Less on mobile, full on desktop
+
+                if (typeof particlesJS === 'function') {
+                    particlesJS('particles-js', {
+                        "particles": {
+                            "number": {
+                                "value": particleCount,
+                                "density": {
+                                    "enable": true,
+                                    "value_area": 800
                                 }
                             },
-                            "bubble": {
-                                "distance": 400,
-                                "size": 40,
-                                "duration": 2,
-                                "opacity": 8,
-                                "speed": 3
+                            "color": {
+                                "value": "#888888"
                             },
-                            "repulse": {
-                                "distance": 200,
-                                "duration": 0.4
+                            "shape": {
+                                "type": "circle",
+                                "stroke": {
+                                    "width": 0,
+                                    "color": "#000000"
+                                },
+                                "polygon": {
+                                    "nb_sides": 5
+                                }
                             },
-                            "push": {
-                                "particles_nb": 4
+                            "opacity": {
+                                "value": 0.5,
+                                "random": false,
+                                "anim": {
+                                    "enable": false,
+                                    "speed": 1,
+                                    "opacity_min": 0.1,
+                                    "sync": false
+                                }
                             },
-                            "remove": {
-                                "particles_nb": 2
+                            "size": {
+                                "value": 3,
+                                "random": true,
+                                "anim": {
+                                    "enable": false,
+                                    "speed": 40,
+                                    "size_min": 0.1,
+                                    "sync": false
+                                }
+                            },
+                            "line_linked": {
+                                "enable": true,
+                                "distance": 150,
+                                "color": "#555555",
+                                "opacity": 0.4,
+                                "width": 1
+                            },
+                            "move": {
+                                "enable": true,
+                                "speed": 1.5,
+                                "direction": "none",
+                                "random": false,
+                                "straight": false,
+                                "out_mode": "bounce",
+                                "bounce": true,
+                                "attract": {
+                                    "enable": false,
+                                    "rotateX": 600,
+                                    "rotateY": 1200
+                                }
                             }
-                        }
-                    },
-                    "retina_detect": true
-                });
-            }
+                        },
+                        "interactivity": {
+                            "detect_on": "canvas",
+                            "events": {
+                                "onhover": {
+                                    "enable": true,
+                                    "mode": "grab"
+                                },
+                                "onclick": {
+                                    "enable": true,
+                                    "mode": "push"
+                                },
+                                "resize": true
+                            },
+                            "modes": {
+                                "grab": {
+                                    "distance": 140,
+                                    "line_linked": {
+                                        "opacity": 1
+                                    }
+                                },
+                                "bubble": {
+                                    "distance": 400,
+                                    "size": 40,
+                                    "duration": 2,
+                                    "opacity": 8,
+                                    "speed": 3
+                                },
+                                "repulse": {
+                                    "distance": 200,
+                                    "duration": 0.4
+                                },
+                                "push": {
+                                    "particles_nb": 4
+                                },
+                                "remove": {
+                                    "particles_nb": 2
+                                }
+                            }
+                        },
+                        "retina_detect": true
+                    });
+                }
+            };
+
+            // Initialize particles
+            initParticles();
+
+            // Reinitialize on resize (with debounce to avoid performance issues)
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    initParticles();
+                }, 200);
+            });
         });
     </script>
 </body>
