@@ -32,7 +32,14 @@
         .menu-btn:hover { background: rgba(255, 255, 255, 0.2); }
         .menu-btn span {
             display: block; width: 24px; height: 2px;
-            background-color: white !important; transition: all 0.2s;
+            background-color: white !important; 
+            transition: all 0.2s;
+        }
+        /* Force white color for menu icon */
+        .menu-btn span {
+            background-color: white !important;
+            filter: none !important;
+            -webkit-filter: none !important;
         }
         
         .menu {
