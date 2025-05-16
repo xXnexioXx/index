@@ -1,244 +1,344 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>nexio.network</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', sans-serif; overflow-x: hidden; color: white; background-color: #000; }
-        canvas { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: -1; }
-        
-        section {
-            min-height: 100vh; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; padding: 40px 20px;
-            text-align: center; position: relative;
-        }
-        
-        h1 { font-size: 3em; margin-bottom: 0.5em; }
-        h2 { font-size: 2em; margin-bottom: 0.5em; }
-        p { font-size: 1.2em; margin: 0.2em 0; }
-        a { color: #0af; text-decoration: none; }
-        
-        /* Menu Styles */
-        .menu-btn {
-            position: fixed; top: 20px; right: 20px; z-index: 1000;
-            cursor: pointer; background: rgba(255, 255, 255, 0.15);
-            border: none; border-radius: 6px; padding: 10px;
-            width: 40px; height: 40px; display: flex;
-            flex-direction: column; justify-content: space-between;
-            align-items: center; transition: background 0.2s;
-        }
-        .menu-btn:hover { background: rgba(255, 255, 255, 0.2); }
-        .menu-btn span {
-            display: block; width: 24px; height: 2px;
-            background-color: white !important; 
-            transition: all 0.2s;
-        }
-        /* Force white color for menu icon */
-        .menu-btn span {
-            background-color: white !important;
-            filter: none !important;
-            -webkit-filter: none !important;
-        }
-        
-        .menu {
-            position: fixed; top: 70px; right: 20px; width: auto;
-            background: rgba(0, 0, 0, 0.9); z-index: 999; display: none;
-            flex-direction: column; border-radius: 8px; overflow: hidden;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.6); padding: 8px 0;
-            min-width: 150px; opacity: 0; transform: translateY(-10px);
-            transition: opacity 0.2s, transform 0.2s;
-        }
-        .menu.active { display: flex; opacity: 1; transform: translateY(0); }
-        .menu a {
-            color: white; padding: 10px 20px; width: 100%;
-            text-align: center; white-space: nowrap; transition: 0.2s;
-        }
-        .menu a:hover { background: rgba(255, 255, 255, 0.1); }
-        
-        .quote {
-            font-size: 0.7em; font-style: italic; color: #aaa;
-            text-align: right; padding: 5px 10px 10px 0;
-            width: 100%; margin-top: auto;
-        }
-        
-        footer {
-            min-height: 25vh; display: flex;
-            align-items: flex-end; justify-content: flex-end; padding: 0;
-        }
-        
-        html { scroll-behavior: smooth; }
-        
-        @media (max-width: 768px) {
-            h1 { font-size: 2rem; }
-            h2 { font-size: 1.5rem; }
-            .menu-btn { top: 15px; right: 15px; }
-            .quote { padding: 5px 10px 10px 0; }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark">
+  <title>nexio.network</title>
+  <style>
+    html {
+      scroll-behavior: smooth;
+      color-scheme: only light;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+      color: white;
+      background-color: #000;
+    }
+
+    canvas {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 0.5em;
+    }
+
+    h2 {
+      font-size: 2em;
+      margin-bottom: 0.5em;
+    }
+
+    p {
+      font-size: 1.2em;
+      margin: 0.2em 0;
+    }
+
+    a {
+      color: #0af;
+      text-decoration: none;
+    }
+
+    /* Menu Button */
+    .menu-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      border-radius: 6px;
+      padding: 10px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.2s;
+    }
+
+    .menu-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .menu-btn span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background-color: #ffffff !important;
+      filter: none !important;
+      -webkit-filter: none !important;
+      opacity: 1 !important;
+      will-change: background-color;
+    }
+
+    .menu {
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      width: auto;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 999;
+      display: none;
+      flex-direction: column;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+      padding: 8px 0;
+      min-width: 150px;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .menu.active {
+      display: flex;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .menu a {
+      color: white;
+      padding: 10px 20px;
+      width: 100%;
+      text-align: center;
+      white-space: nowrap;
+      transition: 0.2s;
+    }
+
+    .menu a:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .quote {
+      font-size: 0.7em;
+      font-style: italic;
+      color: #aaa;
+      text-align: right;
+      padding: 5px 10px 10px 0;
+      width: 100%;
+      margin-top: auto;
+    }
+
+    footer {
+      min-height: 25vh;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 0;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      .menu-btn {
+        top: 15px;
+        right: 15px;
+      }
+
+      .quote {
+        padding: 5px 10px 10px 0;
+      }
+    }
+  </style>
 </head>
 <body>
-    <canvas id="particles"></canvas>
+  <canvas id="particles"></canvas>
 
-    <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-    </button>
+  <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
 
-    <nav class="menu" id="menu" aria-hidden="true">
-        <a href="#Home">Home</a>
-        <a href="#Whatisthis">What is this?</a>
-        <a href="#Contact">Contact</a>
-    </nav>
+  <nav class="menu" id="menu" aria-hidden="true">
+    <a href="#Home">Home</a>
+    <a href="#Whatisthis">What is this?</a>
+    <a href="#Contact">Contact</a>
+  </nav>
 
-    <main>
-        <section id="Home"><h1>nexio.network</h1></section>
-        <section id="Whatisthis"><h2>What is this?</h2><p>More is coming soon.</p></section>
-        <section id="Contact">
-            <h2>Contact</h2>
-            <p>Reddit: <a href="https://reddit.com/user/xXnexioXx/" target="_blank" rel="noopener noreferrer">click</a></p>
-            <p>GitHub: <a href="https://github.com/xXnexioXx/" target="_blank" rel="noopener noreferrer">click</a></p>
-            <p>Discord: <a href="https://discord.com/users/641448096756269116/" target="_blank" rel="noopener noreferrer">click</a></p>
-        </section>
-        <footer><div class="quote">Malo periculosam libertatem quam quietum servitium.</div></footer>
-    </main>
+  <main>
+    <section id="Home"><h1>nexio.network</h1></section>
+    <section id="Whatisthis">
+      <h2>What is this?</h2>
+      <p>More is coming soon.</p>
+    </section>
+    <section id="Contact">
+      <h2>Contact</h2>
+      <p>Reddit: <a href="https://reddit.com/user/xXnexioXx/" target="_blank">click</a></p>
+      <p>GitHub: <a href="https://github.com/xXnexioXx/" target="_blank">click</a></p>
+      <p>Discord: <a href="https://discord.com/users/641448096756269116/" target="_blank">click</a></p>
+    </section>
+    <footer>
+      <div class="quote">Malo periculosam libertatem quam quietum servitium.</div>
+    </footer>
+  </main>
 
-    <script>
-        // ============== CONFIGURATION ==============
-        const isMobile = window.innerWidth < 768;
-        const particleConfig = {
-            count: isMobile ? 80 : 180,
-            color: isMobile ? 'rgba(136, 136, 136, 0.5)' : 'rgba(136, 136, 136, 0.5)',
-            minSize: isMobile ? 0.4 : 0.6,
-            maxSize: isMobile ? 1.8 : 2.8,
-            minSpeed: isMobile ? -0.2 : -0.3,
-            maxSpeed: isMobile ? 0.2 : 0.3,
-            lineWidth: isMobile ? 0.7 : 0.8,
-            maxDistance: isMobile ? 100 : 160,
-            lineColor: isMobile ? 'rgba(100, 100, 100, {opacity})' : 'rgba(85, 85, 85, {opacity})'
-        };
-        
-        // ============== MENU SYSTEM ==============
-        const menuBtn = document.getElementById('menuBtn');
-        const menu = document.getElementById('menu');
-        
-        function toggleMenu() {
-            const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
-            menuBtn.setAttribute('aria-expanded', !isExpanded);
-            menu.setAttribute('aria-hidden', isExpanded);
-            menu.classList.toggle('active');
-        }
-        
-        menuBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            toggleMenu();
-        });
-        
-        document.addEventListener('click', (e) => {
-            if (!menu.contains(e.target) && e.target !== menuBtn) {
-                menuBtn.setAttribute('aria-expanded', 'false');
-                menu.setAttribute('aria-hidden', 'true');
-                menu.classList.remove('active');
-            }
-        });
-        
-        document.querySelectorAll('.menu a').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                toggleMenu();
-                document.querySelector(link.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-                setTimeout(() => history.replaceState(null, null, link.getAttribute('href')), 1000);
-            });
-        });
-        
-        // ============== PARTICLE SYSTEM ==============
-        const canvas = document.getElementById('particles');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        const particles = [];
-        
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * (particleConfig.maxSize - particleConfig.minSize) + particleConfig.minSize;
-                this.speedX = Math.random() * (particleConfig.maxSpeed - particleConfig.minSpeed) + particleConfig.minSpeed;
-                this.speedY = Math.random() * (particleConfig.maxSpeed - particleConfig.minSpeed) + particleConfig.minSpeed;
-            }
-            
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x < 0 || this.x > canvas.width) this.speedX = -this.speedX;
-                if (this.y < 0 || this.y > canvas.height) this.speedY = -this.speedY;
-            }
-            
-            draw() {
-                ctx.fillStyle = particleConfig.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-        
-        function initParticles() {
-            for (let i = 0; i < particleConfig.count; i++) {
-                particles.push(new Particle());
-            }
-        }
-        
-        function connectParticles() {
-            for (let a = 0; a < particles.length; a++) {
-                for (let b = a; b < particles.length; b++) {
-                    const dx = particles[a].x - particles[b].x;
-                    const dy = particles[a].y - particles[b].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (distance < particleConfig.maxDistance) {
-                        const opacity = 0.8 - distance / particleConfig.maxDistance;
-                        ctx.strokeStyle = particleConfig.lineColor.replace('{opacity}', opacity);
-                        ctx.lineWidth = particleConfig.lineWidth;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[a].x, particles[a].y);
-                        ctx.lineTo(particles[b].x, particles[b].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
-        
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => { p.update(); p.draw(); });
-            connectParticles();
-            requestAnimationFrame(animate);
-        }
-        
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-        
-        // ============== INITIALIZATION ==============
-        initParticles();
-        animate();
-        
-        // ============== SCROLL OBSERVER ==============
-        const sections = document.querySelectorAll("section");
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    history.replaceState(null, null, "#" + entry.target.id);
-                }
-            });
-        }, { threshold: 0.5 });
+  <script>
+    const isMobile = window.innerWidth < 768;
+    const particleConfig = {
+      count: isMobile ? 80 : 180,
+      color: 'rgba(136, 136, 136, 0.5)',
+      minSize: isMobile ? 0.4 : 0.6,
+      maxSize: isMobile ? 1.8 : 2.8,
+      minSpeed: isMobile ? -0.2 : -0.3,
+      maxSpeed: isMobile ? 0.2 : 0.3,
+      lineWidth: isMobile ? 0.7 : 0.8,
+      maxDistance: isMobile ? 100 : 160,
+      lineColor: 'rgba(85, 85, 85, {opacity})'
+    };
 
-        sections.forEach(section => {
-            observer.observe(section);
+    const menuBtn = document.getElementById('menuBtn');
+    const menu = document.getElementById('menu');
+
+    function toggleMenu() {
+      const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+      menuBtn.setAttribute('aria-expanded', !isExpanded);
+      menu.setAttribute('aria-hidden', isExpanded);
+      menu.classList.toggle('active');
+    }
+
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMenu();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!menu.contains(e.target) && e.target !== menuBtn) {
+        menuBtn.setAttribute('aria-expanded', 'false');
+        menu.setAttribute('aria-hidden', 'true');
+        menu.classList.remove('active');
+      }
+    });
+
+    document.querySelectorAll('.menu a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        toggleMenu();
+        document.querySelector(link.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
         });
-    </script>
+        setTimeout(() => history.replaceState(null, null, link.getAttribute('href')), 1000);
+      });
+    });
+
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const particles = [];
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * (particleConfig.maxSize - particleConfig.minSize) + particleConfig.minSize;
+        this.speedX = Math.random() * (particleConfig.maxSpeed - particleConfig.minSpeed) + particleConfig.minSpeed;
+        this.speedY = Math.random() * (particleConfig.maxSpeed - particleConfig.minSpeed) + particleConfig.minSpeed;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0 || this.x > canvas.width) this.speedX = -this.speedX;
+        if (this.y < 0 || this.y > canvas.height) this.speedY = -this.speedY;
+      }
+
+      draw() {
+        ctx.fillStyle = particleConfig.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      for (let i = 0; i < particleConfig.count; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function connectParticles() {
+      for (let a = 0; a < particles.length; a++) {
+        for (let b = a; b < particles.length; b++) {
+          const dx = particles[a].x - particles[b].x;
+          const dy = particles[a].y - particles[b].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < particleConfig.maxDistance) {
+            const opacity = 0.8 - distance / particleConfig.maxDistance;
+            ctx.strokeStyle = particleConfig.lineColor.replace('{opacity}', opacity);
+            ctx.lineWidth = particleConfig.lineWidth;
+            ctx.beginPath();
+            ctx.moveTo(particles[a].x, particles[a].y);
+            ctx.lineTo(particles[b].x, particles[b].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      connectParticles();
+      requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    initParticles();
+    animate();
+
+    const sections = document.querySelectorAll("section");
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          history.replaceState(null, null, "#" + entry.target.id);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+  </script>
 </body>
 </html>
