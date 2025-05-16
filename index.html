@@ -18,7 +18,7 @@
             background-color: #000;
         }
 
-        #particles-js {
+        canvas {
             position: fixed;
             width: 100%;
             height: 100%;
@@ -64,7 +64,7 @@
             right: 20px;
             z-index: 1000;
             cursor: pointer;
-            background: rgba(255, 255, 255, 0.15); /* Hellerer Grauton */
+            background: rgba(255, 255, 255, 0.15);
             border: none;
             border-radius: 6px;
             padding: 10px;
@@ -85,7 +85,7 @@
             display: block;
             width: 24px;
             height: 2px;
-            background-color: white; /* Immer weiß */
+            background-color: white;
             transition: all 0.2s;
         }
 
@@ -159,7 +159,6 @@
             .menu-btn {
                 top: 15px;
                 right: 15px;
-                background: rgba(255, 255, 255, 0.15); /* Auch auf Mobile gleich */
             }
             .quote {
                 padding: 5px 10px 10px 0;
@@ -168,7 +167,7 @@
     </style>
 </head>
 <body>
-    <div id="particles-js"></div>
+    <canvas id="particles"></canvas>
 
     <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">
         <span></span>
@@ -204,7 +203,6 @@
         </footer>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Hamburger Menu
@@ -266,114 +264,98 @@
                 observer.observe(section);
             });
 
-            // Particle background with increased particle count
-            if (typeof particlesJS === 'function') {
-                particlesJS('particles-js', {
-                    "particles": {
-                        "number": {
-                            "value": 95, 
-                            "density": {
-                                "enable": true,
-                                "value_area": 800
-                            }
-                        },
-                        "color": {
-                            "value": "#888888"
-                        },
-                        "shape": {
-                            "type": "circle",
-                            "stroke": {
-                                "width": 0,
-                                "color": "#000000"
-                            },
-                            "polygon": {
-                                "nb_sides": 5
-                            }
-                        },
-                        "opacity": {
-                            "value": 0.5,
-                            "random": false,
-                            "anim": {
-                                "enable": false,
-                                "speed": 1,
-                                "opacity_min": 0.1,
-                                "sync": false
-                            }
-                        },
-                        "size": {
-                            "value": 3,
-                            "random": true,
-                            "anim": {
-                                "enable": false,
-                                "speed": 40,
-                                "size_min": 0.1,
-                                "sync": false
-                            }
-                        },
-                        "line_linked": {
-                            "enable": true,
-                            "distance": 150,
-                            "color": "#555555",
-                            "opacity": 0.4,
-                            "width": 1
-                        },
-                        "move": {
-                            "enable": true,
-                            "speed": 2,
-                            "direction": "none",
-                            "random": false,
-                            "straight": false,
-                            "out_mode": "out",
-                            "bounce": false,
-                            "attract": {
-                                "enable": false,
-                                "rotateX": 600,
-                                "rotateY": 1200
-                            }
-                        }
-                    },
-                    "interactivity": {
-                        "detect_on": "canvas",
-                        "events": {
-                            "onhover": {
-                                "enable": true,
-                                "mode": "grab"
-                            },
-                            "onclick": {
-                                "enable": true,
-                                "mode": "push"
-                            },
-                            "resize": true
-                        },
-                        "modes": {
-                            "grab": {
-                                "distance": 140,
-                                "line_linked": {
-                                    "opacity": 1
-                                }
-                            },
-                            "bubble": {
-                                "distance": 400,
-                                "size": 40,
-                                "duration": 2,
-                                "opacity": 8,
-                                "speed": 3
-                            },
-                            "repulse": {
-                                "distance": 200,
-                                "duration": 0.4
-                            },
-                            "push": {
-                                "particles_nb": 4
-                            },
-                            "remove": {
-                                "particles_nb": 2
-                            }
-                        }
-                    },
-                    "retina_detect": true
-                });
+            // Particle background implementation
+            const canvas = document.getElementById('particles');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const particles = [];
+            const particleCount = 180;
+            const maxDistance = 160;
+
+            // Particle class
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 2.2 + 0.6;
+                    this.speedX = Math.random() * 0.6 - 0.3;
+                    this.speedY = Math.random() * 0.6 - 0.3;
+                }
+
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+
+                    // Bounce off edges
+                    if (this.x < 0 || this.x > canvas.width) {
+                        this.speedX = -this.speedX;
+                    }
+                    if (this.y < 0 || this.y > canvas.height) {
+                        this.speedY = -this.speedY;
+                    }
+                }
+
+                draw() {
+                    ctx.fillStyle = 'rgba(136, 136, 136, 0.5)';
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
             }
+
+            // Initialize particles
+            function init() {
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push(new Particle());
+                }
+            }
+
+            // Connect particles with lines
+            function connect() {
+                for (let a = 0; a < particles.length; a++) {
+                    for (let b = a; b < particles.length; b++) {
+                        const dx = particles[a].x - particles[b].x;
+                        const dy = particles[a].y - particles[b].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+
+                        if (distance < maxDistance) {
+                            ctx.strokeStyle = `rgba(85, 85, 85, ${0.8 - distance / maxDistance})`;
+                            ctx.lineWidth = 0.8;
+                            ctx.beginPath();
+                            ctx.moveTo(particles[a].x, particles[a].y);
+                            ctx.lineTo(particles[b].x, particles[b].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            // Animation loop
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                }
+                
+                connect();
+                requestAnimationFrame(animate);
+            }
+
+            // Handle resize
+            function handleResize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+
+            window.addEventListener('resize', handleResize);
+
+            // Start animation
+            init();
+            animate();
         });
     </script>
 </body>
