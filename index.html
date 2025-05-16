@@ -267,26 +267,20 @@
             // Particle background implementation
             const canvas = document.getElementById('particles');
             const ctx = canvas.getContext('2d');
-            
-            // Store window dimensions
-            let width = window.innerWidth;
-            let height = window.innerHeight;
-            
-            // Calculate initial particle count and distance
-            let particleCount = Math.floor((width * height) / 2500);
-            let maxDistance = Math.min(width, height) * 0.3;
-            
-            // Set canvas dimensions
-            canvas.width = width;
-            canvas.height = height;
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
 
             const particles = [];
+            // Dynamische Anpassung für Mobile/Desktop
+            const isMobile = window.innerWidth < 768;
+            const particleCount = isMobile ? 60 : 180; // Weniger Partikel auf Mobile
+            const maxDistance = isMobile ? 80 : 160; // Kürzere Verbindungen auf Mobile
 
             // Particle class
             class Particle {
                 constructor() {
-                    this.x = Math.random() * width;
-                    this.y = Math.random() * height;
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
                     this.size = Math.random() * 2.2 + 0.6;
                     this.speedX = Math.random() * 0.6 - 0.3;
                     this.speedY = Math.random() * 0.6 - 0.3;
@@ -297,8 +291,12 @@
                     this.y += this.speedY;
 
                     // Bounce off edges
-                    if (this.x < 0 || this.x > width) this.speedX = -this.speedX;
-                    if (this.y < 0 || this.y > height) this.speedY = -this.speedY;
+                    if (this.x < 0 || this.x > canvas.width) {
+                        this.speedX = -this.speedX;
+                    }
+                    if (this.y < 0 || this.y > canvas.height) {
+                        this.speedY = -this.speedY;
+                    }
                 }
 
                 draw() {
@@ -311,7 +309,6 @@
 
             // Initialize particles
             function init() {
-                particles.length = 0;
                 for (let i = 0; i < particleCount; i++) {
                     particles.push(new Particle());
                 }
@@ -339,7 +336,7 @@
 
             // Animation loop
             function animate() {
-                ctx.clearRect(0, 0, width, height);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
                 
                 for (let i = 0; i < particles.length; i++) {
                     particles[i].update();
@@ -350,31 +347,13 @@
                 requestAnimationFrame(animate);
             }
 
-            // Improved resize handler with debounce
-            let resizeTimeout;
+            // Handle resize
             function handleResize() {
-                // Only respond to actual window size changes
-                const newWidth = window.innerWidth;
-                const newHeight = window.innerHeight;
-                
-                if (Math.abs(newWidth - width) > 50 || Math.abs(newHeight - height) > 50) {
-                    clearTimeout(resizeTimeout);
-                    resizeTimeout = setTimeout(() => {
-                        width = newWidth;
-                        height = newHeight;
-                        canvas.width = width;
-                        canvas.height = height;
-                        
-                        particleCount = Math.floor((width * height) / 2500);
-                        maxDistance = Math.min(width, height) * 0.3;
-                        
-                        init();
-                    }, 200);
-                }
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
             }
 
-            // Use a passive event listener for better performance
-            window.addEventListener('resize', handleResize, { passive: true });
+            window.addEventListener('resize', handleResize);
 
             // Start animation
             init();
