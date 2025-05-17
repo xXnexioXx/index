@@ -207,20 +207,16 @@
 
   <script>
     const isMobile = window.innerWidth < 768;
-
     const particleConfig = {
       count: isMobile ? 80 : 180,
-      colorRgb: '136,136,136', // RGB ohne Alpha
-      minSize: isMobile ? 0.8 : 1.4,
+      color: 'rgba(136, 136, 136, 0.5)',
+      minSize: isMobile ? 0.4 : 0.6,
       maxSize: isMobile ? 1.8 : 2.8,
       minSpeed: isMobile ? -0.2 : -0.3,
       maxSpeed: isMobile ? 0.2 : 0.3,
       lineWidth: isMobile ? 0.7 : 0.8,
       maxDistance: isMobile ? 100 : 160,
-      lineColor: 'rgba(85, 85, 85, {opacity})',
-      minParticleOpacity: 0.1,
-      maxParticleOpacity: 0.9,
-      opacityThresholdRatio: 0.3 // 30% von minSize als Schwellwert
+      lineColor: 'rgba(85, 85, 85, {opacity})'
     };
 
     const menuBtn = document.getElementById('menuBtn');
@@ -294,15 +290,7 @@
       }
 
       draw() {
-        let opacity = 1;
-        const thresholdSize = particleConfig.minSize + (particleConfig.maxSize - particleConfig.minSize) * particleConfig.opacityThresholdRatio;
-        if (this.size >= thresholdSize) {
-          // Interpolierte Opacity zwischen minParticleOpacity und maxParticleOpacity
-          const sizeRatio = (this.size - thresholdSize) / (particleConfig.maxSize - thresholdSize);
-          opacity = particleConfig.minParticleOpacity + sizeRatio * (particleConfig.maxParticleOpacity - particleConfig.minParticleOpacity);
-        }
-
-        ctx.fillStyle = `rgba(${particleConfig.colorRgb},${opacity})`;
+        ctx.fillStyle = particleConfig.color;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
@@ -352,6 +340,19 @@
 
     initParticles();
     animate();
+
+    const sections = document.querySelectorAll("section");
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          history.replaceState(null, null, "#" + entry.target.id);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
   </script>
 </body>
 </html>
