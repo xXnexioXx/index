@@ -109,7 +109,8 @@ p {
   text-align: center;
 }
 
-.content-container {
+/* Added Kompendium container styling */
+.kompendium-container {
   background-color: rgba(42, 42, 42, 0.7);
   border-radius: 6px;
   padding: 2rem;
@@ -120,7 +121,7 @@ p {
   position: relative;
 }
 
-.content-header {
+.kompendium-title {
   font-size: 1.8rem;
   font-weight: 600;
   color: #e0e0e0;
@@ -137,7 +138,7 @@ p {
   margin-bottom: 2rem;
 }
 
-.download-button {
+.tool-button {
   background-color: #666;
   color: white;
   padding: 1rem 1.5rem;
@@ -156,7 +157,8 @@ p {
   box-shadow: 0 4px 15px rgba(102, 102, 102, 0.3);
 }
 
-.content-footer {
+/* Added kompendium footer styling */
+.kompendium-footer {
   text-align: center;
   color: #999;
   font-size: 0.9rem;
@@ -179,7 +181,7 @@ a:hover {
 }
 
 /* Navigation - Hamburger Menu */
-.menu-button {
+.menu-btn {
   position: fixed;
   top: 1rem;
   right: 1rem;
@@ -464,7 +466,6 @@ section p[style*="margin-top: 100px"] {
     color: #999;
   }
 }
-
 
 
 
