@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="Some spaces don't demand attention. They simply exist — quietly, intentionally, without explanation." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <title>nexio.network</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="landing">
+  <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+
+  <nav class="menu" id="menu" aria-hidden="true">
+    <a href="#Home">Home</a>
+    <a href="#Whatisthis">What is this?</a>
+    <a href="#Contact">Contact</a>
+    <a href="download.html">Download</a>
+    <a href="tools.html">Tools</a>
+    <a href="extra.html">Extra</a>
+  </nav>
+
+  <main>
+    <section id="Home" class="frame">
+      <h1>nexio.network</h1>
+    </section>
+
+    <section id="Whatisthis" class="frame">
+      <h2></h2>
+      <p>Some spaces don't demand attention. They simply exist — quietly, intentionally, without explanation.</p>
+    </section>
+
+    <section id="Contact" class="frame">
+      <h2>Contact</h2>
+      <p>Reddit: <a href="https://reddit.com/user/xXnexioXx/" target="_blank" rel="noopener noreferrer">click</a></p>
+      <p>GitHub: <a href="https://github.com/xXnexioXx/" target="_blank" rel="noopener noreferrer">click</a></p>
+      <p>Discord: <a href="https://discord.com/users/641448096756269116/" target="_blank" rel="noopener noreferrer">click</a></p>
+    </section>
+
+    <footer>
+      <div class="quote">Malo periculosam libertatem quam quietum servitium.</div>
+    </footer>
+  </main>
+
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const menu = document.getElementById('menu');
+
+    function closeMenu() {
+      menuBtn.setAttribute('aria-expanded', 'false');
+      menu.setAttribute('aria-hidden', 'true');
+      menu.classList.remove('active');
+      menuBtn.classList.remove('active');
+    }
+
+    function openMenu() {
+      menuBtn.setAttribute('aria-expanded', 'true');
+      menu.setAttribute('aria-hidden', 'false');
+      menu.classList.add('active');
+      menuBtn.classList.add('active');
+    }
+
+    function toggleMenu() {
+      const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+      if (isExpanded) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    }
+
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMenu();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!menu.contains(e.target) && e.target !== menuBtn) {
+        closeMenu();
+      }
+    });
+
+    document.querySelectorAll('.menu a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        if (link.getAttribute('href').endsWith('.html')) {
+          closeMenu();
+          return; // normale Navigation zu externer Seite
+        }
+        e.preventDefault();
+        closeMenu();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+          setTimeout(() => history.replaceState(null, null, link.getAttribute('href')), 1000);
+        }
+      });
+    });
+
+    const sections = document.querySelectorAll("section");
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          history.replaceState(null, null, "#" + entry.target.id);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+  </script>
+
+  <script src="background.js"></script>
+</body>
+</html>

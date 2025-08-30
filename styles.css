@@ -1,0 +1,473 @@
+/* Import Inter font from local definition */
+@font-face {
+  font-family: "Inter";
+  src: url("./fonts/InterVariable.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 2rem;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  line-height: 1.6;
+  color: #e0e0e0;
+  background-color: #000000;
+  min-height: 100vh;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    ground-color: #000000;
+    color: #e0e0e0;
+  }
+}
+
+/* Main Layout */
+main {
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: 120px;
+}
+
+body.landing main {
+  display: flex;
+  flex-direction: column;
+}
+
+body.landing .frame {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* Section Styling */
+section {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+#frame {
+  text-align: center;
+  /* reset padding-top back to normal since it was moving the whole block */
+  padding-top: 2rem;
+}
+
+/* Typography */
+h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  letter-spacing: 2px;
+}
+
+h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  letter-spacing: 1px;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+p {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Added page-header class for separate control of header spacing */
+.page-header {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 8rem; /* Controls space between header and first download frame */
+  margin-top: 5rem;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+/* Added Kompendium container styling */
+.kompendium-container {
+  background-color: rgba(42, 42, 42, 0.7);
+  border-radius: 6px;
+  padding: 2rem;
+  margin: 0 auto 3rem auto;
+  max-width: 800px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.kompendium-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #e0e0e0;
+  margin-bottom: 2rem;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+/* Added button grid layout for organized tool buttons */
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.tool-button {
+  background-color: #666;
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  font-family: "Inter", sans-serif;
+}
+
+.tool-button:hover {
+  background-color: #999;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102, 102, 102, 0.3);
+}
+
+/* Added kompendium footer styling */
+.kompendium-footer {
+  text-align: center;
+  color: #999;
+  font-size: 0.9rem;
+  font-style: italic;
+  margin-top: -1.0rem;
+  padding-top: 1.0rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Links */
+a {
+  color: #666;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #999;
+  text-decoration: underline;
+}
+
+/* Navigation - Hamburger Menu */
+.menu-btn {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1001;
+  background-color: rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 25px;
+  cursor: pointer;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.menu-btn:hover {
+  background-color: rgba(102, 102, 102, 0.3);
+}
+
+.menu-btn.active {
+  background-color: rgba(102, 102, 102, 0.3);
+}
+
+.menu-btn span {
+  width: 25px;
+  height: 3px;
+  background-color: #e0e0e0;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+  transform-origin: center;
+}
+
+/* Hamburger zu X Animation */
+.menu-btn.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-btn.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-btn.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Navigation Menu */
+.menu {
+  position: fixed;
+  top: 4rem;
+  right: -120px;
+  width: 120px;
+  /* reduced min-height from 80px to 60px for smaller vertical size */
+  min-height: 50px;
+  background-color: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* reduced gap from 0.5rem to 0.3rem for tighter spacing */
+  gap: 0.3rem;
+  /* reduced padding from 0.5rem to 0.3rem for smaller menu */
+  padding: 0.3rem 0;
+  transition: right 0.s ease;
+  border: 1px solid rgba(255, 255, 255, 0.0);
+  border-radius: 4px;
+}
+
+.menu.active {
+  right: 1rem;
+}
+
+.menu a {
+  font-size: 0.85rem;
+  font-weight: 300;
+  letter-spacing: 1px;
+  padding: 0.5rem 0.5rem;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+  text-align: center;
+  width: 100%;
+  /* changed text color from #666 to #ffffff for white text */
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.menu a:hover {
+  background-color: rgba(102, 102, 102, 0.3);
+  /* changed hover color from #999 to #ffffff to keep text white */
+  color: #ffffff;
+  text-decoration: none;
+}
+
+/* Back Button */
+.back-button {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 0.60rem 0.75rem;
+  border-radius: 25px;
+  font-weight: 550;
+  line-height: 1.3;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back-button:hover {
+  background-color: rgba(102, 102, 102, 0.3);
+  color: #ffffff;
+  text-decoration: none;
+}
+
+/* Download Items/Frames */
+.download-item {
+  background-color: rgba(42, 42, 42, 0.7);
+  border-radius: 6px;
+  padding: 2rem;
+  /* Changed to control only spacing between download frames */
+  margin: 0 auto 3rem auto;
+  max-width: 800px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Spotify iframe füllt Box komplett aus */
+.download-item iframe {
+  width: 100% !important;
+  max-width: 100%;
+}
+
+/* Download Buttons */
+.download-button {
+  display: inline-block;
+  background-color: #666;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.download-button:hover {
+  background-color: #999;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102, 102, 102, 0.3);
+  text-decoration: none;
+  color: white;
+}
+
+/* Spotify Text mittig unten */
+.download-item:first-of-type {
+  position: relative;
+}
+
+.spotify-msg {
+  color: #666 !important;
+  font-size: 0.75em !important;
+  font-style: italic !important;
+  position: absolute;
+  bottom: 0.65rem;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0 !important;
+}
+
+/* Contact section styling */
+#Contact p {
+  margin-bottom: 0.5rem;
+}
+
+/* Footer and Quote */
+footer {
+  position: absolute;
+  bottom: -550px;
+  right: 10px;
+  padding: 5px;
+  z-index: 10;
+}
+
+.quote {
+  font-size: 0.30rem;
+  color: #999;
+  font-style: italic;
+  text-align: right;
+  opacity: 0.7;
+  letter-spacing: 0.5px;
+  max-width: 300px;
+  line-height: 1.4;
+  white-space: nowrap;
+  padding: 0;
+  margin: 0;
+}
+
+/* Added responsive design for kompendium container */
+/* Responsive Design */
+@media (max-width: 768px) {
+  .menu {
+    width: 110px;
+    right: -110px;
+  }
+
+  .menu.active {
+    right: 1rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  .button-grid {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  .kompendium-container {
+    padding: 1.5rem;
+  }
+
+  .kompendium-title {
+    font-size: 1.5rem;
+  }
+
+  /* Simplified download-item margin without first-child override */
+  .download-item {
+    margin: 0 auto 2rem auto;
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body.landing .frame {
+    padding: 1rem;
+  }
+
+  #frame {
+    padding-top: 3rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .tool-button {
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .download-item iframe {
+    width: 95%;
+    height: 300px;
+  }
+}
+
+/* Additional spacing for content sections */
+section p[style*="margin-top: 100px"] {
+  margin-top: 100px !important;
+  font-size: 1rem;
+  color: #999;
+}
+
+@media (prefers-color-scheme: dark) {
+  section p[style*="margin-top: 100px"] {
+    color: #999;
+  }
+}
+
+
+
+
+
