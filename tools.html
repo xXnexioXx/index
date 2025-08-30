@@ -27,42 +27,42 @@
     <h1 class="page-header">Tools</h1>
     
     <section id="frame">
-      <div class="kompendium-container">
-        <h2 class="kompendium-title">Kompendium</h2>
+      <div class="content-container">
+        <h2 class="content-header">Kompendium</h2>
         
         <div class="button-grid">
-          <button class="tool-button" onclick="window.open('https://rentry.org/megathread/', '_blank')">
+          <button class="download-button" onclick="window.open('https://rentry.org/megathread/', '_blank')">
             Megathread
           </button>
-          <button class="tool-button" onclick="window.open('https://fmhy.net/', '_blank')">
+          <button class="download-button" onclick="window.open('https://fmhy.net/', '_blank')">
             Fmhy
           </button>
-          <button class="tool-button" onclick="window.open('https://rentry.org/pgames/', '_blank')">
+          <button class="download-button" onclick="window.open('https://rentry.org/pgames/', '_blank')">
             Pgames
           </button>
-          <button class="tool-button" onclick="window.open('https://github.com/SeppPenner/awesome-german-piracy/', '_blank')">
+          <button class="download-button" onclick="window.open('https://github.com/SeppPenner/awesome-german-piracy/', '_blank')">
             GerP
           </button>
-          <button class="tool-button" onclick="window.open('https://hesgoal.im/', '_blank')">
+          <button class="download-button" onclick="window.open('https://hesgoal.im/', '_blank')">
             Hesgoal
           </button>
-          <button class="tool-button" onclick="window.open('https://www.livestreamde.com/', '_blank')">
+          <button class="download-button" onclick="window.open('https://www.livestreamde.com/', '_blank')">
             GerTV
           </button>
         </div>
         
-        <div class="kompendium-footer">
+        <div class="content-footer">
           index of useful sites
         </div>
       </div>
       
-      <div class="download-item">
+      <div class="content-container">
         <h3></h3>
         <p></p>
         <a href="https://google.com/" class="download-button" target="_blank">Download</a>
       </div>
       
-      <div class="download-item">
+      <div class="content-container">
         <h3></h3>
         <p></p>
         <a href="https://google.com/" class="download-button">Download</a>
@@ -79,25 +79,25 @@
   </main>
 
   <script>
-    const menuBtn = document.getElementById('menuBtn');
+    const menu-button = document.getElementById('menu-button');
     const menu = document.getElementById('menu');
 
     function closeMenu() {
-      menuBtn.setAttribute('aria-expanded', 'false');
+      menu-button.setAttribute('aria-expanded', 'false');
       menu.setAttribute('aria-hidden', 'true');
       menu.classList.remove('active');
-      menuBtn.classList.remove('active');
+      menu-button.classList.remove('active');
     }
 
     function openMenu() {
-      menuBtn.setAttribute('aria-expanded', 'true');
+      menu-button.setAttribute('aria-expanded', 'true');
       menu.setAttribute('aria-hidden', 'false');
       menu.classList.add('active');
-      menuBtn.classList.add('active');
+      menu-button.classList.add('active');
     }
 
     function toggleMenu() {
-      const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+      const isExpanded = menu-button.getAttribute('aria-expanded') === 'true';
       if (isExpanded) {
         closeMenu();
       } else {
@@ -105,13 +105,13 @@
       }
     }
 
-    menuBtn.addEventListener('click', (e) => {
+    menu-button.addEventListener('click', (e) => {
       e.stopPropagation();
       toggleMenu();
     });
 
     document.addEventListener('click', (e) => {
-      if (!menu.contains(e.target) && e.target !== menuBtn) {
+      if (!menu.contains(e.target) && e.target !== menu-button) {
         closeMenu();
       }
     });
