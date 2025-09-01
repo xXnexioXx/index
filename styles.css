@@ -383,8 +383,10 @@ a:hover {
 }
 
 .modal-content textarea {
-  resize: none;
-  overflow: hidden;
+  resize: none;        /* kein Resize durch den User */
+  overflow-y: hidden;  /* verhindert Scrollbars */
+  min-height: 3rem;    /* Starthöhe */
+  font-family: "Inter", sans-serif;
 }
 
 /* Counter */
@@ -397,3 +399,4 @@ a:hover {
 }
 
 /* ...der Rest deines ursprünglichen CSS bleibt unverändert ... */
+
