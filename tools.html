@@ -62,13 +62,6 @@
         <a href="https://google.com/" class="download-button" target="_blank">Download</a>
       </div>
       
-      <!-- 2. Container: Kontaktformular -->
-      <div class="download-item">
-        <h3>Kontaktformular</h3>
-        <p>Schreibe mir eine Nachricht:</p>
-        <button class="download-button" id="contactOpenBtn">Kontakt öffnen</button>
-      </div>
-      
       <div class="download-item">
         <h3></h3>
         <p></p>
@@ -85,38 +78,7 @@
     </footer>
   </main>
 
-  <!-- Modal Kontaktformular -->
-  <div id="contactModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>Contact</h2>
-        <span class="close-btn">&times;</span>
-      </div>
-      <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
-        <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" maxlength="30" required>
-        <label for="email">E-Mail</label>
-        <input type="email" id="email" name="email" maxlength="50" required>
-        <label for="message">Nachricht</label>
-        <textarea id="message" name="message" rows="3" maxlength="500" required></textarea>
-        <div class="char-counter"><span id="charCount">0</span>/500</div>
-        <button type="submit" class="download-button">Absenden</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Modal Bestätigung -->
-  <div id="confirmationModal" class="modal small-modal">
-    <div class="modal-content small">
-      <h3>Nachricht gesendet!</h3>
-      <p>Vielen Dank! Sie erhalten innerhalb von 48 Stunden eine Antwort.</p>
-      <button class="download-button" id="confirmCloseBtn">Schließen</button>
-    </div>
-  </div>
-
   <script>
-    // Menü
     const menuBtn = document.getElementById('menuBtn');
     const menu = document.getElementById('menu');
 
@@ -136,47 +98,27 @@
 
     function toggleMenu() {
       const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
-      if (isExpanded) { closeMenu(); } else { openMenu(); }
+      if (isExpanded) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
     }
 
-    menuBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(); });
-    document.addEventListener('click', (e) => { if(!menu.contains(e.target) && e.target !== menuBtn) closeMenu(); });
-    document.querySelectorAll('.menu a').forEach(link => { link.addEventListener('click', closeMenu); });
-
-    // Kontaktmodal
-    const contactModal = document.getElementById('contactModal');
-    const contactOpenBtn = document.getElementById('contactOpenBtn');
-    const closeBtn = contactModal.querySelector('.close-btn');
-
-    contactOpenBtn.onclick = () => { contactModal.style.display = 'block'; }
-    closeBtn.onclick = () => { contactModal.style.display = 'none'; }
-    window.onclick = (event) => { if(event.target === contactModal) contactModal.style.display = 'none'; }
-
-    // Textarea Auto-Resize & CharCounter
-    const messageInput = document.getElementById('message');
-    const charCount = document.getElementById('charCount');
-    messageInput.addEventListener('input', () => {
-      charCount.textContent = messageInput.value.length;
-      messageInput.style.height = 'auto';
-      messageInput.style.height = messageInput.scrollHeight + 'px';
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMenu();
     });
 
-    // Formular Submission
-    const contactForm = document.getElementById('contactForm');
-    const confirmationModal = document.getElementById('confirmationModal');
-    const confirmCloseBtn = document.getElementById('confirmCloseBtn');
-
-    contactForm.addEventListener('submit', (e) => {
-      e.preventDefault(); // Verhindert Standard-Submit für Demo
-      contactModal.style.display = 'none';
-      confirmationModal.style.display = 'block';
-      contactForm.reset();
-      charCount.textContent = '0';
-      messageInput.style.height = 'auto';
+    document.addEventListener('click', (e) => {
+      if (!menu.contains(e.target) && e.target !== menuBtn) {
+        closeMenu();
+      }
     });
 
-    confirmCloseBtn.onclick = () => { confirmationModal.style.display = 'none'; }
-    window.addEventListener('click', (event) => { if(event.target === confirmationModal) confirmationModal.style.display = 'none'; });
+    document.querySelectorAll('.menu a').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
   </script>
 
   <script src="background.js"></script>
