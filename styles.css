@@ -102,7 +102,7 @@ p {
 .page-header {
   font-size: 2.5rem;
   font-weight: 700;
-  margin-bottom: 8rem; /* Controls space between header and first download frame */
+  margin-bottom: 8rem;
   margin-top: 5rem;
   letter-spacing: 2px;
   text-align: center;
@@ -309,7 +309,6 @@ a:hover {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Spotify iframe füllt Box komplett aus */
 .download-item iframe {
   width: 100% !important;
   max-width: 100%;
@@ -355,29 +354,6 @@ a:hover {
   margin: 0 !important;
 }
 
-/* Footer and Quote */
-footer {
-  position: absolute;
-  bottom: 0;
-  right: 10px;
-  padding: 5px;
-  z-index: 10;
-}
-
-.quote {
-  font-size: 0.75rem;
-  color: #999;
-  font-style: italic;
-  text-align: right;
-  opacity: 0.7;
-  letter-spacing: 0.5px;
-  max-width: 300px;
-  line-height: 1.4;
-  white-space: nowrap;
-  padding: 0;
-  margin: 0;
-}
-
 /* Contact Modal Styles */
 .modal {
   display: none;
@@ -403,27 +379,8 @@ footer {
   box-shadow: 0 4px 30px rgba(0,0,0,0.4);
   color: #e0e0e0;
   text-align: left;
-  position: relative;
 }
 
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.modal-header h2 {
-  font-size: 1.5rem;
-}
-
-.close-btn {
-  cursor: pointer;
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-/* Form inside modal */
 .modal-content form {
   display: flex;
   flex-direction: column;
@@ -448,7 +405,6 @@ footer {
   font-family: "Inter", sans-serif;
 }
 
-/* Character counter */
 .char-counter {
   font-size: 0.8rem;
   color: #bbb;
@@ -457,26 +413,27 @@ footer {
   margin-bottom: 0.5rem;
 }
 
-/* Thank You Modal */
-.thankyou-modal {
-  display: none;
-  position: fixed;
-  z-index: 3000;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgba(42,42,42,0.95);
-  padding: 1.5rem 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-  color: #e0e0e0;
-  text-align: center;
-  max-width: 350px;
+/* Footer and Quote - exakt wie im Original Backup */
+footer {
+  position: absolute;
+  bottom: -550px;
+  right: 10px;
+  padding: 5px;
+  z-index: 10;
 }
 
-.thankyou-modal p {
-  margin-top: 0.5rem;
-  font-size: 1rem;
+.quote {
+  font-size: 0.30rem;
+  color: #999;
+  font-style: italic;
+  text-align: right;
+  opacity: 0.7;
+  letter-spacing: 0.5px;
+  max-width: 300px;
+  line-height: 1.4;
+  white-space: nowrap;
+  padding: 0;
+  margin: 0;
 }
 
 /* Responsive Design */
