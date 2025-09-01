@@ -154,18 +154,19 @@
     closeBtn.onclick = () => { contactModal.style.display = 'none'; }
     window.onclick = (event) => { if(event.target === contactModal) contactModal.style.display = 'none'; }
 
-    // Nachricht Textarea: Auto-resize + Counter
     const messageInput = document.getElementById('message');
     const charCount = document.getElementById('charCount');
 
     messageInput.addEventListener('input', () => {
       charCount.textContent = messageInput.value.length;
       messageInput.style.height = 'auto';
-      messageInput.style.height = (messageInput.scrollHeight) + 'px';
+      messageInput.style.height = messageInput.scrollHeight + 'px';
     });
+
   </script>
 
   <script src="background.js"></script>
 </body>
 </html>
+
 
