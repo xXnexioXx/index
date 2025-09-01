@@ -27,6 +27,7 @@
     <h1 class="page-header">Tools</h1>
     
     <section id="frame">
+      <!-- Kompendium 1 -->
       <div class="kompendium-container">
         <h2 class="kompendium-title">Kompendium</h2>
         
@@ -56,12 +57,35 @@
         </div>
       </div>
       
-      <div class="download-item">
-        <h3></h3>
-        <p></p>
-        <a href="https://google.com/" class="download-button" target="_blank">Download</a>
+      <!-- Neuer Kontakt-Container (2. Stelle) -->
+      <div class="kompendium-container">
+        <h2 class="kompendium-title">Kontakt</h2>
+        <button class="contact-open-btn">Kontakt öffnen</button>
+      </div>
+
+      <!-- Modal für Kontaktformular -->
+      <div id="contactModal" class="modal">
+        <div class="modal-content">
+          <span class="close-btn">&times;</span>
+          <h2>Kontaktformular</h2>
+          <form action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">E-Mail</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Nachricht</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+
+            <button type="submit" class="download-button">Absenden</button>
+          </form>
+        </div>
       </div>
       
+      <!-- Download Container (3. Stelle) -->
       <div class="download-item">
         <h3></h3>
         <p></p>
@@ -79,6 +103,7 @@
   </main>
 
   <script>
+    /* Navigation Menü */
     const menuBtn = document.getElementById('menuBtn');
     const menu = document.getElementById('menu');
 
@@ -119,9 +144,27 @@
     document.querySelectorAll('.menu a').forEach(link => {
       link.addEventListener('click', closeMenu);
     });
+
+    /* Modal Kontaktformular */
+    const modal = document.getElementById("contactModal");
+    const openBtn = document.querySelector(".contact-open-btn");
+    const closeBtn = document.querySelector(".close-btn");
+
+    openBtn.onclick = () => {
+      modal.style.display = "block";
+    }
+
+    closeBtn.onclick = () => {
+      modal.style.display = "none";
+    }
+
+    window.onclick = (event) => {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    }
   </script>
 
   <script src="background.js"></script>
 </body>
 </html>
-
