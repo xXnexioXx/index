@@ -308,13 +308,11 @@ a:hover {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Spotify iframe füllt Box komplett aus */
 .download-item iframe {
   width: 100% !important;
   max-width: 100%;
 }
 
-/* Download Buttons */
 .download-button {
   display: inline-block;
   background-color: #666;
@@ -382,38 +380,35 @@ footer {
   margin: 0;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .menu { width: 110px; right: -110px; }
-  .menu.active { right: 1rem; }
-  h1 { font-size: 2.5rem; }
-  h2 { font-size: 2rem; }
-  .button-grid { grid-template-columns: 1fr; gap: 0.8rem; }
-  .kompendium-container { padding: 1.5rem; }
-  .kompendium-title { font-size: 1.5rem; }
-  .download-item { margin: 0 auto 2rem auto; padding: 1.5rem; }
+/* --- Kontaktformular Modal --- */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.8);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-@media (max-width: 480px) {
-  body.landing .frame { padding: 1rem; }
-  #frame { padding-top: 3rem; }
-  h1 { font-size: 2rem; }
-  .tool-button { padding: 0.8rem 1rem; font-size: 0.9rem; }
-  .download-item iframe { width: 95%; height: 300px; }
+.modal-content {
+  background-color: rgba(42, 42, 42, 0.95);
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 90%;
+  max-width: 500px;
+  border-radius: 10px;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+  color: #e0e0e0;
+  text-align: left;
+  position: relative;
 }
 
-/* Additional spacing for content sections */
-section p[style*="margin-top: 100px"] {
-  margin-top: 100px !important;
-  font-size: 1rem;
-  color: #999;
-}
-
-@media (prefers-color-scheme: dark) {
-  section p[style*="margin-top: 100px"] { color: #999; }
-}
-
-/* --- Contact Modal Anpassung --- */
 .modal-header {
   display: flex;
   justify-content: space-between;
@@ -439,11 +434,28 @@ section p[style*="margin-top: 100px"] {
   color: #999;
 }
 
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modal-content input,
 .modal-content textarea {
-  resize: none;
-  overflow-y: hidden;
-  min-height: 3rem;
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: #222;
+  color: #fff;
+  font-size: 1rem;
   font-family: "Inter", sans-serif;
+}
+
+.modal-content textarea {
+  resize: none;        
+  overflow-y: hidden;  
+  min-height: 3rem;    
 }
 
 .char-counter {
@@ -452,4 +464,61 @@ section p[style*="margin-top: 100px"] {
   text-align: right;
   margin-top: -0.5rem;
   margin-bottom: 0.5rem;
+}
+
+/* Bestätigung Modal */
+#confirmationModal .modal-content {
+  max-width: 350px;
+  padding: 1.5rem;
+  text-align: center;
+}
+#confirmationModal .modal-content h4 {
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+#confirmationModal .modal-content p {
+  font-size: 0.9rem;
+  color: #ccc;
+}
+#confirmationModal .modal-content button {
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  border: none;
+  background-color: #666;
+  color: #fff;
+  cursor: pointer;
+}
+#confirmationModal .modal-content button:hover {
+  background-color: #999;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .menu { width: 110px; right: -110px; }
+  .menu.active { right: 1rem; }
+  h1 { font-size: 2.5rem; }
+  h2 { font-size: 2rem; }
+  .button-grid { grid-template-columns: 1fr; gap: 0.8rem; }
+  .kompendium-container { padding: 1.5rem; }
+  .kompendium-title { font-size: 1.5rem; }
+  .download-item { margin: 0 auto 2rem auto; padding: 1.5rem; }
+}
+
+@media (max-width: 480px) {
+  body.landing .frame { padding: 1rem; }
+  #frame { padding-top: 3rem; }
+  h1 { font-size: 2rem; }
+  .tool-button { padding: 0.8rem 1rem; font-size: 0.9rem; }
+  .download-item iframe { width: 95%; height: 300px; }
+}
+
+section p[style*="margin-top: 100px"] {
+  margin-top: 100px !important;
+  font-size: 1rem;
+  color: #999;
+}
+
+@media (prefers-color-scheme: dark) {
+  section p[style*="margin-top: 100px"] { color: #999; }
 }
