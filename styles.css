@@ -108,7 +108,7 @@ p {
   text-align: center;
 }
 
-/* Added Kompendium container styling */
+/* Kompendium container */
 .kompendium-container {
   background-color: rgba(42, 42, 42, 0.7);
   border-radius: 6px;
@@ -129,7 +129,7 @@ p {
   letter-spacing: 1px;
 }
 
-/* Added button grid layout for organized tool buttons */
+/* Button grid layout */
 .button-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -156,7 +156,7 @@ p {
   box-shadow: 0 4px 15px rgba(102, 102, 102, 0.3);
 }
 
-/* Added kompendium footer styling */
+/* Kompendium footer */
 .kompendium-footer {
   text-align: center;
   color: #999;
@@ -179,7 +179,7 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Navigation - Hamburger Menu */
+/* Hamburger menu button */
 .menu-btn {
   position: fixed;
   top: 1rem;
@@ -214,6 +214,7 @@ a:hover {
   transform-origin: center;
 }
 
+/* Hamburger to X */
 .menu-btn.active span:nth-child(1) {
   transform: rotate(45deg) translate(5px, 5px);
 }
@@ -226,7 +227,7 @@ a:hover {
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* Navigation Menu */
+/* Navigation menu */
 .menu {
   position: fixed;
   top: 4rem;
@@ -270,7 +271,7 @@ a:hover {
   text-decoration: none;
 }
 
-/* Back Button */
+/* Back button */
 .back-button {
   position: fixed;
   top: 1rem;
@@ -296,7 +297,7 @@ a:hover {
   text-decoration: none;
 }
 
-/* Download Items/Frames */
+/* Download items */
 .download-item {
   background-color: rgba(42, 42, 42, 0.7);
   border-radius: 6px;
@@ -336,34 +337,10 @@ a:hover {
   color: white;
 }
 
-/* Spotify Text mittig unten */
-.download-item:first-of-type {
-  position: relative;
-}
-
-.spotify-msg {
-  color: #666 !important;
-  font-size: 0.75em !important;
-  font-style: italic !important;
-  position: absolute;
-  bottom: 0.65rem;
-  left: 50%;
-  transform: translateX(-50%);
-  margin: 0 !important;
-}
-
-/* Contact section styling */
-#Contact p {
-  margin-bottom: 0.5rem;
-}
-
 /* Footer and Quote */
 footer {
-  position: absolute;
-  bottom: -550px;
-  right: 10px;
+  position: relative;
   padding: 5px;
-  z-index: 10;
 }
 
 .quote {
@@ -380,7 +357,7 @@ footer {
   margin: 0;
 }
 
-/* --- Kontaktformular Modal --- */
+/* Contact Modal */
 .modal {
   display: none;
   position: fixed;
@@ -389,15 +366,14 @@ footer {
   top: 0;
   width: 100%;
   height: 100%;
+  overflow: auto;
   background-color: rgba(0,0,0,0.8);
   backdrop-filter: blur(4px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .modal-content {
   background-color: rgba(42, 42, 42, 0.95);
+  margin: 10% auto;
   padding: 2rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
   width: 90%;
@@ -407,31 +383,6 @@ footer {
   color: #e0e0e0;
   text-align: left;
   position: relative;
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.modal-header h3 {
-  margin: 0;
-  font-size: 1.25rem;
-}
-
-.modal-header .close-btn {
-  cursor: pointer;
-  font-size: 1.5rem;
-  line-height: 1;
-  font-weight: bold;
-  color: #fff;
-  transition: color 0.2s;
-}
-
-.modal-header .close-btn:hover {
-  color: #999;
 }
 
 .modal-content form {
@@ -449,76 +400,30 @@ footer {
   background: #222;
   color: #fff;
   font-size: 1rem;
-  font-family: "Inter", sans-serif;
 }
 
 .modal-content textarea {
   resize: none;        
   overflow-y: hidden;  
   min-height: 3rem;    
+  font-family: "Inter", sans-serif;
 }
 
+/* X close button positioning */
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: #fff;
+}
+
+/* Character counter */
 .char-counter {
   font-size: 0.8rem;
   color: #bbb;
   text-align: right;
   margin-top: -0.5rem;
   margin-bottom: 0.5rem;
-}
-
-/* Bestätigung Modal */
-#confirmationModal .modal-content {
-  max-width: 350px;
-  padding: 1.5rem;
-  text-align: center;
-}
-#confirmationModal .modal-content h4 {
-  margin-bottom: 0.5rem;
-  font-size: 1.2rem;
-}
-#confirmationModal .modal-content p {
-  font-size: 0.9rem;
-  color: #ccc;
-}
-#confirmationModal .modal-content button {
-  margin-top: 1rem;
-  padding: 0.6rem 1.2rem;
-  border-radius: 6px;
-  border: none;
-  background-color: #666;
-  color: #fff;
-  cursor: pointer;
-}
-#confirmationModal .modal-content button:hover {
-  background-color: #999;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .menu { width: 110px; right: -110px; }
-  .menu.active { right: 1rem; }
-  h1 { font-size: 2.5rem; }
-  h2 { font-size: 2rem; }
-  .button-grid { grid-template-columns: 1fr; gap: 0.8rem; }
-  .kompendium-container { padding: 1.5rem; }
-  .kompendium-title { font-size: 1.5rem; }
-  .download-item { margin: 0 auto 2rem auto; padding: 1.5rem; }
-}
-
-@media (max-width: 480px) {
-  body.landing .frame { padding: 1rem; }
-  #frame { padding-top: 3rem; }
-  h1 { font-size: 2rem; }
-  .tool-button { padding: 0.8rem 1rem; font-size: 0.9rem; }
-  .download-item iframe { width: 95%; height: 300px; }
-}
-
-section p[style*="margin-top: 100px"] {
-  margin-top: 100px !important;
-  font-size: 1rem;
-  color: #999;
-}
-
-@media (prefers-color-scheme: dark) {
-  section p[style*="margin-top: 100px"] { color: #999; }
 }
