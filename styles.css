@@ -66,6 +66,7 @@ section {
 
 #frame {
   text-align: center;
+  /* reset padding-top back to normal since it was moving the whole block */
   padding-top: 2rem;
 }
 
@@ -102,13 +103,13 @@ p {
 .page-header {
   font-size: 2.5rem;
   font-weight: 700;
-  margin-bottom: 8rem;
+  margin-bottom: 8rem; /* Controls space between header and first download frame */
   margin-top: 5rem;
   letter-spacing: 2px;
   text-align: center;
 }
 
-/* Kompendium container */
+/* Added Kompendium container styling */
 .kompendium-container {
   background-color: rgba(42, 42, 42, 0.7);
   border-radius: 6px;
@@ -129,7 +130,7 @@ p {
   letter-spacing: 1px;
 }
 
-/* Button grid layout */
+/* Added button grid layout for organized tool buttons */
 .button-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -156,7 +157,7 @@ p {
   box-shadow: 0 4px 15px rgba(102, 102, 102, 0.3);
 }
 
-/* Kompendium footer */
+/* Added kompendium footer styling */
 .kompendium-footer {
   text-align: center;
   color: #999;
@@ -179,7 +180,7 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Hamburger menu button */
+/* Navigation - Hamburger Menu */
 .menu-btn {
   position: fixed;
   top: 1rem;
@@ -214,7 +215,7 @@ a:hover {
   transform-origin: center;
 }
 
-/* Hamburger to X */
+/* Hamburger zu X Animation */
 .menu-btn.active span:nth-child(1) {
   transform: rotate(45deg) translate(5px, 5px);
 }
@@ -227,12 +228,13 @@ a:hover {
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* Navigation menu */
+/* Navigation Menu */
 .menu {
   position: fixed;
   top: 4rem;
   right: -120px;
   width: 120px;
+  /* reduced min-height from 80px to 60px for smaller vertical size */
   min-height: 50px;
   background-color: rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
@@ -241,7 +243,9 @@ a:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  /* reduced gap from 0.5rem to 0.3rem for tighter spacing */
   gap: 0.3rem;
+  /* reduced padding from 0.5rem to 0.3rem for smaller menu */
   padding: 0.3rem 0;
   transition: right 0.s ease;
   border: 1px solid rgba(255, 255, 255, 0.0);
@@ -261,17 +265,19 @@ a:hover {
   transition: all 0.15s ease;
   text-align: center;
   width: 100%;
+  /* changed text color from #666 to #ffffff for white text */
   color: #ffffff;
   white-space: nowrap;
 }
 
 .menu a:hover {
   background-color: rgba(102, 102, 102, 0.3);
+  /* changed hover color from #999 to #ffffff to keep text white */
   color: #ffffff;
   text-decoration: none;
 }
 
-/* Back button */
+/* Back Button */
 .back-button {
   position: fixed;
   top: 1rem;
@@ -297,11 +303,12 @@ a:hover {
   text-decoration: none;
 }
 
-/* Download items */
+/* Download Items/Frames */
 .download-item {
   background-color: rgba(42, 42, 42, 0.7);
   border-radius: 6px;
   padding: 2rem;
+  /* Changed to control only spacing between download frames */
   margin: 0 auto 3rem auto;
   max-width: 800px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
@@ -309,11 +316,13 @@ a:hover {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* Spotify iframe füllt Box komplett aus */
 .download-item iframe {
   width: 100% !important;
   max-width: 100%;
 }
 
+/* Download Buttons */
 .download-button {
   display: inline-block;
   background-color: #666;
@@ -337,10 +346,34 @@ a:hover {
   color: white;
 }
 
+/* Spotify Text mittig unten */
+.download-item:first-of-type {
+  position: relative;
+}
+
+.spotify-msg {
+  color: #666 !important;
+  font-size: 0.75em !important;
+  font-style: italic !important;
+  position: absolute;
+  bottom: 0.65rem;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0 !important;
+}
+
+/* Contact section styling */
+#Contact p {
+  margin-bottom: 0.5rem;
+}
+
 /* Footer and Quote */
 footer {
-  position: relative;
+  position: absolute;
+  bottom: -550px;
+  right: 10px;
   padding: 5px;
+  z-index: 10;
 }
 
 .quote {
@@ -357,73 +390,82 @@ footer {
   margin: 0;
 }
 
-/* Contact Modal */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 2000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.8);
-  backdrop-filter: blur(4px);
+/* Added responsive design for kompendium container */
+/* Responsive Design */
+@media (max-width: 768px) {
+  .menu {
+    width: 110px;
+    right: -110px;
+  }
+
+  .menu.active {
+    right: 1rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  .button-grid {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  .kompendium-container {
+    padding: 1.5rem;
+  }
+
+  .kompendium-title {
+    font-size: 1.5rem;
+  }
+
+  /* Simplified download-item margin without first-child override */
+  .download-item {
+    margin: 0 auto 2rem auto;
+    padding: 1.5rem;
+  }
 }
 
-.modal-content {
-  background-color: rgba(42, 42, 42, 0.95);
-  margin: 10% auto;
-  padding: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  width: 90%;
-  max-width: 500px;
-  border-radius: 10px;
-  box-shadow: 0 4px 30px rgba(0,0,0,0.4);
-  color: #e0e0e0;
-  text-align: left;
-  position: relative;
+@media (max-width: 480px) {
+  body.landing .frame {
+    padding: 1rem;
+  }
+
+  #frame {
+    padding-top: 3rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .tool-button {
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .download-item iframe {
+    width: 95%;
+    height: 300px;
+  }
 }
 
-.modal-content form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.modal-content input,
-.modal-content textarea {
-  width: 100%;
-  padding: 0.75rem;
-  border-radius: 6px;
-  border: 1px solid rgba(255,255,255,0.2);
-  background: #222;
-  color: #fff;
+/* Additional spacing for content sections */
+section p[style*="margin-top: 100px"] {
+  margin-top: 100px !important;
   font-size: 1rem;
+  color: #999;
 }
 
-.modal-content textarea {
-  resize: none;        
-  overflow-y: hidden;  
-  min-height: 3rem;    
-  font-family: "Inter", sans-serif;
+@media (prefers-color-scheme: dark) {
+  section p[style*="margin-top: 100px"] {
+    color: #999;
+  }
 }
 
-/* X close button positioning */
-.close-btn {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  font-size: 1.25rem;
-  cursor: pointer;
-  color: #fff;
-}
 
-/* Character counter */
-.char-counter {
-  font-size: 0.8rem;
-  color: #bbb;
-  text-align: right;
-  margin-top: -0.5rem;
-  margin-bottom: 0.5rem;
-}
+
