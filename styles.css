@@ -98,7 +98,7 @@ p {
   margin-right: auto;
 }
 
-/* Added page-header class for separate control of header spacing */
+/* Page Header */
 .page-header {
   font-size: 2.5rem;
   font-weight: 700;
@@ -108,7 +108,7 @@ p {
   text-align: center;
 }
 
-/* Added Kompendium container styling */
+/* Kompendium Container */
 .kompendium-container {
   background-color: rgba(42, 42, 42, 0.7);
   border-radius: 6px;
@@ -129,7 +129,7 @@ p {
   letter-spacing: 1px;
 }
 
-/* Added button grid layout for organized tool buttons */
+/* Button Grid */
 .button-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -156,7 +156,7 @@ p {
   box-shadow: 0 4px 15px rgba(102, 102, 102, 0.3);
 }
 
-/* Added kompendium footer styling */
+/* Kompendium Footer */
 .kompendium-footer {
   text-align: center;
   color: #999;
@@ -247,9 +247,7 @@ a:hover {
   border-radius: 4px;
 }
 
-.menu.active {
-  right: 1rem;
-}
+.menu.active { right: 1rem; }
 
 .menu a {
   font-size: 0.85rem;
@@ -308,7 +306,6 @@ a:hover {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Spotify iframe füllt Box komplett aus */
 .download-item iframe {
   width: 100% !important;
   max-width: 100%;
@@ -383,13 +380,30 @@ a:hover {
 }
 
 .modal-content textarea {
-  resize: none;        /* kein Resize durch den User */
-  overflow-y: hidden;  /* verhindert Scrollbars */
-  min-height: 3rem;    /* Starthöhe */
+  resize: none;
+  overflow-y: hidden;
+  min-height: 3rem;
   font-family: "Inter", sans-serif;
 }
 
-/* Counter */
+/* Modal Header */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.modal-header h2 {
+  margin: 0;
+}
+
+.modal-header .close-btn {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Char Counter */
 .char-counter {
   font-size: 0.8rem;
   color: #bbb;
@@ -398,5 +412,19 @@ a:hover {
   margin-bottom: 0.5rem;
 }
 
-/* ...der Rest deines ursprünglichen CSS bleibt unverändert ... */
+/* Small confirmation modal */
+.small-modal .modal-content {
+  max-width: 350px;
+  text-align: center;
+  padding: 1.5rem;
+  border-radius: 12px;
+}
 
+.small-modal h3 {
+  margin-bottom: 0.5rem;
+}
+
+.small-modal p {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
