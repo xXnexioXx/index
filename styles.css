@@ -66,7 +66,6 @@ section {
 
 #frame {
   text-align: center;
-  /* reset padding-top back to normal since it was moving the whole block */
   padding-top: 2rem;
 }
 
@@ -99,17 +98,16 @@ p {
   margin-right: auto;
 }
 
-/* Added page-header class for separate control of header spacing */
 .page-header {
   font-size: 2.5rem;
   font-weight: 700;
-  margin-bottom: 8rem; /* Controls space between header and first download frame */
+  margin-bottom: 8rem;
   margin-top: 5rem;
   letter-spacing: 2px;
   text-align: center;
 }
 
-/* Added Kompendium container styling */
+/* Kompendium Container */
 .kompendium-container {
   background-color: rgba(42, 42, 42, 0.7);
   border-radius: 6px;
@@ -130,7 +128,7 @@ p {
   letter-spacing: 1px;
 }
 
-/* Added button grid layout for organized tool buttons */
+/* Button Grid */
 .button-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -157,7 +155,7 @@ p {
   box-shadow: 0 4px 15px rgba(102, 102, 102, 0.3);
 }
 
-/* Added kompendium footer styling */
+/* Kompendium Footer */
 .kompendium-footer {
   text-align: center;
   color: #999;
@@ -180,7 +178,7 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Navigation - Hamburger Menu */
+/* Navigation - Hamburger */
 .menu-btn {
   position: fixed;
   top: 1rem;
@@ -215,7 +213,6 @@ a:hover {
   transform-origin: center;
 }
 
-/* Hamburger zu X Animation */
 .menu-btn.active span:nth-child(1) {
   transform: rotate(45deg) translate(5px, 5px);
 }
@@ -234,7 +231,6 @@ a:hover {
   top: 4rem;
   right: -120px;
   width: 120px;
-  /* reduced min-height from 80px to 60px for smaller vertical size */
   min-height: 50px;
   background-color: rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
@@ -243,9 +239,7 @@ a:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* reduced gap from 0.5rem to 0.3rem for tighter spacing */
   gap: 0.3rem;
-  /* reduced padding from 0.5rem to 0.3rem for smaller menu */
   padding: 0.3rem 0;
   transition: right 0.s ease;
   border: 1px solid rgba(255, 255, 255, 0.0);
@@ -265,14 +259,12 @@ a:hover {
   transition: all 0.15s ease;
   text-align: center;
   width: 100%;
-  /* changed text color from #666 to #ffffff for white text */
   color: #ffffff;
   white-space: nowrap;
 }
 
 .menu a:hover {
   background-color: rgba(102, 102, 102, 0.3);
-  /* changed hover color from #999 to #ffffff to keep text white */
   color: #ffffff;
   text-decoration: none;
 }
@@ -303,12 +295,11 @@ a:hover {
   text-decoration: none;
 }
 
-/* Download Items/Frames */
+/* Download Items */
 .download-item {
   background-color: rgba(42, 42, 42, 0.7);
   border-radius: 6px;
   padding: 2rem;
-  /* Changed to control only spacing between download frames */
   margin: 0 auto 3rem auto;
   max-width: 800px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
@@ -316,7 +307,6 @@ a:hover {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Spotify iframe füllt Box komplett aus */
 .download-item iframe {
   width: 100% !important;
   max-width: 100%;
@@ -346,7 +336,7 @@ a:hover {
   color: white;
 }
 
-/* Spotify Text mittig unten */
+/* Spotify Hinweis */
 .download-item:first-of-type {
   position: relative;
 }
@@ -362,12 +352,12 @@ a:hover {
   margin: 0 !important;
 }
 
-/* Contact section styling */
+/* Contact Section */
 #Contact p {
   margin-bottom: 0.5rem;
 }
 
-/* Footer and Quote */
+/* Footer */
 footer {
   position: absolute;
   bottom: -550px;
@@ -390,8 +380,80 @@ footer {
   margin: 0;
 }
 
-/* Added responsive design for kompendium container */
-/* Responsive Design */
+/* Modal Styling */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.8);
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  background-color: rgba(42, 42, 42, 0.95);
+  margin: 10% auto;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 90%;
+  max-width: 500px;
+  border-radius: 10px;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+  color: #e0e0e0;
+  text-align: left;
+}
+
+.close-btn {
+  color: #aaa;
+  float: right;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #fff;
+}
+
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modal-content input,
+.modal-content textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: #222;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.contact-open-btn {
+  background-color: #666;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.contact-open-btn:hover {
+  background-color: #999;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102,102,102,0.3);
+}
+
+/* Responsive */
 @media (max-width: 768px) {
   .menu {
     width: 110px;
@@ -423,7 +485,6 @@ footer {
     font-size: 1.5rem;
   }
 
-  /* Simplified download-item margin without first-child override */
   .download-item {
     margin: 0 auto 2rem auto;
     padding: 1.5rem;
@@ -454,7 +515,6 @@ footer {
   }
 }
 
-/* Additional spacing for content sections */
 section p[style*="margin-top: 100px"] {
   margin-top: 100px !important;
   font-size: 1rem;
@@ -466,7 +526,3 @@ section p[style*="margin-top: 100px"] {
     color: #999;
   }
 }
-
-
-
-
