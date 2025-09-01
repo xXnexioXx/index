@@ -98,17 +98,17 @@ p {
   margin-right: auto;
 }
 
-/* Page Header */
+/* Added page-header class for separate control of header spacing */
 .page-header {
   font-size: 2.5rem;
   font-weight: 700;
-  margin-bottom: 8rem;
+  margin-bottom: 8rem; /* Controls space between header and first download frame */
   margin-top: 5rem;
   letter-spacing: 2px;
   text-align: center;
 }
 
-/* Kompendium Container */
+/* Added Kompendium container styling */
 .kompendium-container {
   background-color: rgba(42, 42, 42, 0.7);
   border-radius: 6px;
@@ -129,7 +129,7 @@ p {
   letter-spacing: 1px;
 }
 
-/* Button Grid */
+/* Added button grid layout for organized tool buttons */
 .button-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -156,7 +156,7 @@ p {
   box-shadow: 0 4px 15px rgba(102, 102, 102, 0.3);
 }
 
-/* Kompendium Footer */
+/* Added kompendium footer styling */
 .kompendium-footer {
   text-align: center;
   color: #999;
@@ -214,6 +214,7 @@ a:hover {
   transform-origin: center;
 }
 
+/* Hamburger zu X Animation */
 .menu-btn.active span:nth-child(1) {
   transform: rotate(45deg) translate(5px, 5px);
 }
@@ -247,7 +248,9 @@ a:hover {
   border-radius: 4px;
 }
 
-.menu.active { right: 1rem; }
+.menu.active {
+  right: 1rem;
+}
 
 .menu a {
   font-size: 0.85rem;
@@ -306,6 +309,7 @@ a:hover {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* Spotify iframe füllt Box komplett aus */
 .download-item iframe {
   width: 100% !important;
   max-width: 100%;
@@ -335,7 +339,46 @@ a:hover {
   color: white;
 }
 
-/* Kontakt Modal */
+/* Spotify Text mittig unten */
+.download-item:first-of-type {
+  position: relative;
+}
+
+.spotify-msg {
+  color: #666 !important;
+  font-size: 0.75em !important;
+  font-style: italic !important;
+  position: absolute;
+  bottom: 0.65rem;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0 !important;
+}
+
+/* Footer and Quote */
+footer {
+  position: absolute;
+  bottom: 0;
+  right: 10px;
+  padding: 5px;
+  z-index: 10;
+}
+
+.quote {
+  font-size: 0.75rem;
+  color: #999;
+  font-style: italic;
+  text-align: right;
+  opacity: 0.7;
+  letter-spacing: 0.5px;
+  max-width: 300px;
+  line-height: 1.4;
+  white-space: nowrap;
+  padding: 0;
+  margin: 0;
+}
+
+/* Contact Modal Styles */
 .modal {
   display: none;
   position: fixed;
@@ -360,8 +403,27 @@ a:hover {
   box-shadow: 0 4px 30px rgba(0,0,0,0.4);
   color: #e0e0e0;
   text-align: left;
+  position: relative;
 }
 
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.modal-header h2 {
+  font-size: 1.5rem;
+}
+
+.close-btn {
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* Form inside modal */
 .modal-content form {
   display: flex;
   flex-direction: column;
@@ -386,24 +448,7 @@ a:hover {
   font-family: "Inter", sans-serif;
 }
 
-/* Modal Header */
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.modal-header h2 {
-  margin: 0;
-}
-
-.modal-header .close-btn {
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-/* Char Counter */
+/* Character counter */
 .char-counter {
   font-size: 0.8rem;
   color: #bbb;
@@ -412,19 +457,99 @@ a:hover {
   margin-bottom: 0.5rem;
 }
 
-/* Small confirmation modal */
-.small-modal .modal-content {
-  max-width: 350px;
-  text-align: center;
-  padding: 1.5rem;
+/* Thank You Modal */
+.thankyou-modal {
+  display: none;
+  position: fixed;
+  z-index: 3000;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(42,42,42,0.95);
+  padding: 1.5rem 2rem;
   border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  color: #e0e0e0;
+  text-align: center;
+  max-width: 350px;
 }
 
-.small-modal h3 {
-  margin-bottom: 0.5rem;
+.thankyou-modal p {
+  margin-top: 0.5rem;
+  font-size: 1rem;
 }
 
-.small-modal p {
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
+/* Responsive Design */
+@media (max-width: 768px) {
+  .menu {
+    width: 110px;
+    right: -110px;
+  }
+
+  .menu.active {
+    right: 1rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  .button-grid {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  .kompendium-container {
+    padding: 1.5rem;
+  }
+
+  .kompendium-title {
+    font-size: 1.5rem;
+  }
+
+  .download-item {
+    margin: 0 auto 2rem auto;
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body.landing .frame {
+    padding: 1rem;
+  }
+
+  #frame {
+    padding-top: 3rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .tool-button {
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .download-item iframe {
+    width: 95%;
+    height: 300px;
+  }
+}
+
+/* Additional spacing for content sections */
+section p[style*="margin-top: 100px"] {
+  margin-top: 100px !important;
+  font-size: 1rem;
+  color: #999;
+}
+
+@media (prefers-color-scheme: dark) {
+  section p[style*="margin-top: 100px"] {
+    color: #999;
+  }
 }
