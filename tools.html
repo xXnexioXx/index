@@ -1,100 +1,170 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kompendium</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark">
+  <title>nexio.network - Tools</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body class="landing">
+<body>
+  <a href="index.html" class="back-button">&lt; Back</a>
 
-  <!-- Menü Button -->
-  <button class="menu-toggle">☰</button>
-  <div class="menu">
-    <a href="#">Start</a>
-    <a href="#">Über</a>
-    <a href="#">Kontakt</a>
-  </div>
+  <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
 
-  <div id="frame" class="frame">
-    <section>
-      <h1>Willkommen im Kompendium</h1>
-      <p style="margin-top: 100px">Dies ist eine Demo-Seite.</p>
-    </section>
+  <nav class="menu" id="menu" aria-hidden="true">
+    <a href="index.html">Home</a>
+    <a href="index.html#Whatisthis">What is this?</a>
+    <a href="index.html#Contact">Contact</a>
+    <a href="download.html">Download</a>
+    <a href="tools.html">Tools</a>
+    <a href="extra.html">Extra</a>  
+  </nav>
 
-    <section>
-      <!-- 1. Kompendium Block -->
+  <main>
+    <h1 class="page-header">Tools</h1>
+    
+    <section id="frame">
       <div class="kompendium-container">
-        <h2 class="kompendium-title">Download</h2>
-        <div class="download-item">
-          <iframe src="https://example.com" width="100%" height="400"></iframe>
-          <button class="download-button">Download starten</button>
+        <h2 class="kompendium-title">Kompendium</h2>
+        
+        <div class="button-grid">
+          <button class="tool-button" onclick="window.open('https://rentry.org/megathread/', '_blank')">
+            Megathread
+          </button>
+          <button class="tool-button" onclick="window.open('https://fmhy.net/', '_blank')">
+            Fmhy
+          </button>
+          <button class="tool-button" onclick="window.open('https://rentry.org/pgames/', '_blank')">
+            Pgames
+          </button>
+          <button class="tool-button" onclick="window.open('https://github.com/SeppPenner/awesome-german-piracy/', '_blank')">
+            GerP
+          </button>
+          <button class="tool-button" onclick="window.open('https://hesgoal.im/', '_blank')">
+            Hesgoal
+          </button>
+          <button class="tool-button" onclick="window.open('https://www.livestreamde.com/', '_blank')">
+            GerTV
+          </button>
+        </div>
+        
+        <div class="kompendium-footer">
+          index of useful sites
         </div>
       </div>
-
-      <!-- 2. Kontaktformular Block -->
-      <div class="kompendium-container">
-        <h2 class="kompendium-title">Kontakt</h2>
-        <button class="contact-open-btn">Kontakt öffnen</button>
+      
+      <div class="download-item">
+        <h3></h3>
+        <p></p>
+        <a href="https://google.com/" class="download-button" target="_blank">Download</a>
       </div>
+      
+      <!-- 2. Container: Kontaktformular -->
+      <div class="download-item">
+        <h3>Kontaktformular</h3>
+        <p>Schreibe mir eine Nachricht:</p>
+        <button class="download-button" id="contactOpenBtn">Kontakt öffnen</button>
+      </div>
+      
+      <div class="download-item">
+        <h3></h3>
+        <p></p>
+        <a href="https://google.com/" class="download-button">Download</a>
+      </div>
+      
+      <p style="margin-top: 100px;">
+        please <a href="https://nexio.network/#Contact" style="color: #0af; text-decoration: underline;">contact</a> me if any of the links are not working anymore.
+      </p>
     </section>
-  </div>
 
-  <!-- Modal für Kontaktformular -->
+    <footer>
+      <div class="quote">Malo periculosam libertatem quam quietum servitium.</div>
+    </footer>
+  </main>
+
+  <!-- Modal Kontaktformular -->
   <div id="contactModal" class="modal">
     <div class="modal-content">
       <span class="close-btn">&times;</span>
-      <h2>Kontaktformular</h2>
       <form action="https://api.web3forms.com/submit" method="POST">
         <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
-
         <label for="name">Name</label>
         <input type="text" id="name" name="name" maxlength="30" required>
-
         <label for="email">E-Mail</label>
         <input type="email" id="email" name="email" maxlength="50" required>
-
         <label for="message">Nachricht</label>
         <textarea id="message" name="message" rows="3" maxlength="500" required></textarea>
         <div class="char-counter"><span id="charCount">0</span>/500</div>
-
         <button type="submit" class="download-button">Absenden</button>
       </form>
     </div>
   </div>
 
   <script>
-    // Menü
-    const menuToggle = document.querySelector(".menu-toggle");
-    const menu = document.querySelector(".menu");
-    menuToggle.addEventListener("click", () => {
-      menu.classList.toggle("active");
-    });
+    const menuBtn = document.getElementById('menuBtn');
+    const menu = document.getElementById('menu');
 
-    // Modal öffnen/schließen
-    const modal = document.getElementById("contactModal");
-    const openBtn = document.querySelector(".contact-open-btn");
-    const closeBtn = document.querySelector(".close-btn");
-
-    openBtn.onclick = () => { modal.style.display = "block"; }
-    closeBtn.onclick = () => { modal.style.display = "none"; }
-    window.onclick = (event) => {
-      if (event.target === modal) modal.style.display = "none";
+    function closeMenu() {
+      menuBtn.setAttribute('aria-expanded', 'false');
+      menu.setAttribute('aria-hidden', 'true');
+      menu.classList.remove('active');
+      menuBtn.classList.remove('active');
     }
 
-    // Nachricht Feld: Autoresize + Counter
-    const messageInput = document.getElementById("message");
-    const charCount = document.getElementById("charCount");
+    function openMenu() {
+      menuBtn.setAttribute('aria-expanded', 'true');
+      menu.setAttribute('aria-hidden', 'false');
+      menu.classList.add('active');
+      menuBtn.classList.add('active');
+    }
 
-    messageInput.addEventListener("input", () => {
-      // Zeichenzähler
+    function toggleMenu() {
+      const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+      if (isExpanded) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    }
+
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMenu();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!menu.contains(e.target) && e.target !== menuBtn) {
+        closeMenu();
+      }
+    });
+
+    document.querySelectorAll('.menu a').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    // Kontaktmodal
+    const contactModal = document.getElementById('contactModal');
+    const contactOpenBtn = document.getElementById('contactOpenBtn');
+    const closeBtn = document.querySelector('.close-btn');
+
+    contactOpenBtn.onclick = () => { contactModal.style.display = 'block'; }
+    closeBtn.onclick = () => { contactModal.style.display = 'none'; }
+    window.onclick = (event) => { if(event.target === contactModal) contactModal.style.display = 'none'; }
+
+    // Nachricht Textarea: Auto-resize + Counter
+    const messageInput = document.getElementById('message');
+    const charCount = document.getElementById('charCount');
+
+    messageInput.addEventListener('input', () => {
       charCount.textContent = messageInput.value.length;
-
-      // Auto-resize
-      messageInput.style.height = "auto";
-      messageInput.style.height = (messageInput.scrollHeight) + "px";
+      messageInput.style.height = 'auto';
+      messageInput.style.height = (messageInput.scrollHeight) + 'px';
     });
   </script>
 
+  <script src="background.js"></script>
 </body>
 </html>
