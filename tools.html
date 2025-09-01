@@ -88,8 +88,11 @@
   <!-- Modal Kontaktformular -->
   <div id="contactModal" class="modal">
     <div class="modal-content">
-      <span class="close-btn">&times;</span>
-      <form action="https://api.web3forms.com/submit" method="POST">
+      <div class="modal-header">
+        <h2>Contact</h2>
+        <span class="close-btn">&times;</span>
+      </div>
+      <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
         <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
         <label for="name">Name</label>
         <input type="text" id="name" name="name" maxlength="30" required>
@@ -103,7 +106,17 @@
     </div>
   </div>
 
+  <!-- Modal Bestätigung -->
+  <div id="confirmationModal" class="modal small-modal">
+    <div class="modal-content small">
+      <h3>Nachricht gesendet!</h3>
+      <p>Vielen Dank! Sie erhalten innerhalb von 48 Stunden eine Antwort.</p>
+      <button class="download-button" id="confirmCloseBtn">Schließen</button>
+    </div>
+  </div>
+
   <script>
+    // Menü
     const menuBtn = document.getElementById('menuBtn');
     const menu = document.getElementById('menu');
 
@@ -123,50 +136,49 @@
 
     function toggleMenu() {
       const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
-      if (isExpanded) {
-        closeMenu();
-      } else {
-        openMenu();
-      }
+      if (isExpanded) { closeMenu(); } else { openMenu(); }
     }
 
-    menuBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleMenu();
-    });
-
-    document.addEventListener('click', (e) => {
-      if (!menu.contains(e.target) && e.target !== menuBtn) {
-        closeMenu();
-      }
-    });
-
-    document.querySelectorAll('.menu a').forEach(link => {
-      link.addEventListener('click', closeMenu);
-    });
+    menuBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(); });
+    document.addEventListener('click', (e) => { if(!menu.contains(e.target) && e.target !== menuBtn) closeMenu(); });
+    document.querySelectorAll('.menu a').forEach(link => { link.addEventListener('click', closeMenu); });
 
     // Kontaktmodal
     const contactModal = document.getElementById('contactModal');
     const contactOpenBtn = document.getElementById('contactOpenBtn');
-    const closeBtn = document.querySelector('.close-btn');
+    const closeBtn = contactModal.querySelector('.close-btn');
 
     contactOpenBtn.onclick = () => { contactModal.style.display = 'block'; }
     closeBtn.onclick = () => { contactModal.style.display = 'none'; }
     window.onclick = (event) => { if(event.target === contactModal) contactModal.style.display = 'none'; }
 
+    // Textarea Auto-Resize & CharCounter
     const messageInput = document.getElementById('message');
     const charCount = document.getElementById('charCount');
-
     messageInput.addEventListener('input', () => {
       charCount.textContent = messageInput.value.length;
       messageInput.style.height = 'auto';
       messageInput.style.height = messageInput.scrollHeight + 'px';
     });
 
+    // Formular Submission
+    const contactForm = document.getElementById('contactForm');
+    const confirmationModal = document.getElementById('confirmationModal');
+    const confirmCloseBtn = document.getElementById('confirmCloseBtn');
+
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault(); // Verhindert Standard-Submit für Demo
+      contactModal.style.display = 'none';
+      confirmationModal.style.display = 'block';
+      contactForm.reset();
+      charCount.textContent = '0';
+      messageInput.style.height = 'auto';
+    });
+
+    confirmCloseBtn.onclick = () => { confirmationModal.style.display = 'none'; }
+    window.addEventListener('click', (event) => { if(event.target === confirmationModal) confirmationModal.style.display = 'none'; });
   </script>
 
   <script src="background.js"></script>
 </body>
 </html>
-
-
