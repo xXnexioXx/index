@@ -66,7 +66,6 @@ section {
 
 #frame {
   text-align: center;
-  /* reset padding-top back to normal since it was moving the whole block */
   padding-top: 2rem;
 }
 
@@ -103,7 +102,7 @@ p {
 .page-header {
   font-size: 2.5rem;
   font-weight: 700;
-  margin-bottom: 8rem; /* Controls space between header and first download frame */
+  margin-bottom: 8rem;
   margin-top: 5rem;
   letter-spacing: 2px;
   text-align: center;
@@ -234,7 +233,6 @@ a:hover {
   top: 4rem;
   right: -120px;
   width: 120px;
-  /* reduced min-height from 80px to 60px for smaller vertical size */
   min-height: 50px;
   background-color: rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
@@ -243,9 +241,7 @@ a:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* reduced gap from 0.5rem to 0.3rem for tighter spacing */
   gap: 0.3rem;
-  /* reduced padding from 0.5rem to 0.3rem for smaller menu */
   padding: 0.3rem 0;
   transition: right 0.s ease;
   border: 1px solid rgba(255, 255, 255, 0.0);
@@ -265,14 +261,12 @@ a:hover {
   transition: all 0.15s ease;
   text-align: center;
   width: 100%;
-  /* changed text color from #666 to #ffffff for white text */
   color: #ffffff;
   white-space: nowrap;
 }
 
 .menu a:hover {
   background-color: rgba(102, 102, 102, 0.3);
-  /* changed hover color from #999 to #ffffff to keep text white */
   color: #ffffff;
   text-decoration: none;
 }
@@ -308,7 +302,6 @@ a:hover {
   background-color: rgba(42, 42, 42, 0.7);
   border-radius: 6px;
   padding: 2rem;
-  /* Changed to control only spacing between download frames */
   margin: 0 auto 3rem auto;
   max-width: 800px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
@@ -390,7 +383,6 @@ footer {
   margin: 0;
 }
 
-/* Added responsive design for kompendium container */
 /* Responsive Design */
 @media (max-width: 768px) {
   .menu {
@@ -423,7 +415,6 @@ footer {
     font-size: 1.5rem;
   }
 
-  /* Simplified download-item margin without first-child override */
   .download-item {
     margin: 0 auto 2rem auto;
     padding: 1.5rem;
@@ -454,7 +445,6 @@ footer {
   }
 }
 
-/* Additional spacing for content sections */
 section p[style*="margin-top: 100px"] {
   margin-top: 100px !important;
   font-size: 1rem;
@@ -467,5 +457,67 @@ section p[style*="margin-top: 100px"] {
   }
 }
 
+/* Kontaktformular Popup */
+.contact-popup {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.7);
+  justify-content: center;
+  align-items: center;
+}
 
+.contact-popup-content {
+  background-color: rgba(42, 42, 42, 0.95);
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
 
+.contact-popup-content h3 {
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.contact-popup-content label {
+  display: block;
+  margin: 0.5rem 0 0.2rem;
+  color: #e0e0e0;
+}
+
+.contact-popup-content input,
+.contact-popup-content textarea {
+  width: 100%;
+  padding: 0.6rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  font-family: "Inter", sans-serif;
+}
+
+.contact-popup-content textarea {
+  resize: vertical;
+}
+
+.close-popup {
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+.contact-popup-content .download-button {
+  width: 100%;
+  text-align: center;
+}
