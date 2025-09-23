@@ -56,16 +56,35 @@
         </div>
       </div>
       
+      <!-- Kontakt-Button mit Web3Forms -->
       <div class="download-item">
-        <h3></h3>
-        <p></p>
-        <a href="https://google.com/" class="download-button" target="_blank">Download</a>
+        <h3>Kontakt</h3>
+        <p>Hast du Fragen oder Anregungen? Schreibe mir direkt über dieses Formular:</p>
+        <button class="download-button" id="contactBtn">Kontaktformular öffnen</button>
       </div>
-      
-      <div class="download-item">
-        <h3></h3>
-        <p></p>
-        <a href="https://google.com/" class="download-button">Download</a>
+
+      <!-- Hidden Web3Forms Popup -->
+      <div id="contactPopup" class="contact-popup">
+        <div class="contact-popup-content">
+          <span class="close-popup" id="closePopup">&times;</span>
+          <h3>Kontaktformular</h3>
+          <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="DEIN_API_KEY_HIER_EINFÜGEN" />
+            <input type="hidden" name="subject" value="Neue Nachricht von nexio.network" />
+            <input type="hidden" name="redirect" value="https://nexio.network/#Contact" />
+
+            <label for="name">Name:</label>
+            <input type="text" name="name" id="name" required />
+
+            <label for="email">E-Mail:</label>
+            <input type="email" name="email" id="email" required />
+
+            <label for="message">Nachricht:</label>
+            <textarea name="message" id="message" rows="5" required></textarea>
+
+            <button type="submit" class="download-button">Senden</button>
+          </form>
+        </div>
       </div>
       
       <p style="margin-top: 100px;">
@@ -118,6 +137,25 @@
 
     document.querySelectorAll('.menu a').forEach(link => {
       link.addEventListener('click', closeMenu);
+    });
+
+    // Popup öffnen/schließen
+    const contactBtn = document.getElementById('contactBtn');
+    const contactPopup = document.getElementById('contactPopup');
+    const closePopup = document.getElementById('closePopup');
+
+    contactBtn.addEventListener('click', () => {
+      contactPopup.style.display = 'flex';
+    });
+
+    closePopup.addEventListener('click', () => {
+      contactPopup.style.display = 'none';
+    });
+
+    window.addEventListener('click', (e) => {
+      if (e.target === contactPopup) {
+        contactPopup.style.display = 'none';
+      }
     });
   </script>
 
