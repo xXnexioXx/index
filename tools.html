@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark">
+  <title>nexio.network - Tools</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .kompendium-container {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 40px;
+    }
+
+    .kompendium-title {
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin: 0 0 30px 0;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+
+    .category-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 25px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .category-tab {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #888;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .category-tab:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #e0e0e0;
+    }
+
+    .category-tab.active {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .language-filter {
+      display: none;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+    }
+
+    .language-filter.visible {
+      display: flex;
+    }
+
+    .language-filter label {
+      font-size: 13px;
+      color: #888;
+      margin-right: 5px;
+    }
+
+    .lang-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #888;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .lang-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #e0e0e0;
+    }
+
+    .lang-btn.active {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .category-content {
+      display: none;
+    }
+
+    .category-content.active {
+      display: block;
+    }
+
+    .button-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 12px;
+    }
+
+    .tool-button {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #e0e0e0;
+      padding: 14px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .tool-button:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: #0af;
+      transform: translateY(-2px);
+    }
+
+    .tool-button.de::after {
+      content: ' [DE]';
+      font-size: 10px;
+      color: #888;
+    }
+
+    .tool-button.en::after {
+      content: ' [EN]';
+      font-size: 10px;
+      color: #888;
+    }
+
+    @media (max-width: 600px) {
+      .kompendium-container {
+        padding: 15px;
+      }
+
+      .button-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+
+      .category-tabs {
+        gap: 6px;
+      }
+
+      .category-tab {
+        padding: 6px 10px;
+        font-size: 11px;
+      }
+
+      .language-filter {
+        padding: 10px;
+        gap: 6px;
+      }
+
+      .language-filter label {
+        width: 100%;
+        text-align: center;
+        margin-right: 0;
+        margin-bottom: 5px;
+      }
+
+      .lang-btn {
+        padding: 6px 10px;
+        font-size: 11px;
+      }
+
+      .tool-button {
+        padding: 10px 12px;
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back-button">&lt; Back</a>
+
+  <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+
+  <nav class="menu" id="menu" aria-hidden="true">
+    <a href="index.html">Home</a>
+    <a href="index.html#Whatisthis">What is this?</a>
+    <a href="index.html#Contact">Contact</a>
+    <a href="download.html">Download</a>
+    <a href="tools.html">Tools</a>
+    <a href="extra.html">Extra</a>
+  </nav>
+
+  <main>
+    <h1 class="page-header">Tools</h1>
+
+    <section id="frame">
+      <div class="kompendium-container">
+        <h2 class="kompendium-title">Compendium</h2>
+
+        <!-- Category Tabs -->
+        <div class="category-tabs">
+          <button class="category-tab active" data-category="general">General</button>
+          <button class="category-tab" data-category="movies">Movies & Series</button>
+          <button class="category-tab" data-category="tv">TV</button>
+          <button class="category-tab" data-category="anime">Anime</button>
+          <button class="category-tab" data-category="games">Games</button>
+          <button class="category-tab" data-category="music">Music</button>
+          <button class="category-tab" data-category="software">Software</button>
+          <button class="category-tab" data-category="sports">Sports</button>
+          <button class="category-tab" data-category="misc.">Mics.</button>
+        </div>
+
+        <!-- Language / Platform Filter -->
+        <div class="language-filter" id="languageFilter">
+          <label id="filterLabel">Language:</label>
+          <button class="lang-btn active" data-lang="all">All</button>
+          <button class="lang-btn" data-lang="de">Deutsch</button>
+          <button class="lang-btn" data-lang="en">English</button>
+          <button class="lang-btn" data-lang="pc" style="display:none;">PC</button>
+          <button class="lang-btn" data-lang="roms" style="display:none;">ROMs</button>
+        </div>
+
+        <!-- GENERAL -->
+        <div class="category-content active" data-category="general">
+          <div class="button-grid">
+            <button class="tool-button" onclick="window.open('https://fmhy.net/', '_blank')">FMHY</button>
+            <button class="tool-button" onclick="window.open('https://github.com/SeppPenner/awesome-german-piracy/', '_blank')">German Piracy</button>
+            <button class="tool-button" onclick="window.open('https://rentry.org/megathread/', '_blank')">Megathread</button>
+            <button class="tool-button" onclick="window.open('https://www.reddit.com/r/Piracy/', '_blank')">r/Piracy</button>
+          </div>
+        </div>
+
+        <!-- MOVIES & SERIES -->
+        <div class="category-content" data-category="movies">
+          <div class="button-grid" id="moviesGrid">
+            <button class="tool-button de" data-lang="de" onclick="window.open('https://aniworld.to/', '_blank')">AniWorld</button>
+            <button class="tool-button de" data-lang="de" onclick="window.open('https://cine.to/', '_blank')">Cine.to</button>
+            <button class="tool-button de" data-lang="de" onclick="window.open('https://filmpalast.to/', '_blank')">Filmpalast</button>
+            <button class="tool-button de" data-lang="de" onclick="window.open('https://hdfilme.legal/', '_blank')">HDfilme</button>
+            <button class="tool-button de" data-lang="de" onclick="window.open('https://kinoger.com/', '_blank')">KinoGer</button>
+            <button class="tool-button de" data-lang="de" onclick="window.open('https://kinox.to/', '_blank')">KinoX</button>
+            <button class="tool-button de" data-lang="de" onclick="window.open('https://megakino.org/', '_blank')">MegaKino</button>
+            <button class="tool-button de" data-lang="de" onclick="window.open('https://movie2k.cx/', '_blank')">Movie2K</button>
+            <button class="tool-button de" data-lang="de" onclick="window.open('https://movie4k.sx/', '_blank')">Movie4K</button>
+            <button class="tool-button de" data-lang="de" onclick="window.open('https://s.to/', '_blank')">S.to</button>
+            <button class="tool-button de" data-lang="de" onclick="window.open('https://streamkiste.taxi/streamkiste/', '_blank')">StreamKiste</button>
+            <button class="tool-button de" data-lang="de" onclick="window.open('https://github.com/streamflix-reborn/streamflix/releases', '_blank')">Streamflix (app)</button>
+
+            <button class="tool-button en" data-lang="en" onclick="window.open('https://www.1shows.nl/', '_blank')">1Shows</button>
+            <button class="tool-button en" data-lang="en" onclick="window.open('https://cinemacity.rip/', '_blank')">CinemaCity</button>
+            <button class="tool-button en" data-lang="en" onclick="window.open('https://www.cineby.gd/', '_blank')">Cineby</button>
+            <button class="tool-button en" data-lang="en" onclick="window.open('https://www.ez-streaming.space/', '_blank')">Ez Streaming</button>
+            <button class="tool-button en" data-lang="en" onclick="window.open('https://himovies.sx/home', '_blank')">HiMovies</button>
+            <button class="tool-button en" data-lang="en" onclick="window.open('https://hollymoviehd.cc/home/', '_blank')">HollyMovieHD</button>
+            <button class="tool-button en" data-lang="en" onclick="window.open('https://ishowmovies.org/', '_blank')">ishowmovies</button>
+            <button class="tool-button en" data-lang="en" onclick="window.open('https://moviebite.cc/browse', '_blank')">MovieBite</button>
+            <button class="tool-button en" data-lang="en" onclick="window.open('https://movieuwutv.top/', '_blank')">MovieUWU</button>
+            <button class="tool-button en" data-lang="en" onclick="window.open('https://pstream.mov/', '_blank')">Pstream</button>
+            <button class="tool-button en" data-lang="en" onclick="window.open('https://github.com/streamflix-reborn/streamflix/releases', '_blank')">Streamflix (app)</button>
+          </div>
+        </div>
+
+        <!-- TV -->
+        <div class="category-content" data-category="tv">
+          <div class="button-grid">
+            <button class="tool-button" onclick="window.open('https://www.2ix2.com/', '_blank')">2ix2</button>
+            <button class="tool-button" onclick="window.open('https://dragon-ott.com/', '_blank')">IPTV (paid)</button>
+            <button class="tool-button" onclick="window.open('https://www.livehdtv.com/ulke/germany/', '_blank')">LiveHDTV</button>
+            <button class="tool-button" onclick="window.open('https://www.livestreamde.com/', '_blank')">LivestreamDE</button>
+          </div>
+        </div>
+
+        <!-- ANIME -->
+        <div class="category-content" data-category="anime">
+          <div class="button-grid">
+            <button class="tool-button" onclick="window.open('https://www.anilab.to/', '_blank')">anilab (app)</button>
+            <button class="tool-button" onclick="window.open('https://www.animekai.to/', '_blank')">AnimeKAI</button>
+            <button class="tool-button" onclick="window.open('https://ww1.lat/animesuge/', '_blank')">AnimeSuge</button>
+            <button class="tool-button" onclick="window.open('https://aniwatchtv.to/', '_blank')">aniwatch</button>
+            <button class="tool-button" onclick="window.open('https://www.anime.loads.org/', '_blank')">Anime-Loads (DE)</button>
+            <button class="tool-button" onclick="window.open('https://www.aniworld.to/', '_blank')">AniWorld (DE)</button>
+            <button class="tool-button" onclick="window.open('https://www.miruro.tv/', '_blank')">Mirurotv</button>
+          </div>
+        </div>
+
+        <!-- GAMES -->
+        <div class="category-content" data-category="games">
+          <div class="button-grid" id="gamesGrid">
+            <button class="tool-button" data-lang="pc" onclick="window.open('https://ankergames.net/', '_blank')">AnkerGames</button>
+            <button class="tool-button" data-lang="pc" onclick="window.open('https://astral-games.xyz/', '_blank')">AstralGames</button>
+            <button class="tool-button" data-lang="pc" onclick="window.open('https://www.cg-gamespc.net/', '_blank')">CG-gamesPC</button>
+            <button class="tool-button" data-lang="pc" onclick="window.open('https://dodi-repacks.site/', '_blank')">DODI Repacks</button>
+            <button class="tool-button" data-lang="pc" onclick="window.open('https://fitgirl-repacks.site/', '_blank')">FitGirl Repacks</button>
+            <button class="tool-button" data-lang="pc" onclick="window.open('https://gamedrive.org/', '_blank')">GameDrive</button>
+            <button class="tool-button" data-lang="pc" onclick="window.open('https://gamebounty.world/', '_blank')">Gamebounty</button>
+            <button class="tool-button" data-lang="pc" onclick="window.open('https://gload.to/', '_blank')">GLOAD</button>
+            <button class="tool-button" data-lang="pc" onclick="window.open('https://rentry.org/gnarly_repacks/', '_blank')">Gnarly</button>
+            <button class="tool-button" data-lang="pc" onclick="window.open('https://www.ovagames.com/', '_blank')">Ova Games</button>
+            <button class="tool-button" data-lang="pc" onclick="window.open('https://pc-games.eu.org/', '_blank')">pc-games.eu</button>
+            <button class="tool-button" data-lang="pc" onclick="window.open('https://rentry.org/pgames/', '_blank')">PGames</button>
+            <button class="tool-button" data-lang="pc" onclick="window.open('https://rexagames.com/', '_blank')">RexaGames</button>
+
+            <button class="tool-button" data-lang="roms" onclick="window.open('https://nswgame.com/', '_blank')">nswgame</button>
+            <button class="tool-button" data-lang="roms" onclick="window.open('https://nxbrew.net/', '_blank')">NXBrew</button>
+            <button class="tool-button" data-lang="roms" onclick="window.open('https://romsim.com/', '_blank')">ROMSIM</button>
+            <button class="tool-button" data-lang="roms" onclick="window.open('https://romsfun.com/', '_blank')">ROMSFUN</button>
+            <button class="tool-button" data-lang="roms" onclick="window.open('https://romslab.com/', '_blank')">ROMSLAB</button>
+            <button class="tool-button" data-lang="roms" onclick="window.open('https://www.switchgamesmall.icu/', '_blank')">SwitchGamesMall</button>
+            <button class="tool-button" data-lang="roms" onclick="window.open('https://not.ultranx.ru/en', '_blank')">UltraNX</button>
+            <button class="tool-button" data-lang="roms" onclick="window.open('https://www.ziperto.com/', '_blank')">Ziperto</button>
+          </div>
+        </div>
+
+        <!-- MUSIC -->
+        <div class="category-content" data-category="music">
+          <div class="button-grid">
+            <button class="tool-button" onclick="window.open('https://dabmusic.xyz/', '_blank')">DAB Music Player</button>
+            <button class="tool-button" onclick="window.open('https://github.com/afkarxyz/SpotiFLAC/releases/', '_blank')">SpotiFlac (app)</button>
+          </div>
+        </div>
+
+        <!-- SOFTWARE -->
+        <div class="category-content" data-category="software">
+          <div class="button-grid">
+            <button class="tool-button" onclick="window.open('https://www.fcportables.com/', '_blank')">FC Portables</button>
+            <button class="tool-button" onclick="window.open('https://lrepacks.net/#', '_blank')">LRepacks</button>
+            <button class="tool-button" onclick="window.open('https://forum.mobilism.org/index.php', '_blank')">Mobilism</button>
+            <button class="tool-button" onclick="window.open('https://ggntw.com/steam/', '_blank')">Steam WS</button>
+          </div>
+        </div>
+
+        <!-- SPORTS -->
+        <div class="category-content" data-category="sports">
+          <div class="button-grid">
+            <button class="tool-button" onclick="window.open('https://buffsports.io/', '_blank')">Buffstreams</button>
+            <button class="tool-button" onclick="window.open('https://hesgoal.im/', '_blank')">Hesgoal</button>
+            <button class="tool-button" onclick="window.open('https://ntvstream.cx/', '_blank')">NTVSTREAM</button>
+            <button class="tool-button" onclick="window.open('https://ppv.to/', '_blank')">PPV</button>
+            <button class="tool-button" onclick="window.open('https://sportyhunter.com/', '_blank')">SportyHunter</button>
+          </div>
+        </div>
+
+        <!-- MISC -->
+        <div class="category-content" data-category="misc.">
+          <div class="button-grid">
+            <button class="tool-button" onclick="window.open('https://www.curseforge.com/wow/addons/critsound', '_blank')">CritSound</button>
+            <button class="tool-button" onclick="window.open('https://modrinth.com/plugin/gbjc', '_blank')">GeyserGBJC</button>
+          </div>
+        </div>
+      </div>
+
+      <p style="margin-top: 100px;">
+        please <a href="https://nexio.network/#Contact" style="color: #0af; text-decoration: underline;">contact</a> me if any of the links are not working anymore.
+      </p>
+    </section>
+
+    <footer>
+      <div class="quote">Malo periculosam libertatem quam quietum servitium.</div>
+    </footer>
+  </main>
+
+  <script>
+    // ── Menu ──────────────────────────────────────────────────────────────────
+    const menuBtn = document.getElementById('menuBtn');
+    const menu = document.getElementById('menu');
+
+    function closeMenu() {
+      menuBtn.setAttribute('aria-expanded', 'false');
+      menu.setAttribute('aria-hidden', 'true');
+      menu.classList.remove('active');
+      menuBtn.classList.remove('active');
+    }
+
+    function openMenu() {
+      menuBtn.setAttribute('aria-expanded', 'true');
+      menu.setAttribute('aria-hidden', 'false');
+      menu.classList.add('active');
+      menuBtn.classList.add('active');
+    }
+
+    function toggleMenu() {
+      const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+      if (isExpanded) { closeMenu(); } else { openMenu(); }
+    }
+
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMenu();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!menu.contains(e.target) && e.target !== menuBtn) {
+        closeMenu();
+      }
+    });
+
+    document.querySelectorAll('.menu a').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    // ── Compendium ────────────────────────────────────────────────────────────
+    const categoryTabs     = document.querySelectorAll('.category-tab');
+    const categoryContents = document.querySelectorAll('.category-content');
+    const languageFilter   = document.getElementById('languageFilter');
+    const filterLabel      = document.getElementById('filterLabel');
+    const langBtns         = document.querySelectorAll('.lang-btn');
+
+    const filterConfig = {
+      movies: { label: 'Language:', btns: ['all', 'de', 'en'] },
+      games:  { label: 'Platform:', btns: ['all', 'pc', 'roms'] }
+    };
+
+    categoryTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const category = tab.dataset.category;
+
+        // Switch active tab
+        categoryTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        // Switch active content
+        categoryContents.forEach(content => {
+          content.classList.remove('active');
+          if (content.dataset.category === category) {
+            content.classList.add('active');
+          }
+        });
+
+        // Reset all buttons to hidden, then show relevant ones
+        langBtns.forEach(b => b.style.display = 'none');
+
+        if (filterConfig[category]) {
+          const cfg = filterConfig[category];
+          filterLabel.textContent = cfg.label;
+          cfg.btns.forEach(l => {
+            document.querySelector(`.lang-btn[data-lang="${l}"]`).style.display = 'inline-block';
+          });
+          // Reset filter to "All"
+          langBtns.forEach(b => b.classList.remove('active'));
+          document.querySelector('.lang-btn[data-lang="all"]').classList.add('active');
+          // Show all buttons in this category
+          document.querySelectorAll('.category-content.active .tool-button').forEach(el => {
+            el.style.display = 'block';
+          });
+          languageFilter.classList.add('visible');
+        } else {
+          languageFilter.classList.remove('visible');
+        }
+      });
+    });
+
+    langBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const lang = btn.dataset.lang;
+
+        langBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        document.querySelectorAll('.category-content.active .tool-button').forEach(el => {
+          if (lang === 'all' || el.dataset.lang === lang) {
+            el.style.display = 'block';
+          } else {
+            el.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+
+  <script src="background.js"></script>
+</body>
+</html>

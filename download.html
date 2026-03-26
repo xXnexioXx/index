@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark">
+  <title>nexio.network - Download</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a href="index.html" class="back-button">&lt; Back</a>
+
+  <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+
+  <nav class="menu" id="menu" aria-hidden="true">
+    <a href="index.html">Home</a>
+    <a href="index.html#Whatisthis">What is this?</a>
+    <a href="index.html#Contact">Contact</a>
+    <a href="download.html">Download</a>
+    <a href="tools.html">Tools</a>
+    <a href="extra.html">Extra</a>  
+  </nav>
+
+  <main>
+    <h1 class="page-header">Download</h1>
+    
+    <section id="frame">
+      <div class="download-item">
+        <h3></h3>
+        <p></p>
+        <a href="https://google.com/" class="download-button" target="_blank">Download</a>
+      </div>
+      
+      <div class="download-item">
+        <h3></h3>
+        <p></p>
+        <a href="https://google.com/" class="download-button">Download</a>
+      </div>
+      
+      <div class="download-item">
+        <h3></h3>
+        <p></p>
+        <a href="https://google.com/" class="download-button">Download</a>
+      </div>
+      
+      <p style="margin-top: 100px;">
+        please <a href="https://nexio.network/#Contact" style="color: #0af; text-decoration: underline;">contact</a> me if any of the links are not working anymore.
+      </p>
+    </section>
+
+    <footer>
+      <div class="quote">Malo periculosam libertatem quam quietum servitium.</div>
+    </footer>
+  </main>
+
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const menu = document.getElementById('menu');
+
+    function closeMenu() {
+      menuBtn.setAttribute('aria-expanded', 'false');
+      menu.setAttribute('aria-hidden', 'true');
+      menu.classList.remove('active');
+      menuBtn.classList.remove('active');
+    }
+
+    function openMenu() {
+      menuBtn.setAttribute('aria-expanded', 'true');
+      menu.setAttribute('aria-hidden', 'false');
+      menu.classList.add('active');
+      menuBtn.classList.add('active');
+    }
+
+    function toggleMenu() {
+      const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+      if (isExpanded) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    }
+
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMenu();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!menu.contains(e.target) && e.target !== menuBtn) {
+        closeMenu();
+      }
+    });
+
+    document.querySelectorAll('.menu a').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+  </script>
+
+  <script src="background.js"></script>
+</body>
+</html>
