@@ -7,7 +7,7 @@
   <title>nexio.network - Tools</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* ── Compendium ──────────────────────────────────────────────────────── */
+    /* ── Compendium ── */
     .kompendium-container {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -70,9 +70,7 @@
       border-radius: 8px;
     }
 
-    .language-filter.visible {
-      display: flex;
-    }
+    .language-filter.visible { display: flex; }
 
     .language-filter label {
       font-size: 13px;
@@ -92,24 +90,11 @@
       font-family: inherit;
     }
 
-    .lang-btn:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: #e0e0e0;
-    }
+    .lang-btn:hover { background: rgba(255, 255, 255, 0.1); color: #e0e0e0; }
+    .lang-btn.active { background: rgba(255, 255, 255, 0.15); color: #fff; border-color: rgba(255, 255, 255, 0.3); }
 
-    .lang-btn.active {
-      background: rgba(255, 255, 255, 0.15);
-      color: #fff;
-      border-color: rgba(255, 255, 255, 0.3);
-    }
-
-    .category-content {
-      display: none;
-    }
-
-    .category-content.active {
-      display: block;
-    }
+    .category-content { display: none; }
+    .category-content.active { display: block; }
 
     .button-grid {
       display: grid;
@@ -135,19 +120,10 @@
       transform: translateY(-2px);
     }
 
-    .tool-button.de::after {
-      content: ' [DE]';
-      font-size: 10px;
-      color: #888;
-    }
+    .tool-button.de::after { content: ' [DE]'; font-size: 10px; color: #888; }
+    .tool-button.en::after { content: ' [EN]'; font-size: 10px; color: #888; }
 
-    .tool-button.en::after {
-      content: ' [EN]';
-      font-size: 10px;
-      color: #888;
-    }
-
-    /* ── Bookmarks ───────────────────────────────────────────────────────── */
+    /* ── Bookmarks Tool ── */
     .bookmarks-container {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -159,10 +135,10 @@
     .bookmarks-header {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 14px;
+      justify-content: space-between;
       margin-bottom: 30px;
-      position: relative;
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
     .bookmarks-title {
@@ -172,196 +148,223 @@
       letter-spacing: 1px;
     }
 
-    .bookmarks-download-btn {
-      position: absolute;
-      right: 0;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #888;
-      padding: 6px 14px;
-      border-radius: 6px;
+    .download-bookmarks-btn {
+      background: rgba(0, 170, 255, 0.10);
+      border: 1px solid rgba(0, 170, 255, 0.30);
+      color: #0af;
+      padding: 9px 18px;
+      border-radius: 7px;
       cursor: pointer;
-      font-size: 12px;
+      font-size: 13px;
       font-family: inherit;
       transition: all 0.2s;
       display: flex;
       align-items: center;
-      gap: 6px;
-      text-decoration: none;
+      gap: 7px;
     }
 
-    .bookmarks-download-btn:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: #e0e0e0;
-      border-color: rgba(255, 255, 255, 0.25);
-      text-decoration: none;
+    .download-bookmarks-btn:hover {
+      background: rgba(0, 170, 255, 0.20);
+      border-color: rgba(0, 170, 255, 0.55);
+      transform: translateY(-1px);
     }
 
-    .bookmarks-download-btn svg {
-      width: 13px;
-      height: 13px;
-      opacity: 0.7;
+    .download-bookmarks-btn svg { width: 14px; height: 14px; fill: currentColor; }
+
+    /* Accordion */
+    .bm-category {
+      margin-bottom: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 8px;
+      overflow: hidden;
     }
 
-    .bookmarks-category-tabs {
+    .bm-category-header {
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: center;
-      margin-bottom: 25px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .bm-tab {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: #888;
-      padding: 7px 15px;
-      border-radius: 6px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 18px;
+      background: rgba(255, 255, 255, 0.04);
       cursor: pointer;
-      font-size: 13px;
-      transition: all 0.2s;
-      font-family: inherit;
+      transition: background 0.2s;
+      user-select: none;
     }
 
-    .bm-tab:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: #e0e0e0;
+    .bm-category-header:hover { background: rgba(255, 255, 255, 0.08); }
+
+    .bm-category-name { font-size: 14px; font-weight: 500; color: #e0e0e0; letter-spacing: 0.5px; }
+
+    .bm-category-meta { display: flex; align-items: center; gap: 10px; }
+
+    .bm-count {
+      font-size: 11px;
+      color: #555;
+      background: rgba(255,255,255,0.05);
+      padding: 2px 7px;
+      border-radius: 10px;
     }
 
-    .bm-tab.active {
-      background: rgba(255, 255, 255, 0.15);
-      color: #fff;
-      border-color: rgba(255, 255, 255, 0.3);
-    }
+    .bm-chevron { color: #555; font-size: 11px; transition: transform 0.2s; display: inline-block; }
+    .bm-category.open .bm-chevron { transform: rotate(180deg); }
 
-    .bm-content {
+    .bm-links {
       display: none;
+      padding: 12px 14px;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 8px;
+      background: rgba(0, 0, 0, 0.15);
     }
 
-    .bm-content.active {
+    .bm-category.open .bm-links { display: grid; }
+
+    .bm-link {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      color: #c8c8c8;
+      padding: 10px 13px;
+      border-radius: 6px;
+      font-size: 13px;
+      text-decoration: none;
+      transition: all 0.18s;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       display: block;
     }
 
-    .bookmarks-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 12px;
-    }
-
-    .bookmark-btn {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: #e0e0e0;
-      padding: 14px 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 14px;
-      transition: all 0.2s;
-      font-family: inherit;
-      text-align: left;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      width: 100%;
-    }
-
-    .bookmark-btn:hover {
-      background: rgba(255, 255, 255, 0.1);
+    .bm-link:hover {
+      background: rgba(255, 255, 255, 0.09);
       border-color: #0af;
-      transform: translateY(-2px);
+      color: #fff;
+      transform: translateY(-1px);
+      text-decoration: none;
     }
 
-    .bookmark-btn .bm-favicon {
-      width: 16px;
-      height: 16px;
-      border-radius: 3px;
-      flex-shrink: 0;
-      opacity: 0.8;
+    /* Download Modal */
+    .bm-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      z-index: 3000;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(4px);
     }
 
-    .bookmark-btn .bm-favicon-fallback {
-      width: 16px;
-      height: 16px;
-      border-radius: 3px;
-      flex-shrink: 0;
-      opacity: 0.4;
-      font-size: 10px;
+    .bm-modal-overlay.visible { display: flex; }
+
+    .bm-modal {
+      background: #111;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      padding: 32px 28px;
+      max-width: 420px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+    }
+
+    .bm-modal-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 16px;
+      background: rgba(0,170,255,0.12);
+      border: 1px solid rgba(0,170,255,0.3);
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .bookmarks-loading {
-      text-align: center;
+    .bm-modal-icon svg { width: 22px; height: 22px; fill: #0af; }
+
+    .bm-modal h3 { font-size: 1.1rem; font-weight: 500; margin: 0 0 10px; color: #fff; }
+
+    .bm-modal p {
+      font-size: 13px;
+      color: #888;
+      margin: 0 0 22px;
+      line-height: 1.6;
+      max-width: 100%;
+    }
+
+    .bm-modal p code {
+      background: rgba(255,255,255,0.08);
+      padding: 1px 6px;
+      border-radius: 4px;
+      color: #ccc;
+      font-size: 12px;
+    }
+
+    .bm-modal-btns { display: flex; gap: 10px; justify-content: center; }
+
+    .bm-btn-download {
+      background: rgba(0,170,255,0.15);
+      border: 1px solid rgba(0,170,255,0.4);
+      color: #0af;
+      padding: 10px 22px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-size: 13px;
+      font-family: inherit;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .bm-btn-download:hover { background: rgba(0,170,255,0.25); color: #0af; text-decoration: none; }
+
+    .bm-btn-cancel {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #888;
+      padding: 10px 22px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-size: 13px;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+
+    .bm-btn-cancel:hover { background: rgba(255,255,255,0.09); color: #ccc; }
+
+    .bm-modal-close {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      background: none;
+      border: none;
       color: #555;
-      font-size: 13px;
-      padding: 30px 0;
+      font-size: 18px;
+      cursor: pointer;
+      font-family: inherit;
+      line-height: 1;
+      transition: color 0.2s;
     }
 
-    .bookmarks-error {
-      text-align: center;
-      color: #666;
-      font-size: 13px;
-      padding: 20px 0;
-    }
+    .bm-modal-close:hover { color: #ccc; }
 
-    /* ── Responsive ──────────────────────────────────────────────────────── */
+    /* Responsive */
     @media (max-width: 600px) {
       .kompendium-container,
-      .bookmarks-container {
-        padding: 15px;
-      }
+      .bookmarks-container { padding: 15px; }
 
-      .button-grid,
-      .bookmarks-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-      }
+      .button-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
 
-      .category-tabs,
-      .bookmarks-category-tabs {
-        gap: 6px;
-      }
+      .category-tabs { gap: 6px; }
+      .category-tab { padding: 6px 10px; font-size: 11px; }
 
-      .category-tab,
-      .bm-tab {
-        padding: 6px 10px;
-        font-size: 11px;
-      }
+      .language-filter { padding: 10px; gap: 6px; }
+      .language-filter label { width: 100%; text-align: center; margin-right: 0; margin-bottom: 5px; }
+      .lang-btn { padding: 6px 10px; font-size: 11px; }
 
-      .language-filter {
-        padding: 10px;
-        gap: 6px;
-      }
+      .tool-button { padding: 10px 12px; font-size: 12px; }
 
-      .language-filter label {
-        width: 100%;
-        text-align: center;
-        margin-right: 0;
-        margin-bottom: 5px;
-      }
-
-      .lang-btn {
-        padding: 6px 10px;
-        font-size: 11px;
-      }
-
-      .tool-button,
-      .bookmark-btn {
-        padding: 10px 12px;
-        font-size: 12px;
-      }
-
-      .bookmarks-header {
-        flex-direction: column;
-        gap: 10px;
-      }
-
-      .bookmarks-download-btn {
-        position: static;
-      }
+      .bm-links { grid-template-columns: repeat(2, 1fr); }
+      .bookmarks-header { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
@@ -386,7 +389,9 @@
 
     <section id="frame">
 
-      <!-- ── COMPENDIUM ──────────────────────────────────────────────────── -->
+      <!-- ══════════════════════════════════════════
+           TOOL 1: COMPENDIUM
+      ══════════════════════════════════════════ -->
       <div class="kompendium-container">
         <h2 class="kompendium-title">Compendium</h2>
 
@@ -411,7 +416,6 @@
           <button class="lang-btn" data-lang="roms" style="display:none;">ROMs</button>
         </div>
 
-        <!-- GENERAL -->
         <div class="category-content active" data-category="general">
           <div class="button-grid">
             <button class="tool-button" onclick="window.open('https://fmhy.net/', '_blank')">FMHY</button>
@@ -421,7 +425,6 @@
           </div>
         </div>
 
-        <!-- MOVIES & SERIES -->
         <div class="category-content" data-category="movies">
           <div class="button-grid" id="moviesGrid">
             <button class="tool-button de" data-lang="de" onclick="window.open('https://cine.to/', '_blank')">Cine.to</button>
@@ -450,7 +453,6 @@
           </div>
         </div>
 
-        <!-- TV -->
         <div class="category-content" data-category="tv">
           <div class="button-grid">
             <button class="tool-button" onclick="window.open('https://www.2ix2.com/', '_blank')">2ix2</button>
@@ -460,7 +462,6 @@
           </div>
         </div>
 
-        <!-- ANIME -->
         <div class="category-content" data-category="anime">
           <div class="button-grid">
             <button class="tool-button" onclick="window.open('https://www.anilab.to/', '_blank')">anilab (app)</button>
@@ -473,7 +474,6 @@
           </div>
         </div>
 
-        <!-- GAMES -->
         <div class="category-content" data-category="games">
           <div class="button-grid" id="gamesGrid">
             <button class="tool-button" data-lang="pc" onclick="window.open('https://ankergames.net/', '_blank')">AnkerGames</button>
@@ -500,7 +500,6 @@
           </div>
         </div>
 
-        <!-- MUSIC -->
         <div class="category-content" data-category="music">
           <div class="button-grid">
             <button class="tool-button" onclick="window.open('https://dabmusic.xyz/', '_blank')">DAB Music Player</button>
@@ -508,7 +507,6 @@
           </div>
         </div>
 
-        <!-- SOFTWARE -->
         <div class="category-content" data-category="software">
           <div class="button-grid">
             <button class="tool-button" onclick="window.open('https://www.fcportables.com/', '_blank')">FC Portables</button>
@@ -518,7 +516,6 @@
           </div>
         </div>
 
-        <!-- SPORTS -->
         <div class="category-content" data-category="sports">
           <div class="button-grid">
             <button class="tool-button" onclick="window.open('https://buffsports.io/', '_blank')">Buffstreams</button>
@@ -528,7 +525,6 @@
           </div>
         </div>
 
-        <!-- MISC -->
         <div class="category-content" data-category="misc.">
           <div class="button-grid">
             <button class="tool-button" onclick="window.open('https://www.curseforge.com/wow/addons/critsound', '_blank')">CritSound</button>
@@ -537,31 +533,195 @@
         </div>
       </div>
 
-      <!-- ── BOOKMARKS ───────────────────────────────────────────────────── -->
+
+      <!-- ══════════════════════════════════════════
+           TOOL 2: BOOKMARKS
+      ══════════════════════════════════════════ -->
       <div class="bookmarks-container">
         <div class="bookmarks-header">
           <h2 class="bookmarks-title">Bookmarks</h2>
-          <a
-            class="bookmarks-download-btn"
-            href="https://raw.githubusercontent.com/xXnexioXx/index/main/bookmarks.html"
-            download="bookmarks.html"
-            title="Download bookmarks.html"
-          >
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M8 2v8M5 7l3 3 3-3M2 12h12" stroke-linecap="round" stroke-linejoin="round"/>
+          <button class="download-bookmarks-btn" id="openDownloadModal">
+            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 12L3 7h3V2h4v5h3L8 12zM2 14h12v-1.5H2V14z"/>
             </svg>
-            Download
-          </a>
+            Download all
+          </button>
         </div>
 
-        <div class="bookmarks-category-tabs" id="bmTabs">
-          <!-- filled by JS -->
+        <!-- TV -->
+        <div class="bm-category">
+          <div class="bm-category-header" onclick="toggleCategory(this)">
+            <span class="bm-category-name">📺  TV</span>
+            <div class="bm-category-meta">
+              <span class="bm-count">7</span>
+              <span class="bm-chevron">▼</span>
+            </div>
+          </div>
+          <div class="bm-links">
+            <a class="bm-link" href="https://www.2ix2.com/" target="_blank">2ix2</a>
+            <a class="bm-link" href="https://www.livestreamde.com/" target="_blank">LivestreamDE</a>
+            <a class="bm-link" href="https://www.livehdtv.com/ulke/germany/" target="_blank">LiveHDTV</a>
+            <a class="bm-link" href="https://ppv.to/" target="_blank">PPV.to</a>
+            <a class="bm-link" href="https://hesgoal.im/" target="_blank">Hesgoal</a>
+            <a class="bm-link" href="https://ntvstream.cx/" target="_blank">NTVSTREAM</a>
+            <a class="bm-link" href="https://sportyhunter.com/" target="_blank">SportyHunter</a>
+          </div>
         </div>
 
-        <div id="bmContents">
-          <div class="bookmarks-loading">Loading bookmarks…</div>
+        <!-- Movie & Series -->
+        <div class="bm-category">
+          <div class="bm-category-header" onclick="toggleCategory(this)">
+            <span class="bm-category-name">🎬  Movie & Series</span>
+            <div class="bm-category-meta">
+              <span class="bm-count">16</span>
+              <span class="bm-chevron">▼</span>
+            </div>
+          </div>
+          <div class="bm-links">
+            <a class="bm-link" href="https://megafilme.vip/" target="_blank">MegaFilme 🇩🇪</a>
+            <a class="bm-link" href="https://hdfilme.blog/" target="_blank">HDfilme 🇩🇪</a>
+            <a class="bm-link" href="https://filmpalast.to/" target="_blank">Filmpalast 🇩🇪</a>
+            <a class="bm-link" href="https://kinoger.com/" target="_blank">KinoGer 🇩🇪</a>
+            <a class="bm-link" href="https://movie4k.sx/" target="_blank">Movie4K 🇩🇪</a>
+            <a class="bm-link" href="https://cine.to/" target="_blank">Cine.to 🇩🇪</a>
+            <a class="bm-link" href="https://s.to/" target="_blank">S.to 🇩🇪</a>
+            <a class="bm-link" href="https://streamkiste.taxi/streamkiste/" target="_blank">StreamKiste 🇩🇪</a>
+            <a class="bm-link" href="https://hollymoviehd.cc/home/" target="_blank">HollyMovieHD</a>
+            <a class="bm-link" href="https://pstream.mov/" target="_blank">P-Stream</a>
+            <a class="bm-link" href="https://alienflix.net/" target="_blank">AlienFlix</a>
+            <a class="bm-link" href="https://cinemacity.rip/" target="_blank">CinemaCity</a>
+            <a class="bm-link" href="https://www.1shows.nl/" target="_blank">1Shows</a>
+            <a class="bm-link" href="https://www.ez-streaming.space/" target="_blank">Ez Streaming</a>
+            <a class="bm-link" href="https://cinepeace.in/" target="_blank">Cinepeace</a>
+            <a class="bm-link" href="https://4kmovies.co/" target="_blank">4K Movies</a>
+          </div>
         </div>
-      </div>
+
+        <!-- Games -->
+        <div class="bm-category">
+          <div class="bm-category-header" onclick="toggleCategory(this)">
+            <span class="bm-category-name">🎮  Games</span>
+            <div class="bm-category-meta">
+              <span class="bm-count">24</span>
+              <span class="bm-chevron">▼</span>
+            </div>
+          </div>
+          <div class="bm-links">
+            <a class="bm-link" href="https://rentry.org/pgames" target="_blank">PGames Megathread</a>
+            <a class="bm-link" href="https://gamedrive.org/" target="_blank">GameDrive</a>
+            <a class="bm-link" href="https://fitgirl-repacks.site/" target="_blank">FitGirl Repacks</a>
+            <a class="bm-link" href="https://www.elamigos.site/" target="_blank">ElAmigos</a>
+            <a class="bm-link" href="https://dodi-repacks.site/" target="_blank">DODI Repacks</a>
+            <a class="bm-link" href="https://www.ovagames.com/" target="_blank">Ova Games</a>
+            <a class="bm-link" href="https://gload.to/" target="_blank">GLOAD</a>
+            <a class="bm-link" href="https://byxatab.com/" target="_blank">Xatab</a>
+            <a class="bm-link" href="https://pc-games.eu.org/" target="_blank">pc-games.eu</a>
+            <a class="bm-link" href="https://nxbrew.net/" target="_blank">NXBrew</a>
+            <a class="bm-link" href="https://cs.rin.ru/forum/" target="_blank">CS.RIN.RU</a>
+            <a class="bm-link" href="https://ankergames.net/" target="_blank">AnkerGames</a>
+            <a class="bm-link" href="https://rexagames.com/" target="_blank">RexaGames</a>
+            <a class="bm-link" href="https://www.switchgamesmall.icu/" target="_blank">SwitchGamesMall</a>
+            <a class="bm-link" href="https://astral-games.xyz/" target="_blank">AstralGames</a>
+            <a class="bm-link" href="https://www.cg-gamespc.net/" target="_blank">CG-gamesPC</a>
+            <a class="bm-link" href="https://groups.google.com/g/wiigcgames/" target="_blank">MarioCube</a>
+            <a class="bm-link" href="https://www.romsgames.net/roms/" target="_blank">RomsGames</a>
+            <a class="bm-link" href="https://romshq.com/" target="_blank">RomsHQ</a>
+            <a class="bm-link" href="https://repacklab.com/" target="_blank">Repacklab</a>
+            <a class="bm-link" href="https://romspure.cc/" target="_blank">ROMSPURE</a>
+            <a class="bm-link" href="https://www.ziperto.com/" target="_blank">Ziperto</a>
+            <a class="bm-link" href="https://myrient.erista.me/files/Internet%20Archive/Unknown/RedumpNintendoGameCubeAmericaPart3/" target="_blank">Myrient GC</a>
+            <a class="bm-link" href="https://games4u.org/" target="_blank">Games4U</a>
+          </div>
+        </div>
+
+        <!-- Software -->
+        <div class="bm-category">
+          <div class="bm-category-header" onclick="toggleCategory(this)">
+            <span class="bm-category-name">💾  Software</span>
+            <div class="bm-category-meta">
+              <span class="bm-count">8</span>
+              <span class="bm-chevron">▼</span>
+            </div>
+          </div>
+          <div class="bm-links">
+            <a class="bm-link" href="https://lrepacks.net/#" target="_blank">LRepacks</a>
+            <a class="bm-link" href="https://www.fcportables.com/" target="_blank">FC Portables</a>
+            <a class="bm-link" href="https://fmhy.net/" target="_blank">FMHY</a>
+            <a class="bm-link" href="https://rentry.org/megathread" target="_blank">Megathread</a>
+            <a class="bm-link" href="https://ripped.guide/" target="_blank">Ripped.guide</a>
+            <a class="bm-link" href="https://vsthemes.org/en/" target="_blank">VS Themes</a>
+            <a class="bm-link" href="https://it-tools.tech/" target="_blank">IT Tools</a>
+            <a class="bm-link" href="https://kemono.cr/" target="_blank">Kemono</a>
+          </div>
+        </div>
+
+        <!-- P2P -->
+        <div class="bm-category">
+          <div class="bm-category-header" onclick="toggleCategory(this)">
+            <span class="bm-category-name">🌐  P2P</span>
+            <div class="bm-category-meta">
+              <span class="bm-count">21</span>
+              <span class="bm-chevron">▼</span>
+            </div>
+          </div>
+          <div class="bm-links">
+            <a class="bm-link" href="https://lst.gg/" target="_blank">LST</a>
+            <a class="bm-link" href="https://animeworld.cx/" target="_blank">AnimeWorld</a>
+            <a class="bm-link" href="https://oldtoons.world/" target="_blank">Oldtoons</a>
+            <a class="bm-link" href="https://rocket-hd.cc/login" target="_blank">RocketHD</a>
+            <a class="bm-link" href="https://retro-movies.club/pages/1" target="_blank">Retro Movies Club</a>
+            <a class="bm-link" href="https://seedpool.org/login" target="_blank">Seedpool</a>
+            <a class="bm-link" href="https://infinityhd.net/" target="_blank">InfinityHD</a>
+            <a class="bm-link" href="https://darkpeers.org/" target="_blank">DarkPeers</a>
+            <a class="bm-link" href="https://speedapp.io/" target="_blank">SpeedApp</a>
+            <a class="bm-link" href="https://www.xrel.to/search.html" target="_blank">xREL</a>
+            <a class="bm-link" href="https://hd-space.org/" target="_blank">HD-Space</a>
+            <a class="bm-link" href="https://digitalcore.club/" target="_blank">Digitalcore</a>
+            <a class="bm-link" href="https://tfa.tf/" target="_blank">The Falling Angels</a>
+            <a class="bm-link" href="https://rutracker.org/forum/index.php" target="_blank">RuTracker</a>
+            <a class="bm-link" href="https://4khdhub.fans/" target="_blank">4KHDHub</a>
+            <a class="bm-link" href="https://uhdmovies.stream/" target="_blank">UHDMovies</a>
+            <a class="bm-link" href="https://nima4k.org/" target="_blank">NIMA4K</a>
+            <a class="bm-link" href="https://ext.to/" target="_blank">EXT Torrents</a>
+            <a class="bm-link" href="https://nyaa.si/" target="_blank">Nyaa</a>
+            <a class="bm-link" href="https://www.1337x.tw/" target="_blank">1337x</a>
+            <a class="bm-link" href="https://yts.bz/" target="_blank">YTS</a>
+          </div>
+        </div>
+
+        <!-- Tools -->
+        <div class="bm-category">
+          <div class="bm-category-header" onclick="toggleCategory(this)">
+            <span class="bm-category-name">🔧  Tools</span>
+            <div class="bm-category-meta">
+              <span class="bm-count">19</span>
+              <span class="bm-chevron">▼</span>
+            </div>
+          </div>
+          <div class="bm-links">
+            <a class="bm-link" href="https://gofile.io/home" target="_blank">Gofile</a>
+            <a class="bm-link" href="https://akirabox.com/" target="_blank">Akira Box</a>
+            <a class="bm-link" href="https://dayuploads.com/" target="_blank">DayUploads</a>
+            <a class="bm-link" href="https://postimages.org/" target="_blank">PostImages</a>
+            <a class="bm-link" href="https://slow.pics/" target="_blank">Slow.pics</a>
+            <a class="bm-link" href="https://imgbb.com/" target="_blank">ImgBB</a>
+            <a class="bm-link" href="https://bt4gprx.com/" target="_blank">BT4G Search</a>
+            <a class="bm-link" href="https://catbox.moe/" target="_blank">Catbox</a>
+            <a class="bm-link" href="https://litterbox.catbox.moe/" target="_blank">Litterbox</a>
+            <a class="bm-link" href="https://fast-file.com/#home" target="_blank">Fast File</a>
+            <a class="bm-link" href="https://imgbox.com/" target="_blank">ImgBox</a>
+            <a class="bm-link" href="https://linkdisguiser.com/" target="_blank">LinkDisguiser</a>
+            <a class="bm-link" href="https://img4k.net/" target="_blank">img4k</a>
+            <a class="bm-link" href="https://www.anisearch.de/" target="_blank">AniSearch</a>
+            <a class="bm-link" href="https://realfavicongenerator.net/" target="_blank">Favicon Gen</a>
+            <a class="bm-link" href="https://imgonline.tools/" target="_blank">ImgOnline</a>
+            <a class="bm-link" href="https://thetest.com/" target="_blank">TheTest</a>
+            <a class="bm-link" href="https://r-htpc.github.io/wiki/hdr" target="_blank">HDR Setup Guide</a>
+            <a class="bm-link" href="https://steamdb.info/" target="_blank">SteamDB</a>
+          </div>
+        </div>
+
+      </div><!-- /bookmarks-container -->
 
       <p style="margin-top: 100px;">
         please <a href="https://nexio.network/#Contact" style="color: #0af; text-decoration: underline;">contact</a> me if any of the links are not working anymore.
@@ -572,6 +732,36 @@
       <div class="quote">Malo periculosam libertatem quam quietum servitium.</div>
     </footer>
   </main>
+
+
+  <!-- ── Download Modal ─────────────────────────────────────────────────── -->
+  <div class="bm-modal-overlay" id="bmModalOverlay">
+    <div class="bm-modal">
+      <button class="bm-modal-close" id="bmModalClose">✕</button>
+      <div class="bm-modal-icon">
+        <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 12L3 7h3V2h4v5h3L8 12zM2 14h12v-1.5H2V14z"/>
+        </svg>
+      </div>
+      <h3>Download Bookmarks</h3>
+      <p>
+        Downloads a Firefox-compatible <code>.html</code> file.<br>
+        Import via <code>Bookmarks → Manage Bookmarks → Import &amp; Backup → Import Bookmarks from HTML</code>.
+      </p>
+      <div class="bm-modal-btns">
+        <a class="bm-btn-download"
+           href="https://raw.githubusercontent.com/xXnexioXx/index/main/bookmarks_clean.html"
+           download="bookmarks_nexio.html">
+          <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" style="width:13px;height:13px;fill:currentColor;">
+            <path d="M8 12L3 7h3V2h4v5h3L8 12zM2 14h12v-1.5H2V14z"/>
+          </svg>
+          Download .html
+        </a>
+        <button class="bm-btn-cancel" id="bmModalCancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
 
   <script>
     // ── Menu ──────────────────────────────────────────────────────────────────
@@ -590,8 +780,13 @@
       menu.classList.add('active');
       menuBtn.classList.add('active');
     }
-    menuBtn.addEventListener('click', e => { e.stopPropagation(); (menuBtn.getAttribute('aria-expanded') === 'true') ? closeMenu() : openMenu(); });
-    document.addEventListener('click', e => { if (!menu.contains(e.target) && e.target !== menuBtn) closeMenu(); });
+    menuBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      menuBtn.getAttribute('aria-expanded') === 'true' ? closeMenu() : openMenu();
+    });
+    document.addEventListener('click', e => {
+      if (!menu.contains(e.target) && e.target !== menuBtn) closeMenu();
+    });
     document.querySelectorAll('.menu a').forEach(l => l.addEventListener('click', closeMenu));
 
     // ── Compendium ────────────────────────────────────────────────────────────
@@ -611,7 +806,10 @@
         const category = tab.dataset.category;
         categoryTabs.forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
-        categoryContents.forEach(c => { c.classList.remove('active'); if (c.dataset.category === category) c.classList.add('active'); });
+        categoryContents.forEach(c => {
+          c.classList.remove('active');
+          if (c.dataset.category === category) c.classList.add('active');
+        });
         langBtns.forEach(b => b.style.display = 'none');
         if (filterConfig[category]) {
           const cfg = filterConfig[category];
@@ -638,77 +836,21 @@
       });
     });
 
-    // ── Bookmarks ─────────────────────────────────────────────────────────────
-    const BOOKMARKS_URL = 'https://raw.githubusercontent.com/xXnexioXx/index/main/bookmarks.html';
-
-    async function loadBookmarks() {
-      const tabsEl    = document.getElementById('bmTabs');
-      const contentsEl = document.getElementById('bmContents');
-
-      try {
-        const res  = await fetch(BOOKMARKS_URL);
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        const html = await res.text();
-
-        const parser = new DOMParser();
-        const doc    = parser.parseFromString(html, 'text/html');
-        const links  = Array.from(doc.querySelectorAll('a[href][data-category]'));
-
-        if (!links.length) throw new Error('No bookmarks found');
-
-        // Group by category
-        const categories = {};
-        links.forEach(a => {
-          const cat = a.dataset.category || 'Other';
-          if (!categories[cat]) categories[cat] = [];
-          categories[cat].push({ href: a.href, label: a.textContent.trim() });
-        });
-
-        const catNames = Object.keys(categories);
-
-        // Build tabs
-        tabsEl.innerHTML = catNames.map((cat, i) =>
-          `<button class="bm-tab${i === 0 ? ' active' : ''}" data-bmcat="${cat}">${cat}</button>`
-        ).join('');
-
-        // Build content panels
-        contentsEl.innerHTML = catNames.map((cat, i) => `
-          <div class="bm-content${i === 0 ? ' active' : ''}" data-bmcat="${cat}">
-            <div class="bookmarks-grid">
-              ${categories[cat].map(bm => {
-                const domain = new URL(bm.href).hostname;
-                return `
-                  <button class="bookmark-btn" onclick="window.open('${bm.href}', '_blank')" title="${bm.href}">
-                    <img
-                      class="bm-favicon"
-                      src="https://www.google.com/s2/favicons?domain=${domain}&sz=32"
-                      alt=""
-                      onerror="this.style.display='none'"
-                    />
-                    ${bm.label}
-                  </button>`;
-              }).join('')}
-            </div>
-          </div>
-        `).join('');
-
-        // Tab switching
-        tabsEl.querySelectorAll('.bm-tab').forEach(tab => {
-          tab.addEventListener('click', () => {
-            tabsEl.querySelectorAll('.bm-tab').forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-            contentsEl.querySelectorAll('.bm-content').forEach(c => {
-              c.classList.toggle('active', c.dataset.bmcat === tab.dataset.bmcat);
-            });
-          });
-        });
-
-      } catch (err) {
-        contentsEl.innerHTML = `<div class="bookmarks-error">Could not load bookmarks. (${err.message})</div>`;
-      }
+    // ── Bookmarks Accordion ───────────────────────────────────────────────────
+    function toggleCategory(header) {
+      header.parentElement.classList.toggle('open');
     }
 
-    loadBookmarks();
+    // ── Download Modal ────────────────────────────────────────────────────────
+    const overlay   = document.getElementById('bmModalOverlay');
+    const openBtn   = document.getElementById('openDownloadModal');
+    const closeBtn  = document.getElementById('bmModalClose');
+    const cancelBtn = document.getElementById('bmModalCancel');
+
+    openBtn.addEventListener('click',   () => overlay.classList.add('visible'));
+    closeBtn.addEventListener('click',  () => overlay.classList.remove('visible'));
+    cancelBtn.addEventListener('click', () => overlay.classList.remove('visible'));
+    overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('visible'); });
   </script>
 
   <script src="background.js"></script>
