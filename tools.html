@@ -7,7 +7,6 @@
   <title>nexio.network - Tools</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* ── Compendium ──────────────────────────────────────────────────────── */
     .kompendium-container {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -147,186 +146,21 @@
       color: #888;
     }
 
-    /* ── Bookmarks ───────────────────────────────────────────────────────── */
-    .bookmarks-container {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
-      padding: 30px;
-      margin-bottom: 40px;
-    }
-
-    .bookmarks-header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      margin-bottom: 30px;
-      position: relative;
-    }
-
-    .bookmarks-title {
-      font-size: 1.5rem;
-      font-weight: 400;
-      margin: 0;
-      letter-spacing: 1px;
-    }
-
-    .bookmarks-download-btn {
-      position: absolute;
-      right: 0;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #888;
-      padding: 6px 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 12px;
-      font-family: inherit;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      text-decoration: none;
-    }
-
-    .bookmarks-download-btn:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: #e0e0e0;
-      border-color: rgba(255, 255, 255, 0.25);
-      text-decoration: none;
-    }
-
-    .bookmarks-download-btn svg {
-      width: 13px;
-      height: 13px;
-      opacity: 0.7;
-    }
-
-    .bookmarks-category-tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: center;
-      margin-bottom: 25px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .bm-tab {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: #888;
-      padding: 7px 15px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 13px;
-      transition: all 0.2s;
-      font-family: inherit;
-    }
-
-    .bm-tab:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: #e0e0e0;
-    }
-
-    .bm-tab.active {
-      background: rgba(255, 255, 255, 0.15);
-      color: #fff;
-      border-color: rgba(255, 255, 255, 0.3);
-    }
-
-    .bm-content {
-      display: none;
-    }
-
-    .bm-content.active {
-      display: block;
-    }
-
-    .bookmarks-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 12px;
-    }
-
-    .bookmark-btn {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: #e0e0e0;
-      padding: 14px 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 14px;
-      transition: all 0.2s;
-      font-family: inherit;
-      text-align: left;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      width: 100%;
-    }
-
-    .bookmark-btn:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: #0af;
-      transform: translateY(-2px);
-    }
-
-    .bookmark-btn .bm-favicon {
-      width: 16px;
-      height: 16px;
-      border-radius: 3px;
-      flex-shrink: 0;
-      opacity: 0.8;
-    }
-
-    .bookmark-btn .bm-favicon-fallback {
-      width: 16px;
-      height: 16px;
-      border-radius: 3px;
-      flex-shrink: 0;
-      opacity: 0.4;
-      font-size: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .bookmarks-loading {
-      text-align: center;
-      color: #555;
-      font-size: 13px;
-      padding: 30px 0;
-    }
-
-    .bookmarks-error {
-      text-align: center;
-      color: #666;
-      font-size: 13px;
-      padding: 20px 0;
-    }
-
-    /* ── Responsive ──────────────────────────────────────────────────────── */
     @media (max-width: 600px) {
-      .kompendium-container,
-      .bookmarks-container {
+      .kompendium-container {
         padding: 15px;
       }
 
-      .button-grid,
-      .bookmarks-grid {
+      .button-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 8px;
       }
 
-      .category-tabs,
-      .bookmarks-category-tabs {
+      .category-tabs {
         gap: 6px;
       }
 
-      .category-tab,
-      .bm-tab {
+      .category-tab {
         padding: 6px 10px;
         font-size: 11px;
       }
@@ -348,19 +182,9 @@
         font-size: 11px;
       }
 
-      .tool-button,
-      .bookmark-btn {
+      .tool-button {
         padding: 10px 12px;
         font-size: 12px;
-      }
-
-      .bookmarks-header {
-        flex-direction: column;
-        gap: 10px;
-      }
-
-      .bookmarks-download-btn {
-        position: static;
       }
     }
   </style>
@@ -385,11 +209,10 @@
     <h1 class="page-header">Tools</h1>
 
     <section id="frame">
-
-      <!-- ── COMPENDIUM ──────────────────────────────────────────────────── -->
       <div class="kompendium-container">
         <h2 class="kompendium-title">Compendium</h2>
 
+        <!-- Category Tabs -->
         <div class="category-tabs">
           <button class="category-tab active" data-category="general">General</button>
           <button class="category-tab" data-category="movies">Movies & Series</button>
@@ -402,6 +225,7 @@
           <button class="category-tab" data-category="misc.">Mics.</button>
         </div>
 
+        <!-- Language / Platform Filter -->
         <div class="language-filter" id="languageFilter">
           <label id="filterLabel">Language:</label>
           <button class="lang-btn active" data-lang="all">All</button>
@@ -435,6 +259,7 @@
             <button class="tool-button de" data-lang="de" onclick="window.open('https://s.to/', '_blank')">S.to</button>
             <button class="tool-button de" data-lang="de" onclick="window.open('https://streamkiste.taxi/streamkiste/', '_blank')">StreamKiste</button>
             <button class="tool-button de" data-lang="de" onclick="window.open('https://github.com/streamflix-reborn/streamflix/releases', '_blank')">Streamflix (app)</button>
+
             <button class="tool-button en" data-lang="en" onclick="window.open('https://www.1shows.nl/', '_blank')">1Shows</button>
             <button class="tool-button en" data-lang="en" onclick="window.open('https://cinemacity.rip/', '_blank')">CinemaCity</button>
             <button class="tool-button en" data-lang="en" onclick="window.open('https://www.cineby.gd/', '_blank')">Cineby</button>
@@ -489,6 +314,7 @@
             <button class="tool-button" data-lang="pc" onclick="window.open('https://pc-games.eu.org/', '_blank')">pc-games.eu</button>
             <button class="tool-button" data-lang="pc" onclick="window.open('https://rentry.org/pgames/', '_blank')">PGames</button>
             <button class="tool-button" data-lang="pc" onclick="window.open('https://rexagames.com/', '_blank')">RexaGames</button>
+
             <button class="tool-button" data-lang="roms" onclick="window.open('https://nswgame.com/', '_blank')">nswgame</button>
             <button class="tool-button" data-lang="roms" onclick="window.open('https://nxbrew.net/', '_blank')">NXBrew</button>
             <button class="tool-button" data-lang="roms" onclick="window.open('https://romsim.com/', '_blank')">ROMSIM</button>
@@ -537,32 +363,6 @@
         </div>
       </div>
 
-      <!-- ── BOOKMARKS ───────────────────────────────────────────────────── -->
-      <div class="bookmarks-container">
-        <div class="bookmarks-header">
-          <h2 class="bookmarks-title">Bookmarks</h2>
-          <a
-            class="bookmarks-download-btn"
-            href="https://raw.githubusercontent.com/xXnexioXx/index/main/bookmarks.html"
-            download="bookmarks.html"
-            title="Download bookmarks.html"
-          >
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M8 2v8M5 7l3 3 3-3M2 12h12" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            Download
-          </a>
-        </div>
-
-        <div class="bookmarks-category-tabs" id="bmTabs">
-          <!-- filled by JS -->
-        </div>
-
-        <div id="bmContents">
-          <div class="bookmarks-loading">Loading bookmarks…</div>
-        </div>
-      </div>
-
       <p style="margin-top: 100px;">
         please <a href="https://nexio.network/#Contact" style="color: #0af; text-decoration: underline;">contact</a> me if any of the links are not working anymore.
       </p>
@@ -576,7 +376,7 @@
   <script>
     // ── Menu ──────────────────────────────────────────────────────────────────
     const menuBtn = document.getElementById('menuBtn');
-    const menu    = document.getElementById('menu');
+    const menu = document.getElementById('menu');
 
     function closeMenu() {
       menuBtn.setAttribute('aria-expanded', 'false');
@@ -584,15 +384,33 @@
       menu.classList.remove('active');
       menuBtn.classList.remove('active');
     }
+
     function openMenu() {
       menuBtn.setAttribute('aria-expanded', 'true');
       menu.setAttribute('aria-hidden', 'false');
       menu.classList.add('active');
       menuBtn.classList.add('active');
     }
-    menuBtn.addEventListener('click', e => { e.stopPropagation(); (menuBtn.getAttribute('aria-expanded') === 'true') ? closeMenu() : openMenu(); });
-    document.addEventListener('click', e => { if (!menu.contains(e.target) && e.target !== menuBtn) closeMenu(); });
-    document.querySelectorAll('.menu a').forEach(l => l.addEventListener('click', closeMenu));
+
+    function toggleMenu() {
+      const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+      if (isExpanded) { closeMenu(); } else { openMenu(); }
+    }
+
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMenu();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!menu.contains(e.target) && e.target !== menuBtn) {
+        closeMenu();
+      }
+    });
+
+    document.querySelectorAll('.menu a').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
 
     // ── Compendium ────────────────────────────────────────────────────────────
     const categoryTabs     = document.querySelectorAll('.category-tab');
@@ -609,17 +427,35 @@
     categoryTabs.forEach(tab => {
       tab.addEventListener('click', () => {
         const category = tab.dataset.category;
+
+        // Switch active tab
         categoryTabs.forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
-        categoryContents.forEach(c => { c.classList.remove('active'); if (c.dataset.category === category) c.classList.add('active'); });
+
+        // Switch active content
+        categoryContents.forEach(content => {
+          content.classList.remove('active');
+          if (content.dataset.category === category) {
+            content.classList.add('active');
+          }
+        });
+
+        // Reset all buttons to hidden, then show relevant ones
         langBtns.forEach(b => b.style.display = 'none');
+
         if (filterConfig[category]) {
           const cfg = filterConfig[category];
           filterLabel.textContent = cfg.label;
-          cfg.btns.forEach(l => document.querySelector(`.lang-btn[data-lang="${l}"]`).style.display = 'inline-block');
+          cfg.btns.forEach(l => {
+            document.querySelector(`.lang-btn[data-lang="${l}"]`).style.display = 'inline-block';
+          });
+          // Reset filter to "All"
           langBtns.forEach(b => b.classList.remove('active'));
           document.querySelector('.lang-btn[data-lang="all"]').classList.add('active');
-          document.querySelectorAll('.category-content.active .tool-button').forEach(el => el.style.display = 'block');
+          // Show all buttons in this category
+          document.querySelectorAll('.category-content.active .tool-button').forEach(el => {
+            el.style.display = 'block';
+          });
           languageFilter.classList.add('visible');
         } else {
           languageFilter.classList.remove('visible');
@@ -630,85 +466,19 @@
     langBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         const lang = btn.dataset.lang;
+
         langBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
+
         document.querySelectorAll('.category-content.active .tool-button').forEach(el => {
-          el.style.display = (lang === 'all' || el.dataset.lang === lang) ? 'block' : 'none';
+          if (lang === 'all' || el.dataset.lang === lang) {
+            el.style.display = 'block';
+          } else {
+            el.style.display = 'none';
+          }
         });
       });
     });
-
-    // ── Bookmarks ─────────────────────────────────────────────────────────────
-    const BOOKMARKS_URL = 'https://raw.githubusercontent.com/xXnexioXx/index/main/bookmarks.html';
-
-    async function loadBookmarks() {
-      const tabsEl    = document.getElementById('bmTabs');
-      const contentsEl = document.getElementById('bmContents');
-
-      try {
-        const res  = await fetch(BOOKMARKS_URL);
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        const html = await res.text();
-
-        const parser = new DOMParser();
-        const doc    = parser.parseFromString(html, 'text/html');
-        const links  = Array.from(doc.querySelectorAll('a[href][data-category]'));
-
-        if (!links.length) throw new Error('No bookmarks found');
-
-        // Group by category
-        const categories = {};
-        links.forEach(a => {
-          const cat = a.dataset.category || 'Other';
-          if (!categories[cat]) categories[cat] = [];
-          categories[cat].push({ href: a.href, label: a.textContent.trim() });
-        });
-
-        const catNames = Object.keys(categories);
-
-        // Build tabs
-        tabsEl.innerHTML = catNames.map((cat, i) =>
-          `<button class="bm-tab${i === 0 ? ' active' : ''}" data-bmcat="${cat}">${cat}</button>`
-        ).join('');
-
-        // Build content panels
-        contentsEl.innerHTML = catNames.map((cat, i) => `
-          <div class="bm-content${i === 0 ? ' active' : ''}" data-bmcat="${cat}">
-            <div class="bookmarks-grid">
-              ${categories[cat].map(bm => {
-                const domain = new URL(bm.href).hostname;
-                return `
-                  <button class="bookmark-btn" onclick="window.open('${bm.href}', '_blank')" title="${bm.href}">
-                    <img
-                      class="bm-favicon"
-                      src="https://www.google.com/s2/favicons?domain=${domain}&sz=32"
-                      alt=""
-                      onerror="this.style.display='none'"
-                    />
-                    ${bm.label}
-                  </button>`;
-              }).join('')}
-            </div>
-          </div>
-        `).join('');
-
-        // Tab switching
-        tabsEl.querySelectorAll('.bm-tab').forEach(tab => {
-          tab.addEventListener('click', () => {
-            tabsEl.querySelectorAll('.bm-tab').forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-            contentsEl.querySelectorAll('.bm-content').forEach(c => {
-              c.classList.toggle('active', c.dataset.bmcat === tab.dataset.bmcat);
-            });
-          });
-        });
-
-      } catch (err) {
-        contentsEl.innerHTML = `<div class="bookmarks-error">Could not load bookmarks. (${err.message})</div>`;
-      }
-    }
-
-    loadBookmarks();
   </script>
 
   <script src="background.js"></script>
