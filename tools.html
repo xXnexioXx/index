@@ -240,6 +240,28 @@
       text-decoration: none;
     }
 
+    /* Sub-category label inside bm-links */
+    .bm-sublabel {
+      grid-column: 1 / -1;
+      font-size: 10px;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 4px 2px 2px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 2px;
+    }
+
+    /* Loading / error state */
+    .bm-status {
+      text-align: center;
+      padding: 30px;
+      color: #555;
+      font-size: 13px;
+    }
+
+    .bm-status.error { color: #f55; }
+
     /* Download Modal */
     .bm-modal-overlay {
       display: none;
@@ -548,177 +570,9 @@
           </button>
         </div>
 
-        <!-- TV -->
-        <div class="bm-category">
-          <div class="bm-category-header" onclick="toggleCategory(this)">
-            <span class="bm-category-name">📺  TV</span>
-            <div class="bm-category-meta">
-              <span class="bm-count">7</span>
-              <span class="bm-chevron">▼</span>
-            </div>
-          </div>
-          <div class="bm-links">
-            <a class="bm-link" href="https://www.2ix2.com/" target="_blank">2ix2</a>
-            <a class="bm-link" href="https://www.livestreamde.com/" target="_blank">LivestreamDE</a>
-            <a class="bm-link" href="https://www.livehdtv.com/ulke/germany/" target="_blank">LiveHDTV</a>
-            <a class="bm-link" href="https://ppv.to/" target="_blank">PPV.to</a>
-            <a class="bm-link" href="https://hesgoal.im/" target="_blank">Hesgoal</a>
-            <a class="bm-link" href="https://ntvstream.cx/" target="_blank">NTVSTREAM</a>
-            <a class="bm-link" href="https://sportyhunter.com/" target="_blank">SportyHunter</a>
-          </div>
-        </div>
-
-        <!-- Movie & Series -->
-        <div class="bm-category">
-          <div class="bm-category-header" onclick="toggleCategory(this)">
-            <span class="bm-category-name">🎬  Movie & Series</span>
-            <div class="bm-category-meta">
-              <span class="bm-count">16</span>
-              <span class="bm-chevron">▼</span>
-            </div>
-          </div>
-          <div class="bm-links">
-            <a class="bm-link" href="https://megafilme.vip/" target="_blank">MegaFilme 🇩🇪</a>
-            <a class="bm-link" href="https://hdfilme.blog/" target="_blank">HDfilme 🇩🇪</a>
-            <a class="bm-link" href="https://filmpalast.to/" target="_blank">Filmpalast 🇩🇪</a>
-            <a class="bm-link" href="https://kinoger.com/" target="_blank">KinoGer 🇩🇪</a>
-            <a class="bm-link" href="https://movie4k.sx/" target="_blank">Movie4K 🇩🇪</a>
-            <a class="bm-link" href="https://cine.to/" target="_blank">Cine.to 🇩🇪</a>
-            <a class="bm-link" href="https://s.to/" target="_blank">S.to 🇩🇪</a>
-            <a class="bm-link" href="https://streamkiste.taxi/streamkiste/" target="_blank">StreamKiste 🇩🇪</a>
-            <a class="bm-link" href="https://hollymoviehd.cc/home/" target="_blank">HollyMovieHD</a>
-            <a class="bm-link" href="https://pstream.mov/" target="_blank">P-Stream</a>
-            <a class="bm-link" href="https://alienflix.net/" target="_blank">AlienFlix</a>
-            <a class="bm-link" href="https://cinemacity.rip/" target="_blank">CinemaCity</a>
-            <a class="bm-link" href="https://www.1shows.nl/" target="_blank">1Shows</a>
-            <a class="bm-link" href="https://www.ez-streaming.space/" target="_blank">Ez Streaming</a>
-            <a class="bm-link" href="https://cinepeace.in/" target="_blank">Cinepeace</a>
-            <a class="bm-link" href="https://4kmovies.co/" target="_blank">4K Movies</a>
-          </div>
-        </div>
-
-        <!-- Games -->
-        <div class="bm-category">
-          <div class="bm-category-header" onclick="toggleCategory(this)">
-            <span class="bm-category-name">🎮  Games</span>
-            <div class="bm-category-meta">
-              <span class="bm-count">24</span>
-              <span class="bm-chevron">▼</span>
-            </div>
-          </div>
-          <div class="bm-links">
-            <a class="bm-link" href="https://rentry.org/pgames" target="_blank">PGames Megathread</a>
-            <a class="bm-link" href="https://gamedrive.org/" target="_blank">GameDrive</a>
-            <a class="bm-link" href="https://fitgirl-repacks.site/" target="_blank">FitGirl Repacks</a>
-            <a class="bm-link" href="https://www.elamigos.site/" target="_blank">ElAmigos</a>
-            <a class="bm-link" href="https://dodi-repacks.site/" target="_blank">DODI Repacks</a>
-            <a class="bm-link" href="https://www.ovagames.com/" target="_blank">Ova Games</a>
-            <a class="bm-link" href="https://gload.to/" target="_blank">GLOAD</a>
-            <a class="bm-link" href="https://byxatab.com/" target="_blank">Xatab</a>
-            <a class="bm-link" href="https://pc-games.eu.org/" target="_blank">pc-games.eu</a>
-            <a class="bm-link" href="https://nxbrew.net/" target="_blank">NXBrew</a>
-            <a class="bm-link" href="https://cs.rin.ru/forum/" target="_blank">CS.RIN.RU</a>
-            <a class="bm-link" href="https://ankergames.net/" target="_blank">AnkerGames</a>
-            <a class="bm-link" href="https://rexagames.com/" target="_blank">RexaGames</a>
-            <a class="bm-link" href="https://www.switchgamesmall.icu/" target="_blank">SwitchGamesMall</a>
-            <a class="bm-link" href="https://astral-games.xyz/" target="_blank">AstralGames</a>
-            <a class="bm-link" href="https://www.cg-gamespc.net/" target="_blank">CG-gamesPC</a>
-            <a class="bm-link" href="https://groups.google.com/g/wiigcgames/" target="_blank">MarioCube</a>
-            <a class="bm-link" href="https://www.romsgames.net/roms/" target="_blank">RomsGames</a>
-            <a class="bm-link" href="https://romshq.com/" target="_blank">RomsHQ</a>
-            <a class="bm-link" href="https://repacklab.com/" target="_blank">Repacklab</a>
-            <a class="bm-link" href="https://romspure.cc/" target="_blank">ROMSPURE</a>
-            <a class="bm-link" href="https://www.ziperto.com/" target="_blank">Ziperto</a>
-            <a class="bm-link" href="https://myrient.erista.me/files/Internet%20Archive/Unknown/RedumpNintendoGameCubeAmericaPart3/" target="_blank">Myrient GC</a>
-            <a class="bm-link" href="https://games4u.org/" target="_blank">Games4U</a>
-          </div>
-        </div>
-
-        <!-- Software -->
-        <div class="bm-category">
-          <div class="bm-category-header" onclick="toggleCategory(this)">
-            <span class="bm-category-name">💾  Software</span>
-            <div class="bm-category-meta">
-              <span class="bm-count">8</span>
-              <span class="bm-chevron">▼</span>
-            </div>
-          </div>
-          <div class="bm-links">
-            <a class="bm-link" href="https://lrepacks.net/#" target="_blank">LRepacks</a>
-            <a class="bm-link" href="https://www.fcportables.com/" target="_blank">FC Portables</a>
-            <a class="bm-link" href="https://fmhy.net/" target="_blank">FMHY</a>
-            <a class="bm-link" href="https://rentry.org/megathread" target="_blank">Megathread</a>
-            <a class="bm-link" href="https://ripped.guide/" target="_blank">Ripped.guide</a>
-            <a class="bm-link" href="https://vsthemes.org/en/" target="_blank">VS Themes</a>
-            <a class="bm-link" href="https://it-tools.tech/" target="_blank">IT Tools</a>
-            <a class="bm-link" href="https://kemono.cr/" target="_blank">Kemono</a>
-          </div>
-        </div>
-
-        <!-- P2P -->
-        <div class="bm-category">
-          <div class="bm-category-header" onclick="toggleCategory(this)">
-            <span class="bm-category-name">🌐  P2P</span>
-            <div class="bm-category-meta">
-              <span class="bm-count">21</span>
-              <span class="bm-chevron">▼</span>
-            </div>
-          </div>
-          <div class="bm-links">
-            <a class="bm-link" href="https://lst.gg/" target="_blank">LST</a>
-            <a class="bm-link" href="https://animeworld.cx/" target="_blank">AnimeWorld</a>
-            <a class="bm-link" href="https://oldtoons.world/" target="_blank">Oldtoons</a>
-            <a class="bm-link" href="https://rocket-hd.cc/login" target="_blank">RocketHD</a>
-            <a class="bm-link" href="https://retro-movies.club/pages/1" target="_blank">Retro Movies Club</a>
-            <a class="bm-link" href="https://seedpool.org/login" target="_blank">Seedpool</a>
-            <a class="bm-link" href="https://infinityhd.net/" target="_blank">InfinityHD</a>
-            <a class="bm-link" href="https://darkpeers.org/" target="_blank">DarkPeers</a>
-            <a class="bm-link" href="https://speedapp.io/" target="_blank">SpeedApp</a>
-            <a class="bm-link" href="https://www.xrel.to/search.html" target="_blank">xREL</a>
-            <a class="bm-link" href="https://hd-space.org/" target="_blank">HD-Space</a>
-            <a class="bm-link" href="https://digitalcore.club/" target="_blank">Digitalcore</a>
-            <a class="bm-link" href="https://tfa.tf/" target="_blank">The Falling Angels</a>
-            <a class="bm-link" href="https://rutracker.org/forum/index.php" target="_blank">RuTracker</a>
-            <a class="bm-link" href="https://4khdhub.fans/" target="_blank">4KHDHub</a>
-            <a class="bm-link" href="https://uhdmovies.stream/" target="_blank">UHDMovies</a>
-            <a class="bm-link" href="https://nima4k.org/" target="_blank">NIMA4K</a>
-            <a class="bm-link" href="https://ext.to/" target="_blank">EXT Torrents</a>
-            <a class="bm-link" href="https://nyaa.si/" target="_blank">Nyaa</a>
-            <a class="bm-link" href="https://www.1337x.tw/" target="_blank">1337x</a>
-            <a class="bm-link" href="https://yts.bz/" target="_blank">YTS</a>
-          </div>
-        </div>
-
-        <!-- Tools -->
-        <div class="bm-category">
-          <div class="bm-category-header" onclick="toggleCategory(this)">
-            <span class="bm-category-name">🔧  Tools</span>
-            <div class="bm-category-meta">
-              <span class="bm-count">19</span>
-              <span class="bm-chevron">▼</span>
-            </div>
-          </div>
-          <div class="bm-links">
-            <a class="bm-link" href="https://gofile.io/home" target="_blank">Gofile</a>
-            <a class="bm-link" href="https://akirabox.com/" target="_blank">Akira Box</a>
-            <a class="bm-link" href="https://dayuploads.com/" target="_blank">DayUploads</a>
-            <a class="bm-link" href="https://postimages.org/" target="_blank">PostImages</a>
-            <a class="bm-link" href="https://slow.pics/" target="_blank">Slow.pics</a>
-            <a class="bm-link" href="https://imgbb.com/" target="_blank">ImgBB</a>
-            <a class="bm-link" href="https://bt4gprx.com/" target="_blank">BT4G Search</a>
-            <a class="bm-link" href="https://catbox.moe/" target="_blank">Catbox</a>
-            <a class="bm-link" href="https://litterbox.catbox.moe/" target="_blank">Litterbox</a>
-            <a class="bm-link" href="https://fast-file.com/#home" target="_blank">Fast File</a>
-            <a class="bm-link" href="https://imgbox.com/" target="_blank">ImgBox</a>
-            <a class="bm-link" href="https://linkdisguiser.com/" target="_blank">LinkDisguiser</a>
-            <a class="bm-link" href="https://img4k.net/" target="_blank">img4k</a>
-            <a class="bm-link" href="https://www.anisearch.de/" target="_blank">AniSearch</a>
-            <a class="bm-link" href="https://realfavicongenerator.net/" target="_blank">Favicon Gen</a>
-            <a class="bm-link" href="https://imgonline.tools/" target="_blank">ImgOnline</a>
-            <a class="bm-link" href="https://thetest.com/" target="_blank">TheTest</a>
-            <a class="bm-link" href="https://r-htpc.github.io/wiki/hdr" target="_blank">HDR Setup Guide</a>
-            <a class="bm-link" href="https://steamdb.info/" target="_blank">SteamDB</a>
-          </div>
+        <!-- Bookmarks rendered dynamically here -->
+        <div id="bookmarks-list">
+          <div class="bm-status">Loading bookmarks…</div>
         </div>
 
       </div><!-- /bookmarks-container -->
@@ -851,6 +705,221 @@
     closeBtn.addEventListener('click',  () => overlay.classList.remove('visible'));
     cancelBtn.addEventListener('click', () => overlay.classList.remove('visible'));
     overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('visible'); });
+
+
+    // ── Dynamic Bookmarks Loader ──────────────────────────────────────────────
+
+    // Category emoji mapping — matched against the H3 folder name (case-insensitive)
+    const CATEGORY_ICONS = {
+      'tv':              '📺',
+      'movie':           '🎬',
+      'serie':           '🎬',
+      'game':            '🎮',
+      'software':        '💾',
+      'p2p':             '🌐',
+      'tool':            '🔧',
+    };
+
+    function getCategoryIcon(name) {
+      const lower = name.toLowerCase();
+      for (const [key, icon] of Object.entries(CATEGORY_ICONS)) {
+        if (lower.includes(key)) return icon;
+      }
+      return '📁';
+    }
+
+    // Returns a clean display name from a bookmark <A> title + href
+    function getLinkLabel(title, href) {
+      // Strip long boilerplate titles — use hostname as fallback if title is too long
+      if (!title || title.length > 60) {
+        try {
+          const url = new URL(href);
+          return url.hostname.replace(/^www\./, '');
+        } catch {
+          return title || href;
+        }
+      }
+      return title;
+    }
+
+    // Filter out separator entries (href is just "http://./", "https://./", etc.)
+    function isSeparator(href) {
+      return /^https?:\/\/\.?\/?$/.test(href) || href === 'http://./' || href === 'https://./';
+    }
+
+    // Filter out noise links (YouTube, ChatGPT, GitHub, nexio.network itself, Blu-ray)
+    const SKIP_HOSTS = ['youtube.com', 'chatgpt.com', 'github.com', 'nexio.network', 'blu-ray.com'];
+    function isNoisyLink(href) {
+      try {
+        const host = new URL(href).hostname.replace(/^www\./, '');
+        return SKIP_HOSTS.some(s => host === s || host.endsWith('.' + s));
+      } catch { return false; }
+    }
+
+    /**
+     * Recursively parse a <DL> element into a structured object:
+     * { name, links: [{href, label}], children: [...subcategories] }
+     */
+    function parseDL(dl, name) {
+      const result = { name, links: [], children: [] };
+      const items = dl.querySelectorAll(':scope > dt');
+
+      items.forEach(dt => {
+        const h3 = dt.querySelector(':scope > h3');
+        const a  = dt.querySelector(':scope > a');
+        const subDL = dt.querySelector(':scope > dl');
+
+        if (h3 && subDL) {
+          // Sub-folder
+          result.children.push(parseDL(subDL, h3.textContent.trim()));
+        } else if (a) {
+          const href  = a.getAttribute('href') || '';
+          const title = a.textContent.trim();
+          if (!isSeparator(href) && !isNoisyLink(href)) {
+            result.links.push({ href, label: getLinkLabel(title, href) });
+          }
+        }
+      });
+
+      return result;
+    }
+
+    /**
+     * Build the DOM for a top-level category accordion item.
+     * Supports one level of sub-folders (rendered as inline sub-labels).
+     */
+    function buildCategoryEl(category) {
+      // Collect all links (flat), inserting sublabels for sub-folders
+      const segments = []; // [{sublabel?: string, links: [{href,label}]}]
+
+      // Direct links at the top level (no sub-folder)
+      if (category.links.length) {
+        segments.push({ links: category.links });
+      }
+
+      // Sub-folders
+      category.children.forEach(child => {
+        const allLinks = collectAllLinks(child);
+        if (allLinks.length) {
+          segments.push({ sublabel: child.name, links: allLinks });
+        }
+      });
+
+      if (!segments.length) return null;
+
+      const totalLinks = segments.reduce((s, seg) => s + seg.links.length, 0);
+
+      const icon = getCategoryIcon(category.name);
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'bm-category';
+      wrapper.innerHTML = `
+        <div class="bm-category-header" onclick="toggleCategory(this)">
+          <span class="bm-category-name">${icon}  ${escapeHtml(category.name)}</span>
+          <div class="bm-category-meta">
+            <span class="bm-count">${totalLinks}</span>
+            <span class="bm-chevron">▼</span>
+          </div>
+        </div>
+        <div class="bm-links"></div>
+      `;
+
+      const linksGrid = wrapper.querySelector('.bm-links');
+
+      segments.forEach(seg => {
+        if (seg.sublabel) {
+          const label = document.createElement('div');
+          label.className = 'bm-sublabel';
+          label.textContent = seg.sublabel;
+          linksGrid.appendChild(label);
+        }
+        seg.links.forEach(({ href, label }) => {
+          const a = document.createElement('a');
+          a.className = 'bm-link';
+          a.href = href;
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+          a.title = href;
+          a.textContent = label;
+          linksGrid.appendChild(a);
+        });
+      });
+
+      return wrapper;
+    }
+
+    // Recursively collect all links from a category and its children
+    function collectAllLinks(cat) {
+      return [
+        ...cat.links,
+        ...cat.children.flatMap(c => collectAllLinks(c))
+      ];
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    /**
+     * Main loader: fetch → parse → render
+     */
+    async function loadBookmarks() {
+      const listEl = document.getElementById('bookmarks-list');
+      const RAW_URL = 'https://raw.githubusercontent.com/xXnexioXx/index/main/bookmarks_clean.html';
+
+      try {
+        const res = await fetch(RAW_URL, { cache: 'no-cache' });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const html = await res.text();
+
+        // Parse via DOMParser (safe — no scripts will run)
+        const parser = new DOMParser();
+        const doc    = parser.parseFromString(html, 'text/html');
+
+        // Firefox export: top-level DL → DT > H3 "Bookmarks Toolbar" → DL (actual folders)
+        // We look for all H3 + sibling DL pairs at any depth inside the toolbar folder
+        const toolbarH3 = Array.from(doc.querySelectorAll('h3')).find(
+          h3 => h3.getAttribute('personal_toolbar_folder') === 'true'
+            || h3.textContent.trim().toLowerCase().includes('toolbar')
+        );
+
+        let topDL;
+        if (toolbarH3) {
+          topDL = toolbarH3.closest('dt')?.querySelector('dl') || toolbarH3.parentElement.querySelector('dl');
+        } else {
+          // Fallback: just grab the first DL
+          topDL = doc.querySelector('dl');
+        }
+
+        if (!topDL) throw new Error('No bookmark folders found.');
+
+        // Get immediate folder children of the toolbar DL
+        const folderItems = topDL.querySelectorAll(':scope > dt > h3');
+        const categories  = [];
+
+        folderItems.forEach(h3 => {
+          const dt   = h3.parentElement;
+          const subDL = dt.querySelector('dl');
+          if (subDL) {
+            categories.push(parseDL(subDL, h3.textContent.trim()));
+          }
+        });
+
+        if (!categories.length) throw new Error('No categories found in bookmarks.');
+
+        listEl.innerHTML = '';
+        categories.forEach(cat => {
+          const el = buildCategoryEl(cat);
+          if (el) listEl.appendChild(el);
+        });
+
+      } catch (err) {
+        listEl.innerHTML = `<div class="bm-status error">Failed to load bookmarks: ${escapeHtml(err.message)}</div>`;
+        console.error('Bookmark load error:', err);
+      }
+    }
+
+    loadBookmarks();
   </script>
 
   <script src="background.js"></script>
