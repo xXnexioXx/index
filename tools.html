@@ -7,57 +7,50 @@
   <title>nexio.network - Tools</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* ── Compendium ── */
-    .kompendium-container {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+    /* shared card */
+    .tool-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
       border-radius: 12px;
       padding: 30px;
       margin-bottom: 40px;
     }
 
-    .kompendium-title {
+    .tool-card h2 {
       font-size: 1.5rem;
       font-weight: 400;
-      margin: 0 0 30px 0;
       text-align: center;
       letter-spacing: 1px;
+      margin: 0 0 30px;
     }
 
-    .category-tabs {
+    /* compendium tabs */
+    .cat-tabs {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
       justify-content: center;
       margin-bottom: 25px;
       padding-bottom: 20px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
 
-    .category-tab {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+    .cat-tab {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
       color: #888;
       padding: 8px 16px;
       border-radius: 6px;
       cursor: pointer;
       font-size: 13px;
-      transition: all 0.2s;
       font-family: inherit;
+      transition: all 0.2s;
     }
+    .cat-tab:hover { background: rgba(255,255,255,0.1); color: #e0e0e0; }
+    .cat-tab.active { background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.3); }
 
-    .category-tab:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: #e0e0e0;
-    }
-
-    .category-tab.active {
-      background: rgba(255, 255, 255, 0.15);
-      color: #fff;
-      border-color: rgba(255, 255, 255, 0.3);
-    }
-
-    .language-filter {
+    /* sub-filter */
+    .sub-filter {
       display: none;
       flex-wrap: wrap;
       justify-content: center;
@@ -65,328 +58,125 @@
       gap: 8px;
       margin-bottom: 20px;
       padding: 12px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
       border-radius: 8px;
     }
+    .sub-filter.visible { display: flex; }
+    .sub-filter label { font-size: 13px; color: #888; }
 
-    .language-filter.visible { display: flex; }
-
-    .language-filter label {
-      font-size: 13px;
-      color: #888;
-      margin-right: 5px;
-    }
-
-    .lang-btn {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+    .sub-btn {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
       color: #888;
       padding: 6px 12px;
       border-radius: 4px;
       cursor: pointer;
       font-size: 12px;
-      transition: all 0.2s;
       font-family: inherit;
+      transition: all 0.2s;
     }
+    .sub-btn:hover { background: rgba(255,255,255,0.1); color: #e0e0e0; }
+    .sub-btn.active { background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.3); }
 
-    .lang-btn:hover { background: rgba(255, 255, 255, 0.1); color: #e0e0e0; }
-    .lang-btn.active { background: rgba(255, 255, 255, 0.15); color: #fff; border-color: rgba(255, 255, 255, 0.3); }
+    /* category panels */
+    .cat-panel { display: none; }
+    .cat-panel.active { display: block; }
 
-    .category-content { display: none; }
-    .category-content.active { display: block; }
-
-    .button-grid {
+    /* button grid */
+    .btn-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
       gap: 12px;
     }
 
-    .tool-button {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+    .tool-btn {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
       color: #e0e0e0;
       padding: 14px 16px;
       border-radius: 8px;
       cursor: pointer;
       font-size: 14px;
-      transition: all 0.2s;
-      font-family: inherit;
-    }
-
-    .tool-button:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: #0af;
-      transform: translateY(-2px);
-    }
-
-    .tool-button.de::after { content: ' [DE]'; font-size: 10px; color: #888; }
-    .tool-button.en::after { content: ' [EN]'; font-size: 10px; color: #888; }
-
-    /* ── Bookmarks Tool ── */
-    .bookmarks-container {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
-      padding: 30px;
-      margin-bottom: 40px;
-    }
-
-    .bookmarks-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 30px;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .bookmarks-title {
-      font-size: 1.5rem;
-      font-weight: 400;
-      margin: 0;
-      letter-spacing: 1px;
-    }
-
-    .download-bookmarks-btn {
-      background: rgba(0, 170, 255, 0.10);
-      border: 1px solid rgba(0, 170, 255, 0.30);
-      color: #0af;
-      padding: 9px 18px;
-      border-radius: 7px;
-      cursor: pointer;
-      font-size: 13px;
       font-family: inherit;
       transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 7px;
     }
+    .tool-btn:hover { background: rgba(255,255,255,0.1); border-color: #0af; transform: translateY(-2px); }
+    .tool-btn.de::after { content: ' [DE]'; font-size: 10px; color: #888; }
+    .tool-btn.en::after { content: ' [EN]'; font-size: 10px; color: #888; }
 
-    .download-bookmarks-btn:hover {
-      background: rgba(0, 170, 255, 0.20);
-      border-color: rgba(0, 170, 255, 0.55);
-      transform: translateY(-1px);
-    }
-
-    .download-bookmarks-btn svg { width: 14px; height: 14px; fill: currentColor; }
-
-    /* Accordion */
-    .bm-category {
+    /* bookmarks accordion */
+    .bm-cat {
       margin-bottom: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255,255,255,0.07);
       border-radius: 8px;
       overflow: hidden;
     }
 
-    .bm-category-header {
+    .bm-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 13px 18px;
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(255,255,255,0.04);
       cursor: pointer;
-      transition: background 0.2s;
       user-select: none;
+      transition: background 0.2s;
     }
+    .bm-head:hover { background: rgba(255,255,255,0.08); }
+    .bm-head span { font-size: 14px; font-weight: 500; color: #e0e0e0; }
 
-    .bm-category-header:hover { background: rgba(255, 255, 255, 0.08); }
-
-    .bm-category-name { font-size: 14px; font-weight: 500; color: #e0e0e0; letter-spacing: 0.5px; }
-
-    .bm-category-meta { display: flex; align-items: center; gap: 10px; }
-
-    .bm-count {
-      font-size: 11px;
-      color: #555;
-      background: rgba(255,255,255,0.05);
-      padding: 2px 7px;
-      border-radius: 10px;
-    }
-
-    .bm-chevron { color: #555; font-size: 11px; transition: transform 0.2s; display: inline-block; }
-    .bm-category.open .bm-chevron { transform: rotate(180deg); }
+    .bm-meta { display: flex; align-items: center; gap: 10px; }
+    .bm-count { font-size: 11px; color: #555; background: rgba(255,255,255,0.05); padding: 2px 7px; border-radius: 10px; }
+    .bm-arrow { color: #555; font-size: 11px; transition: transform 0.2s; }
+    .bm-cat.open .bm-arrow { transform: rotate(180deg); }
 
     .bm-links {
       display: none;
       padding: 12px 14px;
       grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
       gap: 8px;
-      background: rgba(0, 0, 0, 0.15);
+      background: rgba(0,0,0,0.15);
     }
-
-    .bm-category.open .bm-links { display: grid; }
+    .bm-cat.open .bm-links { display: grid; }
 
     .bm-link {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.07);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
       color: #c8c8c8;
       padding: 10px 13px;
       border-radius: 6px;
       font-size: 13px;
       text-decoration: none;
-      transition: all 0.18s;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
       display: block;
+      transition: all 0.18s;
     }
+    .bm-link:hover { background: rgba(255,255,255,0.09); border-color: #0af; color: #fff; transform: translateY(-1px); }
 
-    .bm-link:hover {
-      background: rgba(255, 255, 255, 0.09);
-      border-color: #0af;
-      color: #fff;
-      transform: translateY(-1px);
-      text-decoration: none;
+    /* loading / error */
+    .bm-loading { text-align: center; padding: 40px 20px; color: #555; font-size: 14px; }
+    .bm-spinner {
+      display: inline-block; width: 20px; height: 20px;
+      border: 2px solid rgba(255,255,255,0.08); border-top-color: #0af;
+      border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 12px;
     }
-
-    /* Sub-category label inside bm-links */
-    .bm-sublabel {
-      grid-column: 1 / -1;
-      font-size: 10px;
-      color: #555;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      padding: 4px 2px 2px;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      margin-bottom: 2px;
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .bm-error {
+      text-align: center; padding: 30px 20px; color: #e05555; font-size: 13px;
+      background: rgba(224,85,85,0.05); border: 1px solid rgba(224,85,85,0.15); border-radius: 8px;
     }
+    .bm-error a { color: #0af; }
 
-    /* Loading / error state */
-    .bm-status {
-      text-align: center;
-      padding: 30px;
-      color: #555;
-      font-size: 13px;
-    }
-
-    .bm-status.error { color: #f55; }
-
-    /* Download Modal */
-    .bm-modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.75);
-      z-index: 3000;
-      justify-content: center;
-      align-items: center;
-      backdrop-filter: blur(4px);
-    }
-
-    .bm-modal-overlay.visible { display: flex; }
-
-    .bm-modal {
-      background: #111;
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 12px;
-      padding: 32px 28px;
-      max-width: 420px;
-      width: 90%;
-      text-align: center;
-      position: relative;
-    }
-
-    .bm-modal-icon {
-      width: 48px;
-      height: 48px;
-      margin: 0 auto 16px;
-      background: rgba(0,170,255,0.12);
-      border: 1px solid rgba(0,170,255,0.3);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .bm-modal-icon svg { width: 22px; height: 22px; fill: #0af; }
-
-    .bm-modal h3 { font-size: 1.1rem; font-weight: 500; margin: 0 0 10px; color: #fff; }
-
-    .bm-modal p {
-      font-size: 13px;
-      color: #888;
-      margin: 0 0 22px;
-      line-height: 1.6;
-      max-width: 100%;
-    }
-
-    .bm-modal p code {
-      background: rgba(255,255,255,0.08);
-      padding: 1px 6px;
-      border-radius: 4px;
-      color: #ccc;
-      font-size: 12px;
-    }
-
-    .bm-modal-btns { display: flex; gap: 10px; justify-content: center; }
-
-    .bm-btn-download {
-      background: rgba(0,170,255,0.15);
-      border: 1px solid rgba(0,170,255,0.4);
-      color: #0af;
-      padding: 10px 22px;
-      border-radius: 7px;
-      cursor: pointer;
-      font-size: 13px;
-      font-family: inherit;
-      transition: all 0.2s;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .bm-btn-download:hover { background: rgba(0,170,255,0.25); color: #0af; text-decoration: none; }
-
-    .bm-btn-cancel {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: #888;
-      padding: 10px 22px;
-      border-radius: 7px;
-      cursor: pointer;
-      font-size: 13px;
-      font-family: inherit;
-      transition: all 0.2s;
-    }
-
-    .bm-btn-cancel:hover { background: rgba(255,255,255,0.09); color: #ccc; }
-
-    .bm-modal-close {
-      position: absolute;
-      top: 12px;
-      right: 16px;
-      background: none;
-      border: none;
-      color: #555;
-      font-size: 18px;
-      cursor: pointer;
-      font-family: inherit;
-      line-height: 1;
-      transition: color 0.2s;
-    }
-
-    .bm-modal-close:hover { color: #ccc; }
-
-    /* Responsive */
     @media (max-width: 600px) {
-      .kompendium-container,
-      .bookmarks-container { padding: 15px; }
-
-      .button-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-
-      .category-tabs { gap: 6px; }
-      .category-tab { padding: 6px 10px; font-size: 11px; }
-
-      .language-filter { padding: 10px; gap: 6px; }
-      .language-filter label { width: 100%; text-align: center; margin-right: 0; margin-bottom: 5px; }
-      .lang-btn { padding: 6px 10px; font-size: 11px; }
-
-      .tool-button { padding: 10px 12px; font-size: 12px; }
-
-      .bm-links { grid-template-columns: repeat(2, 1fr); }
-      .bookmarks-header { flex-direction: column; align-items: flex-start; }
+      .tool-card { padding: 15px; }
+      .btn-grid { grid-template-columns: repeat(2,1fr); gap: 8px; }
+      .cat-tabs { gap: 6px; }
+      .cat-tab { padding: 6px 10px; font-size: 11px; }
+      .tool-btn { padding: 10px 12px; font-size: 12px; }
+      .bm-links { grid-template-columns: repeat(2,1fr); }
     }
   </style>
 </head>
@@ -408,177 +198,162 @@
 
   <main>
     <h1 class="page-header">Tools</h1>
-
     <section id="frame">
 
-      <!-- ══════════════════════════════════════════
-           TOOL 1: COMPENDIUM
-      ══════════════════════════════════════════ -->
-      <div class="kompendium-container">
-        <h2 class="kompendium-title">Compendium</h2>
+      <!-- COMPENDIUM -->
+      <div class="tool-card">
+        <h2>Compendium</h2>
 
-        <div class="category-tabs">
-          <button class="category-tab active" data-category="general">General</button>
-          <button class="category-tab" data-category="movies">Movies & Series</button>
-          <button class="category-tab" data-category="tv">TV</button>
-          <button class="category-tab" data-category="anime">Anime</button>
-          <button class="category-tab" data-category="games">Games</button>
-          <button class="category-tab" data-category="music">Music</button>
-          <button class="category-tab" data-category="software">Software</button>
-          <button class="category-tab" data-category="sports">Sports</button>
-          <button class="category-tab" data-category="misc.">Mics.</button>
+        <div class="cat-tabs">
+          <button class="cat-tab active" data-cat="general">General</button>
+          <button class="cat-tab" data-cat="movies">Movies &amp; Series</button>
+          <button class="cat-tab" data-cat="tv">TV</button>
+          <button class="cat-tab" data-cat="anime">Anime</button>
+          <button class="cat-tab" data-cat="games">Games</button>
+          <button class="cat-tab" data-cat="music">Music</button>
+          <button class="cat-tab" data-cat="software">Software</button>
+          <button class="cat-tab" data-cat="sports">Sports</button>
+          <button class="cat-tab" data-cat="misc">Misc.</button>
         </div>
 
-        <div class="language-filter" id="languageFilter">
-          <label id="filterLabel">Language:</label>
-          <button class="lang-btn active" data-lang="all">All</button>
-          <button class="lang-btn" data-lang="de">Deutsch</button>
-          <button class="lang-btn" data-lang="en">English</button>
-          <button class="lang-btn" data-lang="pc" style="display:none;">PC</button>
-          <button class="lang-btn" data-lang="roms" style="display:none;">ROMs</button>
+        <div class="sub-filter" id="subFilter">
+          <label id="subLabel"></label>
+          <button class="sub-btn active" data-sub="all">All</button>
+          <button class="sub-btn" data-sub="de">Deutsch</button>
+          <button class="sub-btn" data-sub="en">English</button>
+          <button class="sub-btn" data-sub="pc" style="display:none">PC</button>
+          <button class="sub-btn" data-sub="roms" style="display:none">ROMs</button>
         </div>
 
-        <div class="category-content active" data-category="general">
-          <div class="button-grid">
-            <button class="tool-button" onclick="window.open('https://fmhy.net/', '_blank')">FMHY</button>
-            <button class="tool-button" onclick="window.open('https://github.com/SeppPenner/awesome-german-piracy/', '_blank')">German Piracy</button>
-            <button class="tool-button" onclick="window.open('https://rentry.org/megathread/', '_blank')">Megathread</button>
-            <button class="tool-button" onclick="window.open('https://www.reddit.com/r/Piracy/', '_blank')">r/Piracy</button>
+        <div class="cat-panel active" data-cat="general">
+          <div class="btn-grid">
+            <button class="tool-btn" onclick="open('https://fmhy.net/')">FMHY</button>
+            <button class="tool-btn" onclick="open('https://github.com/SeppPenner/awesome-german-piracy/')">German Piracy</button>
+            <button class="tool-btn" onclick="open('https://rentry.org/megathread/')">Megathread</button>
+            <button class="tool-btn" onclick="open('https://www.reddit.com/r/Piracy/')">r/Piracy</button>
           </div>
         </div>
 
-        <div class="category-content" data-category="movies">
-          <div class="button-grid" id="moviesGrid">
-            <button class="tool-button de" data-lang="de" onclick="window.open('https://cine.to/', '_blank')">Cine.to</button>
-            <button class="tool-button de" data-lang="de" onclick="window.open('https://filmpalast.to/', '_blank')">Filmpalast</button>
-            <button class="tool-button de" data-lang="de" onclick="window.open('https://hdfilme.legal/', '_blank')">HDfilme</button>
-            <button class="tool-button de" data-lang="de" onclick="window.open('https://kinoger.com/', '_blank')">KinoGer</button>
-            <button class="tool-button de" data-lang="de" onclick="window.open('https://kinox.to/', '_blank')">KinoX</button>
-            <button class="tool-button de" data-lang="de" onclick="window.open('https://megakino.org/', '_blank')">MegaKino</button>
-            <button class="tool-button de" data-lang="de" onclick="window.open('https://movie2k.cx/', '_blank')">Movie2K</button>
-            <button class="tool-button de" data-lang="de" onclick="window.open('https://movie4k.sx/', '_blank')">Movie4K</button>
-            <button class="tool-button de" data-lang="de" onclick="window.open('https://s.to/', '_blank')">S.to</button>
-            <button class="tool-button de" data-lang="de" onclick="window.open('https://streamkiste.taxi/streamkiste/', '_blank')">StreamKiste</button>
-            <button class="tool-button de" data-lang="de" onclick="window.open('https://github.com/streamflix-reborn/streamflix/releases', '_blank')">Streamflix (app)</button>
-            <button class="tool-button en" data-lang="en" onclick="window.open('https://www.1shows.nl/', '_blank')">1Shows</button>
-            <button class="tool-button en" data-lang="en" onclick="window.open('https://cinemacity.rip/', '_blank')">CinemaCity</button>
-            <button class="tool-button en" data-lang="en" onclick="window.open('https://www.cineby.gd/', '_blank')">Cineby</button>
-            <button class="tool-button en" data-lang="en" onclick="window.open('https://www.ez-streaming.space/', '_blank')">Ez Streaming</button>
-            <button class="tool-button en" data-lang="en" onclick="window.open('https://himovies.sx/home', '_blank')">HiMovies</button>
-            <button class="tool-button en" data-lang="en" onclick="window.open('https://hollymoviehd.cc/home/', '_blank')">HollyMovieHD</button>
-            <button class="tool-button en" data-lang="en" onclick="window.open('https://ishowmovies.org/', '_blank')">ishowmovies</button>
-            <button class="tool-button en" data-lang="en" onclick="window.open('https://moviebite.cc/', '_blank')">MovieBite</button>
-            <button class="tool-button en" data-lang="en" onclick="window.open('https://github.com/streamflix-reborn/streamflix/releases', '_blank')">Streamflix (app)</button>
-            <button class="tool-button en" data-lang="en" onclick="window.open('https://streamvaults.ru/', '_blank')">Streamvaults</button>
-            <button class="tool-button en" data-lang="en" onclick="window.open('https://theflixertv.click/home', '_blank')">TheFlixer</button>
-            <button class="tool-button en" data-lang="en" onclick="window.open('https://watchluna.com/', '_blank')">WatchLuna</button>
+        <div class="cat-panel" data-cat="movies">
+          <div class="btn-grid">
+            <button class="tool-btn de" data-sub="de" onclick="open('https://cine.to/')">Cine.to</button>
+            <button class="tool-btn de" data-sub="de" onclick="open('https://filmpalast.to/')">Filmpalast</button>
+            <button class="tool-btn de" data-sub="de" onclick="open('https://hdfilme.legal/')">HDfilme</button>
+            <button class="tool-btn de" data-sub="de" onclick="open('https://kinoger.com/')">KinoGer</button>
+            <button class="tool-btn de" data-sub="de" onclick="open('https://kinox.to/')">KinoX</button>
+            <button class="tool-btn de" data-sub="de" onclick="open('https://megakino.org/')">MegaKino</button>
+            <button class="tool-btn de" data-sub="de" onclick="open('https://movie2k.cx/')">Movie2K</button>
+            <button class="tool-btn de" data-sub="de" onclick="open('https://movie4k.sx/')">Movie4K</button>
+            <button class="tool-btn de" data-sub="de" onclick="open('https://s.to/')">S.to</button>
+            <button class="tool-btn de" data-sub="de" onclick="open('https://streamkiste.taxi/streamkiste/')">StreamKiste</button>
+            <button class="tool-btn de" data-sub="de" onclick="open('https://github.com/streamflix-reborn/streamflix/releases')">Streamflix (app)</button>
+            <button class="tool-btn en" data-sub="en" onclick="open('https://www.1shows.nl/')">1Shows</button>
+            <button class="tool-btn en" data-sub="en" onclick="open('https://cinemacity.rip/')">CinemaCity</button>
+            <button class="tool-btn en" data-sub="en" onclick="open('https://www.cineby.gd/')">Cineby</button>
+            <button class="tool-btn en" data-sub="en" onclick="open('https://www.ez-streaming.space/')">Ez Streaming</button>
+            <button class="tool-btn en" data-sub="en" onclick="open('https://himovies.sx/home')">HiMovies</button>
+            <button class="tool-btn en" data-sub="en" onclick="open('https://hollymoviehd.cc/home/')">HollyMovieHD</button>
+            <button class="tool-btn en" data-sub="en" onclick="open('https://ishowmovies.org/')">ishowmovies</button>
+            <button class="tool-btn en" data-sub="en" onclick="open('https://moviebite.cc/')">MovieBite</button>
+            <button class="tool-btn en" data-sub="en" onclick="open('https://github.com/streamflix-reborn/streamflix/releases')">Streamflix (app)</button>
+            <button class="tool-btn en" data-sub="en" onclick="open('https://streamvaults.ru/')">Streamvaults</button>
+            <button class="tool-btn en" data-sub="en" onclick="open('https://theflixertv.click/home')">TheFlixer</button>
+            <button class="tool-btn en" data-sub="en" onclick="open('https://watchluna.com/')">WatchLuna</button>
           </div>
         </div>
 
-        <div class="category-content" data-category="tv">
-          <div class="button-grid">
-            <button class="tool-button" onclick="window.open('https://www.2ix2.com/', '_blank')">2ix2</button>
-            <button class="tool-button" onclick="window.open('https://dragon-ott.com/', '_blank')">IPTV (paid)</button>
-            <button class="tool-button" onclick="window.open('https://www.livehdtv.com/ulke/germany/', '_blank')">LiveHDTV</button>
-            <button class="tool-button" onclick="window.open('https://www.livestreamde.com/', '_blank')">LivestreamDE</button>
+        <div class="cat-panel" data-cat="tv">
+          <div class="btn-grid">
+            <button class="tool-btn" onclick="open('https://www.2ix2.com/')">2ix2</button>
+            <button class="tool-btn" onclick="open('https://dragon-ott.com/')">IPTV (paid)</button>
+            <button class="tool-btn" onclick="open('https://www.livehdtv.com/ulke/germany/')">LiveHDTV</button>
+            <button class="tool-btn" onclick="open('https://www.livestreamde.com/')">LivestreamDE</button>
           </div>
         </div>
 
-        <div class="category-content" data-category="anime">
-          <div class="button-grid">
-            <button class="tool-button" onclick="window.open('https://www.anilab.to/', '_blank')">anilab (app)</button>
-            <button class="tool-button" onclick="window.open('https://www.animekai.to/home', '_blank')">AnimeKAI</button>
-            <button class="tool-button" onclick="window.open('https://ww1.lat/animesuge/', '_blank')">AnimeSuge</button>
-            <button class="tool-button" onclick="window.open('https://aniwatch.co.at/', '_blank')">aniwatch</button>
-            <button class="tool-button" onclick="window.open('https://www.anime-loads.org/', '_blank')">Anime-Loads (DE)</button>
-            <button class="tool-button" onclick="window.open('https://www.aniworld.to/', '_blank')">AniWorld (DE)</button>
-            <button class="tool-button" onclick="window.open('https://www.miruro.tv/', '_blank')">Mirurotv</button>
+        <div class="cat-panel" data-cat="anime">
+          <div class="btn-grid">
+            <button class="tool-btn" onclick="open('https://www.anilab.to/')">anilab (app)</button>
+            <button class="tool-btn" onclick="open('https://www.animekai.to/home')">AnimeKAI</button>
+            <button class="tool-btn" onclick="open('https://ww1.lat/animesuge/')">AnimeSuge</button>
+            <button class="tool-btn" onclick="open('https://aniwatch.co.at/')">aniwatch</button>
+            <button class="tool-btn" onclick="open('https://www.anime-loads.org/')">Anime-Loads (DE)</button>
+            <button class="tool-btn" onclick="open('https://www.aniworld.to/')">AniWorld (DE)</button>
+            <button class="tool-btn" onclick="open('https://www.miruro.tv/')">Mirurotv</button>
           </div>
         </div>
 
-        <div class="category-content" data-category="games">
-          <div class="button-grid" id="gamesGrid">
-            <button class="tool-button" data-lang="pc" onclick="window.open('https://ankergames.net/', '_blank')">AnkerGames</button>
-            <button class="tool-button" data-lang="pc" onclick="window.open('https://astral-games.xyz/', '_blank')">AstralGames</button>
-            <button class="tool-button" data-lang="pc" onclick="window.open('https://www.cg-gamespc.net/', '_blank')">CG-gamesPC</button>
-            <button class="tool-button" data-lang="pc" onclick="window.open('https://dodi-repacks.site/', '_blank')">DODI Repacks</button>
-            <button class="tool-button" data-lang="pc" onclick="window.open('https://fitgirl-repacks.site/', '_blank')">FitGirl Repacks</button>
-            <button class="tool-button" data-lang="pc" onclick="window.open('https://gamedrive.org/', '_blank')">GameDrive</button>
-            <button class="tool-button" data-lang="pc" onclick="window.open('https://gamebounty.world/', '_blank')">Gamebounty</button>
-            <button class="tool-button" data-lang="pc" onclick="window.open('https://gload.to/', '_blank')">GLOAD</button>
-            <button class="tool-button" data-lang="pc" onclick="window.open('https://rentry.org/gnarly_repacks/', '_blank')">Gnarly</button>
-            <button class="tool-button" data-lang="pc" onclick="window.open('https://www.ovagames.com/', '_blank')">Ova Games</button>
-            <button class="tool-button" data-lang="pc" onclick="window.open('https://pc-games.eu.org/', '_blank')">pc-games.eu</button>
-            <button class="tool-button" data-lang="pc" onclick="window.open('https://rentry.org/pgames/', '_blank')">PGames</button>
-            <button class="tool-button" data-lang="pc" onclick="window.open('https://rexagames.com/', '_blank')">RexaGames</button>
-            <button class="tool-button" data-lang="roms" onclick="window.open('https://nswgame.com/', '_blank')">nswgame</button>
-            <button class="tool-button" data-lang="roms" onclick="window.open('https://nxbrew.net/', '_blank')">NXBrew</button>
-            <button class="tool-button" data-lang="roms" onclick="window.open('https://romsim.com/', '_blank')">ROMSIM</button>
-            <button class="tool-button" data-lang="roms" onclick="window.open('https://romsfun.com/', '_blank')">ROMSFUN</button>
-            <button class="tool-button" data-lang="roms" onclick="window.open('https://romslab.com/', '_blank')">ROMSLAB</button>
-            <button class="tool-button" data-lang="roms" onclick="window.open('https://www.switchgamesmall.icu/', '_blank')">SwitchGamesMall</button>
-            <button class="tool-button" data-lang="roms" onclick="window.open('https://not.ultranx.ru/en', '_blank')">UltraNX</button>
-            <button class="tool-button" data-lang="roms" onclick="window.open('https://www.ziperto.com/', '_blank')">Ziperto</button>
+        <div class="cat-panel" data-cat="games">
+          <div class="btn-grid">
+            <button class="tool-btn" data-sub="pc" onclick="open('https://ankergames.net/')">AnkerGames</button>
+            <button class="tool-btn" data-sub="pc" onclick="open('https://astral-games.xyz/')">AstralGames</button>
+            <button class="tool-btn" data-sub="pc" onclick="open('https://www.cg-gamespc.net/')">CG-gamesPC</button>
+            <button class="tool-btn" data-sub="pc" onclick="open('https://dodi-repacks.site/')">DODI Repacks</button>
+            <button class="tool-btn" data-sub="pc" onclick="open('https://fitgirl-repacks.site/')">FitGirl Repacks</button>
+            <button class="tool-btn" data-sub="pc" onclick="open('https://gamedrive.org/')">GameDrive</button>
+            <button class="tool-btn" data-sub="pc" onclick="open('https://gamebounty.world/')">Gamebounty</button>
+            <button class="tool-btn" data-sub="pc" onclick="open('https://gload.to/')">GLOAD</button>
+            <button class="tool-btn" data-sub="pc" onclick="open('https://rentry.org/gnarly_repacks/')">Gnarly</button>
+            <button class="tool-btn" data-sub="pc" onclick="open('https://www.ovagames.com/')">Ova Games</button>
+            <button class="tool-btn" data-sub="pc" onclick="open('https://pc-games.eu.org/')">pc-games.eu</button>
+            <button class="tool-btn" data-sub="pc" onclick="open('https://rentry.org/pgames/')">PGames</button>
+            <button class="tool-btn" data-sub="pc" onclick="open('https://rexagames.com/')">RexaGames</button>
+            <button class="tool-btn" data-sub="roms" onclick="open('https://nswgame.com/')">nswgame</button>
+            <button class="tool-btn" data-sub="roms" onclick="open('https://nxbrew.net/')">NXBrew</button>
+            <button class="tool-btn" data-sub="roms" onclick="open('https://romsim.com/')">ROMSIM</button>
+            <button class="tool-btn" data-sub="roms" onclick="open('https://romsfun.com/')">ROMSFUN</button>
+            <button class="tool-btn" data-sub="roms" onclick="open('https://romslab.com/')">ROMSLAB</button>
+            <button class="tool-btn" data-sub="roms" onclick="open('https://www.switchgamesmall.icu/')">SwitchGamesMall</button>
+            <button class="tool-btn" data-sub="roms" onclick="open('https://not.ultranx.ru/en')">UltraNX</button>
+            <button class="tool-btn" data-sub="roms" onclick="open('https://www.ziperto.com/')">Ziperto</button>
           </div>
         </div>
 
-        <div class="category-content" data-category="music">
-          <div class="button-grid">
-            <button class="tool-button" onclick="window.open('https://dabmusic.xyz/', '_blank')">DAB Music Player</button>
-            <button class="tool-button" onclick="window.open('https://github.com/afkarxyz/SpotiFLAC/releases/', '_blank')">SpotiFlac (app)</button>
+        <div class="cat-panel" data-cat="music">
+          <div class="btn-grid">
+            <button class="tool-btn" onclick="open('https://dabmusic.xyz/')">DAB Music Player</button>
+            <button class="tool-btn" onclick="open('https://github.com/afkarxyz/SpotiFLAC/releases/')">SpotiFlac (app)</button>
           </div>
         </div>
 
-        <div class="category-content" data-category="software">
-          <div class="button-grid">
-            <button class="tool-button" onclick="window.open('https://www.fcportables.com/', '_blank')">FC Portables</button>
-            <button class="tool-button" onclick="window.open('https://lrepacks.net/#', '_blank')">LRepacks</button>
-            <button class="tool-button" onclick="window.open('https://forum.mobilism.org/index.php', '_blank')">Mobilism</button>
-            <button class="tool-button" onclick="window.open('https://ggntw.com/steam/', '_blank')">Steam WS</button>
+        <div class="cat-panel" data-cat="software">
+          <div class="btn-grid">
+            <button class="tool-btn" onclick="open('https://www.fcportables.com/')">FC Portables</button>
+            <button class="tool-btn" onclick="open('https://lrepacks.net/#')">LRepacks</button>
+            <button class="tool-btn" onclick="open('https://forum.mobilism.org/index.php')">Mobilism</button>
+            <button class="tool-btn" onclick="open('https://ggntw.com/steam/')">Steam WS</button>
           </div>
         </div>
 
-        <div class="category-content" data-category="sports">
-          <div class="button-grid">
-            <button class="tool-button" onclick="window.open('https://buffsports.io/', '_blank')">Buffstreams</button>
-            <button class="tool-button" onclick="window.open('https://hesgoal.im/', '_blank')">Hesgoal</button>
-            <button class="tool-button" onclick="window.open('https://ntvstream.cx/', '_blank')">NTVSTREAM</button>
-            <button class="tool-button" onclick="window.open('https://ppv.to/', '_blank')">PPV</button>
+        <div class="cat-panel" data-cat="sports">
+          <div class="btn-grid">
+            <button class="tool-btn" onclick="open('https://buffsports.io/')">Buffstreams</button>
+            <button class="tool-btn" onclick="open('https://hesgoal.im/')">Hesgoal</button>
+            <button class="tool-btn" onclick="open('https://ntvstream.cx/')">NTVSTREAM</button>
+            <button class="tool-btn" onclick="open('https://ppv.to/')">PPV</button>
           </div>
         </div>
 
-        <div class="category-content" data-category="misc.">
-          <div class="button-grid">
-            <button class="tool-button" onclick="window.open('https://www.curseforge.com/wow/addons/critsound', '_blank')">CritSound</button>
-            <button class="tool-button" onclick="window.open('https://modrinth.com/plugin/gbjc', '_blank')">GeyserGBJC</button>
+        <div class="cat-panel" data-cat="misc">
+          <div class="btn-grid">
+            <button class="tool-btn" onclick="open('https://www.curseforge.com/wow/addons/critsound')">CritSound</button>
+            <button class="tool-btn" onclick="open('https://modrinth.com/plugin/gbjc')">GeyserGBJC</button>
           </div>
         </div>
       </div>
 
-
-      <!-- ══════════════════════════════════════════
-           TOOL 2: BOOKMARKS
-      ══════════════════════════════════════════ -->
-      <div class="bookmarks-container">
-        <div class="bookmarks-header">
-          <h2 class="bookmarks-title">Bookmarks</h2>
-          <button class="download-bookmarks-btn" id="openDownloadModal">
-            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8 12L3 7h3V2h4v5h3L8 12zM2 14h12v-1.5H2V14z"/>
-            </svg>
-            Download all
-          </button>
+      <!-- BOOKMARKS -->
+      <div class="tool-card">
+        <h2>Bookmarks</h2>
+        <div id="bm-list">
+          <div class="bm-loading">
+            <div class="bm-spinner"></div><br>Loading bookmarks…
+          </div>
         </div>
+      </div>
 
-        <!-- Bookmarks rendered dynamically here -->
-        <div id="bookmarks-list">
-          <div class="bm-status">Loading bookmarks…</div>
-        </div>
-
-      </div><!-- /bookmarks-container -->
-
-      <p style="margin-top: 100px;">
-        please <a href="https://nexio.network/#Contact" style="color: #0af; text-decoration: underline;">contact</a> me if any of the links are not working anymore.
+      <p style="margin-top:100px">
+        please <a href="https://nexio.network/#Contact" style="color:#0af;text-decoration:underline">contact</a> me if any of the links are not working anymore.
       </p>
     </section>
 
@@ -587,335 +362,118 @@
     </footer>
   </main>
 
-
-  <!-- ── Download Modal ─────────────────────────────────────────────────── -->
-  <div class="bm-modal-overlay" id="bmModalOverlay">
-    <div class="bm-modal">
-      <button class="bm-modal-close" id="bmModalClose">✕</button>
-      <div class="bm-modal-icon">
-        <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 12L3 7h3V2h4v5h3L8 12zM2 14h12v-1.5H2V14z"/>
-        </svg>
-      </div>
-      <h3>Download Bookmarks</h3>
-      <p>
-        Downloads a Firefox-compatible <code>.html</code> file.<br>
-        Import via <code>Bookmarks → Manage Bookmarks → Import &amp; Backup → Import Bookmarks from HTML</code>.
-      </p>
-      <div class="bm-modal-btns">
-        <a class="bm-btn-download"
-           href="https://raw.githubusercontent.com/xXnexioXx/index/main/bookmarks_clean.html"
-           download="bookmarks_nexio.html">
-          <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" style="width:13px;height:13px;fill:currentColor;">
-            <path d="M8 12L3 7h3V2h4v5h3L8 12zM2 14h12v-1.5H2V14z"/>
-          </svg>
-          Download .html
-        </a>
-        <button class="bm-btn-cancel" id="bmModalCancel">Cancel</button>
-      </div>
-    </div>
-  </div>
-
-
   <script>
     // ── Menu ──────────────────────────────────────────────────────────────────
     const menuBtn = document.getElementById('menuBtn');
-    const menu    = document.getElementById('menu');
-
-    function closeMenu() {
-      menuBtn.setAttribute('aria-expanded', 'false');
-      menu.setAttribute('aria-hidden', 'true');
-      menu.classList.remove('active');
-      menuBtn.classList.remove('active');
-    }
-    function openMenu() {
-      menuBtn.setAttribute('aria-expanded', 'true');
-      menu.setAttribute('aria-hidden', 'false');
-      menu.classList.add('active');
-      menuBtn.classList.add('active');
-    }
-    menuBtn.addEventListener('click', e => {
-      e.stopPropagation();
-      menuBtn.getAttribute('aria-expanded') === 'true' ? closeMenu() : openMenu();
-    });
-    document.addEventListener('click', e => {
-      if (!menu.contains(e.target) && e.target !== menuBtn) closeMenu();
-    });
+    const menu = document.getElementById('menu');
+    const closeMenu = () => { menu.classList.remove('active'); menuBtn.classList.remove('active'); menu.setAttribute('aria-hidden','true'); };
+    menuBtn.addEventListener('click', e => { e.stopPropagation(); menu.classList.toggle('active'); menuBtn.classList.toggle('active'); menu.setAttribute('aria-hidden', menu.classList.contains('active') ? 'false' : 'true'); });
+    document.addEventListener('click', e => { if (!menu.contains(e.target) && e.target !== menuBtn) closeMenu(); });
     document.querySelectorAll('.menu a').forEach(l => l.addEventListener('click', closeMenu));
 
     // ── Compendium ────────────────────────────────────────────────────────────
-    const categoryTabs     = document.querySelectorAll('.category-tab');
-    const categoryContents = document.querySelectorAll('.category-content');
-    const languageFilter   = document.getElementById('languageFilter');
-    const filterLabel      = document.getElementById('filterLabel');
-    const langBtns         = document.querySelectorAll('.lang-btn');
+    const subFilter = document.getElementById('subFilter');
+    const subLabel  = document.getElementById('subLabel');
+    const subBtns   = document.querySelectorAll('.sub-btn');
 
-    const filterConfig = {
-      movies: { label: 'Language:', btns: ['all', 'de', 'en'] },
-      games:  { label: 'Platform:', btns: ['all', 'pc', 'roms'] }
+    const subConfig = {
+      movies: { label: 'Language:', subs: ['all','de','en'] },
+      games:  { label: 'Platform:', subs: ['all','pc','roms'] }
     };
 
-    categoryTabs.forEach(tab => {
+    document.querySelectorAll('.cat-tab').forEach(tab => {
       tab.addEventListener('click', () => {
-        const category = tab.dataset.category;
-        categoryTabs.forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.cat-panel').forEach(p => p.classList.remove('active'));
         tab.classList.add('active');
-        categoryContents.forEach(c => {
-          c.classList.remove('active');
-          if (c.dataset.category === category) c.classList.add('active');
-        });
-        langBtns.forEach(b => b.style.display = 'none');
-        if (filterConfig[category]) {
-          const cfg = filterConfig[category];
-          filterLabel.textContent = cfg.label;
-          cfg.btns.forEach(l => document.querySelector(`.lang-btn[data-lang="${l}"]`).style.display = 'inline-block');
-          langBtns.forEach(b => b.classList.remove('active'));
-          document.querySelector('.lang-btn[data-lang="all"]').classList.add('active');
-          document.querySelectorAll('.category-content.active .tool-button').forEach(el => el.style.display = 'block');
-          languageFilter.classList.add('visible');
+        document.querySelector(`.cat-panel[data-cat="${tab.dataset.cat}"]`).classList.add('active');
+
+        subBtns.forEach(b => b.style.display = 'none');
+        const cfg = subConfig[tab.dataset.cat];
+        if (cfg) {
+          subLabel.textContent = cfg.label;
+          cfg.subs.forEach(s => document.querySelector(`.sub-btn[data-sub="${s}"]`).style.display = 'inline-block');
+          subBtns.forEach(b => b.classList.remove('active'));
+          document.querySelector('.sub-btn[data-sub="all"]').classList.add('active');
+          document.querySelectorAll('.cat-panel.active .tool-btn').forEach(el => el.style.display = 'block');
+          subFilter.classList.add('visible');
         } else {
-          languageFilter.classList.remove('visible');
+          subFilter.classList.remove('visible');
         }
       });
     });
 
-    langBtns.forEach(btn => {
+    subBtns.forEach(btn => {
       btn.addEventListener('click', () => {
-        const lang = btn.dataset.lang;
-        langBtns.forEach(b => b.classList.remove('active'));
+        subBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        document.querySelectorAll('.category-content.active .tool-button').forEach(el => {
-          el.style.display = (lang === 'all' || el.dataset.lang === lang) ? 'block' : 'none';
+        const sub = btn.dataset.sub;
+        document.querySelectorAll('.cat-panel.active .tool-btn').forEach(el => {
+          el.style.display = (sub === 'all' || el.dataset.sub === sub) ? 'block' : 'none';
         });
       });
     });
 
-    // ── Bookmarks Accordion ───────────────────────────────────────────────────
-    function toggleCategory(header) {
-      header.parentElement.classList.toggle('open');
-    }
-
-    // ── Download Modal ────────────────────────────────────────────────────────
-    const overlay   = document.getElementById('bmModalOverlay');
-    const openBtn   = document.getElementById('openDownloadModal');
-    const closeBtn  = document.getElementById('bmModalClose');
-    const cancelBtn = document.getElementById('bmModalCancel');
-
-    openBtn.addEventListener('click',   () => overlay.classList.add('visible'));
-    closeBtn.addEventListener('click',  () => overlay.classList.remove('visible'));
-    cancelBtn.addEventListener('click', () => overlay.classList.remove('visible'));
-    overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('visible'); });
-
-
-    // ── Dynamic Bookmarks Loader ──────────────────────────────────────────────
-
-    // Category emoji mapping — matched against the H3 folder name (case-insensitive)
-    const CATEGORY_ICONS = {
-      'tv':              '📺',
-      'movie':           '🎬',
-      'serie':           '🎬',
-      'game':            '🎮',
-      'software':        '💾',
-      'p2p':             '🌐',
-      'tool':            '🔧',
-    };
-
-    function getCategoryIcon(name) {
-      const lower = name.toLowerCase();
-      for (const [key, icon] of Object.entries(CATEGORY_ICONS)) {
-        if (lower.includes(key)) return icon;
-      }
-      return '📁';
-    }
-
-    // Returns a clean display name from a bookmark <A> title + href
-    function getLinkLabel(title, href) {
-      // Strip long boilerplate titles — use hostname as fallback if title is too long
-      if (!title || title.length > 60) {
-        try {
-          const url = new URL(href);
-          return url.hostname.replace(/^www\./, '');
-        } catch {
-          return title || href;
+    // ── Bookmarks ─────────────────────────────────────────────────────────────
+    function parseBookmarks(html) {
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      let toolbarDL = null;
+      for (const h3 of doc.querySelectorAll('H3')) {
+        if (h3.getAttribute('PERSONAL_TOOLBAR_FOLDER') === 'true') {
+          let s = h3.nextElementSibling;
+          while (s && s.tagName !== 'DL') s = s.nextElementSibling;
+          toolbarDL = s; break;
         }
       }
-      return title;
+      if (!toolbarDL) toolbarDL = doc.querySelector('DL');
+      if (!toolbarDL) return [];
+
+      return Array.from(toolbarDL.children)
+        .filter(el => el.tagName === 'DT' && el.querySelector(':scope > H3'))
+        .map(dt => {
+          const name  = dt.querySelector(':scope > H3').textContent.trim();
+          const links = Array.from(dt.querySelectorAll('A')).reduce((acc, a) => {
+            const href = (a.getAttribute('HREF') || '').trim();
+            if (!href.startsWith('http')) return acc;
+            let host; try { host = new URL(href).hostname; } catch { return acc; }
+            if (!host || host === '.') return acc;
+            let title = a.textContent.trim();
+            if (title.length > 50) title = host.replace(/^www\./, '');
+            acc.push({ title, href });
+            return acc;
+          }, []);
+          return { name, links };
+        })
+        .filter(cat => cat.links.length > 0);
     }
 
-    // Filter out separator entries (href is just "http://./", "https://./", etc.)
-    function isSeparator(href) {
-      return /^https?:\/\/\.?\/?$/.test(href) || href === 'http://./' || href === 'https://./';
-    }
-
-    // Filter out noise links (YouTube, ChatGPT, GitHub, nexio.network itself, Blu-ray)
-    const SKIP_HOSTS = ['youtube.com', 'chatgpt.com', 'github.com', 'nexio.network', 'blu-ray.com'];
-    function isNoisyLink(href) {
-      try {
-        const host = new URL(href).hostname.replace(/^www\./, '');
-        return SKIP_HOSTS.some(s => host === s || host.endsWith('.' + s));
-      } catch { return false; }
-    }
-
-    /**
-     * Recursively parse a <DL> element into a structured object:
-     * { name, links: [{href, label}], children: [...subcategories] }
-     */
-    function parseDL(dl, name) {
-      const result = { name, links: [], children: [] };
-      const items = dl.querySelectorAll(':scope > dt');
-
-      items.forEach(dt => {
-        const h3 = dt.querySelector(':scope > h3');
-        const a  = dt.querySelector(':scope > a');
-        const subDL = dt.querySelector(':scope > dl');
-
-        if (h3 && subDL) {
-          // Sub-folder
-          result.children.push(parseDL(subDL, h3.textContent.trim()));
-        } else if (a) {
-          const href  = a.getAttribute('href') || '';
-          const title = a.textContent.trim();
-          if (!isSeparator(href) && !isNoisyLink(href)) {
-            result.links.push({ href, label: getLinkLabel(title, href) });
-          }
-        }
-      });
-
-      return result;
-    }
-
-    /**
-     * Build the DOM for a top-level category accordion item.
-     * Supports one level of sub-folders (rendered as inline sub-labels).
-     */
-    function buildCategoryEl(category) {
-      // Collect all links (flat), inserting sublabels for sub-folders
-      const segments = []; // [{sublabel?: string, links: [{href,label}]}]
-
-      // Direct links at the top level (no sub-folder)
-      if (category.links.length) {
-        segments.push({ links: category.links });
-      }
-
-      // Sub-folders
-      category.children.forEach(child => {
-        const allLinks = collectAllLinks(child);
-        if (allLinks.length) {
-          segments.push({ sublabel: child.name, links: allLinks });
-        }
-      });
-
-      if (!segments.length) return null;
-
-      const totalLinks = segments.reduce((s, seg) => s + seg.links.length, 0);
-
-      const icon = getCategoryIcon(category.name);
-
-      const wrapper = document.createElement('div');
-      wrapper.className = 'bm-category';
-      wrapper.innerHTML = `
-        <div class="bm-category-header" onclick="toggleCategory(this)">
-          <span class="bm-category-name">${icon}  ${escapeHtml(category.name)}</span>
-          <div class="bm-category-meta">
-            <span class="bm-count">${totalLinks}</span>
-            <span class="bm-chevron">▼</span>
+    function renderBookmarks(cats) {
+      document.getElementById('bm-list').innerHTML = cats.map(cat => `
+        <div class="bm-cat">
+          <div class="bm-head" onclick="this.parentElement.classList.toggle('open')">
+            <span>${cat.name}</span>
+            <div class="bm-meta">
+              <span class="bm-count">${cat.links.length}</span>
+              <span class="bm-arrow">&#9660;</span>
+            </div>
           </div>
-        </div>
-        <div class="bm-links"></div>
-      `;
-
-      const linksGrid = wrapper.querySelector('.bm-links');
-
-      segments.forEach(seg => {
-        if (seg.sublabel) {
-          const label = document.createElement('div');
-          label.className = 'bm-sublabel';
-          label.textContent = seg.sublabel;
-          linksGrid.appendChild(label);
-        }
-        seg.links.forEach(({ href, label }) => {
-          const a = document.createElement('a');
-          a.className = 'bm-link';
-          a.href = href;
-          a.target = '_blank';
-          a.rel = 'noopener noreferrer';
-          a.title = href;
-          a.textContent = label;
-          linksGrid.appendChild(a);
-        });
-      });
-
-      return wrapper;
+          <div class="bm-links">
+            ${cat.links.map(l => `<a class="bm-link" href="${l.href}" target="_blank" rel="noopener" title="${l.href}">${l.title}</a>`).join('')}
+          </div>
+        </div>`).join('');
     }
 
-    // Recursively collect all links from a category and its children
-    function collectAllLinks(cat) {
-      return [
-        ...cat.links,
-        ...cat.children.flatMap(c => collectAllLinks(c))
-      ];
-    }
-
-    function escapeHtml(str) {
-      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    }
-
-    /**
-     * Main loader: fetch → parse → render
-     */
     async function loadBookmarks() {
-      const listEl = document.getElementById('bookmarks-list');
-      const RAW_URL = 'https://raw.githubusercontent.com/xXnexioXx/index/main/bookmarks_clean.html';
-
+      const URL = 'https://raw.githubusercontent.com/xXnexioXx/index/main/bookmarks_clean.html';
       try {
-        const res = await fetch(RAW_URL, { cache: 'no-cache' });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const html = await res.text();
-
-        // Parse via DOMParser (safe — no scripts will run)
-        const parser = new DOMParser();
-        const doc    = parser.parseFromString(html, 'text/html');
-
-        // Firefox export: top-level DL → DT > H3 "Bookmarks Toolbar" → DL (actual folders)
-        // We look for all H3 + sibling DL pairs at any depth inside the toolbar folder
-        const toolbarH3 = Array.from(doc.querySelectorAll('h3')).find(
-          h3 => h3.getAttribute('personal_toolbar_folder') === 'true'
-            || h3.textContent.trim().toLowerCase().includes('toolbar')
-        );
-
-        let topDL;
-        if (toolbarH3) {
-          topDL = toolbarH3.closest('dt')?.querySelector('dl') || toolbarH3.parentElement.querySelector('dl');
-        } else {
-          // Fallback: just grab the first DL
-          topDL = doc.querySelector('dl');
-        }
-
-        if (!topDL) throw new Error('No bookmark folders found.');
-
-        // Get immediate folder children of the toolbar DL
-        const folderItems = topDL.querySelectorAll(':scope > dt > h3');
-        const categories  = [];
-
-        folderItems.forEach(h3 => {
-          const dt   = h3.parentElement;
-          const subDL = dt.querySelector('dl');
-          if (subDL) {
-            categories.push(parseDL(subDL, h3.textContent.trim()));
-          }
-        });
-
-        if (!categories.length) throw new Error('No categories found in bookmarks.');
-
-        listEl.innerHTML = '';
-        categories.forEach(cat => {
-          const el = buildCategoryEl(cat);
-          if (el) listEl.appendChild(el);
-        });
-
-      } catch (err) {
-        listEl.innerHTML = `<div class="bm-status error">Failed to load bookmarks: ${escapeHtml(err.message)}</div>`;
-        console.error('Bookmark load error:', err);
+        const res = await fetch(URL + '?cb=' + Date.now());
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const cats = parseBookmarks(await res.text());
+        if (!cats.length) throw new Error('No categories found.');
+        renderBookmarks(cats);
+      } catch (e) {
+        document.getElementById('bm-list').innerHTML =
+          `<div class="bm-error">Failed to load bookmarks. <small>${e.message}</small><br><br><a href="${URL}" target="_blank">Open on GitHub</a></div>`;
       }
     }
 
