@@ -464,7 +464,7 @@
     }
 
     async function loadBookmarks() {
-      const URL = 'https://raw.githubusercontent.com/xXnexioXx/index/main/bookmarks_clean.html';
+      const URL = 'https://raw.githubusercontent.com/xXnexioXx/index/main/bookmarks/bookmarks_clean.html';
       try {
         const res = await fetch(URL + '?cb=' + Date.now());
         if (!res.ok) throw new Error('HTTP ' + res.status);
