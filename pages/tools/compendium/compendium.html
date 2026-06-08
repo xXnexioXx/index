@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <title>nexio.network — Compendium</title>
+
+  <link rel="stylesheet" href="../../../assets/css/main.css" />
+  <link rel="stylesheet" href="compendium.css" />
+</head>
+<body>
+
+  <a href="../tools.html" class="back-button">&lt; Back</a>
+
+  <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+
+  <nav class="menu" id="menu" aria-hidden="true">
+    <a href="../../../index.html">Home</a>
+    <a href="../../../index.html#Whatisthis">What is this?</a>
+    <a href="../../../index.html#Contact">Contact</a>
+    <a href="../../download/download.html">Download</a>
+    <a href="../tools.html">Tools</a>
+    <a href="../../extra/extra.html">Extra</a>
+  </nav>
+
+  <main>
+    <h1 class="page-header">Compendium</h1>
+
+    <section id="frame">
+      <div class="tool-card">
+
+        <div class="cat-tabs" role="tablist">
+          <button class="cat-tab active" data-cat="general"  role="tab">General</button>
+          <button class="cat-tab" data-cat="movies"          role="tab">Movies &amp; Series</button>
+          <button class="cat-tab" data-cat="tv"              role="tab">TV</button>
+          <button class="cat-tab" data-cat="anime"           role="tab">Anime</button>
+          <button class="cat-tab" data-cat="games"           role="tab">Games</button>
+          <button class="cat-tab" data-cat="music"           role="tab">Music</button>
+          <button class="cat-tab" data-cat="software"        role="tab">Software</button>
+          <button class="cat-tab" data-cat="sports"          role="tab">Sports</button>
+          <button class="cat-tab" data-cat="misc"            role="tab">Misc.</button>
+        </div>
+
+        <div class="sub-filter" id="subFilter" aria-hidden="true">
+          <label id="subLabel"></label>
+          <button class="sub-btn active" data-sub="all">All</button>
+          <button class="sub-btn" data-sub="de">Deutsch</button>
+          <button class="sub-btn" data-sub="en">English</button>
+          <button class="sub-btn hidden" data-sub="pc">PC</button>
+          <button class="sub-btn hidden" data-sub="roms">ROMs</button>
+        </div>
+
+        <!-- General -->
+        <div class="cat-panel active" data-cat="general">
+          <div class="btn-grid">
+            <button class="tool-btn" data-url="https://fmhy.net/">FMHY</button>
+            <button class="tool-btn" data-url="https://github.com/SeppPenner/awesome-german-piracy/">German Piracy</button>
+            <button class="tool-btn" data-url="https://rentry.org/megathread/">Megathread</button>
+            <button class="tool-btn" data-url="https://www.reddit.com/r/Piracy/">r/Piracy</button>
+          </div>
+        </div>
+
+        <!-- Movies & Series -->
+        <div class="cat-panel" data-cat="movies">
+          <div class="btn-grid">
+            <button class="tool-btn" data-sub="de" data-url="https://cine.to/">Cine.to</button>
+            <button class="tool-btn" data-sub="de" data-url="https://filmpalast.to/">Filmpalast</button>
+            <button class="tool-btn" data-sub="de" data-url="https://hdfilme.legal/">HDfilme</button>
+            <button class="tool-btn" data-sub="de" data-url="https://kinoger.com/">KinoGer</button>
+            <button class="tool-btn" data-sub="de" data-url="https://kinox.to/">KinoX</button>
+            <button class="tool-btn" data-sub="de" data-url="https://megakino.org/">MegaKino</button>
+            <button class="tool-btn" data-sub="de" data-url="https://movie2k.cx/">Movie2K</button>
+            <button class="tool-btn" data-sub="de" data-url="https://movie4k.sx/">Movie4K</button>
+            <button class="tool-btn" data-sub="de" data-url="https://s.to/">S.to</button>
+            <button class="tool-btn" data-sub="de" data-url="https://streamkiste.taxi/streamkiste/">StreamKiste</button>
+            <button class="tool-btn" data-sub="de" data-url="https://github.com/streamflix-reborn/streamflix/releases">Streamflix (app)</button>
+            <button class="tool-btn" data-sub="en" data-url="https://www.1shows.nl/">1Shows</button>
+            <button class="tool-btn" data-sub="en" data-url="https://cinemacity.rip/">CinemaCity</button>
+            <button class="tool-btn" data-sub="en" data-url="https://www.cineby.gd/">Cineby</button>
+            <button class="tool-btn" data-sub="en" data-url="https://www.ez-streaming.space/">Ez Streaming</button>
+            <button class="tool-btn" data-sub="en" data-url="https://himovies.sx/home">HiMovies</button>
+            <button class="tool-btn" data-sub="en" data-url="https://hollymoviehd.cc/home/">HollyMovieHD</button>
+            <button class="tool-btn" data-sub="en" data-url="https://ishowmovies.org/">ishowmovies</button>
+            <button class="tool-btn" data-sub="en" data-url="https://moviebite.cc/">MovieBite</button>
+            <button class="tool-btn" data-sub="en" data-url="https://github.com/streamflix-reborn/streamflix/releases">Streamflix (app)</button>
+            <button class="tool-btn" data-sub="en" data-url="https://streamvaults.ru/">Streamvaults</button>
+            <button class="tool-btn" data-sub="en" data-url="https://theflixertv.click/home">TheFlixer</button>
+            <button class="tool-btn" data-sub="en" data-url="https://watchluna.com/">WatchLuna</button>
+          </div>
+        </div>
+
+        <!-- TV -->
+        <div class="cat-panel" data-cat="tv">
+          <div class="btn-grid">
+            <button class="tool-btn" data-url="https://www.2ix2.com/">2ix2</button>
+            <button class="tool-btn" data-url="https://dragon-ott.com/">IPTV (paid)</button>
+            <button class="tool-btn" data-url="https://www.livehdtv.com/ulke/germany/">LiveHDTV</button>
+            <button class="tool-btn" data-url="https://www.livestreamde.com/">LivestreamDE</button>
+          </div>
+        </div>
+
+        <!-- Anime -->
+        <div class="cat-panel" data-cat="anime">
+          <div class="btn-grid">
+            <button class="tool-btn" data-url="https://www.anilab.to/">anilab (app)</button>
+            <button class="tool-btn" data-url="https://www.animekai.to/home">AnimeKAI</button>
+            <button class="tool-btn" data-url="https://ww1.lat/animesuge/">AnimeSuge</button>
+            <button class="tool-btn" data-url="https://aniwatch.co.at/">aniwatch</button>
+            <button class="tool-btn" data-url="https://www.anime-loads.org/">Anime-Loads (DE)</button>
+            <button class="tool-btn" data-url="https://www.aniworld.to/">AniWorld (DE)</button>
+            <button class="tool-btn" data-url="https://www.miruro.tv/">Mirurotv</button>
+          </div>
+        </div>
+
+        <!-- Games -->
+        <div class="cat-panel" data-cat="games">
+          <div class="btn-grid">
+            <button class="tool-btn" data-sub="pc"   data-url="https://ankergames.net/">AnkerGames</button>
+            <button class="tool-btn" data-sub="pc"   data-url="https://astral-games.xyz/">AstralGames</button>
+            <button class="tool-btn" data-sub="pc"   data-url="https://www.cg-gamespc.net/">CG-gamesPC</button>
+            <button class="tool-btn" data-sub="pc"   data-url="https://dodi-repacks.site/">DODI Repacks</button>
+            <button class="tool-btn" data-sub="pc"   data-url="https://fitgirl-repacks.site/">FitGirl Repacks</button>
+            <button class="tool-btn" data-sub="pc"   data-url="https://gamedrive.org/">GameDrive</button>
+            <button class="tool-btn" data-sub="pc"   data-url="https://gamebounty.world/">Gamebounty</button>
+            <button class="tool-btn" data-sub="pc"   data-url="https://gload.to/">GLOAD</button>
+            <button class="tool-btn" data-sub="pc"   data-url="https://rentry.org/gnarly_repacks/">Gnarly</button>
+            <button class="tool-btn" data-sub="pc"   data-url="https://www.ovagames.com/">Ova Games</button>
+            <button class="tool-btn" data-sub="pc"   data-url="https://pc-games.eu.org/">pc-games.eu</button>
+            <button class="tool-btn" data-sub="pc"   data-url="https://rentry.org/pgames/">PGames</button>
+            <button class="tool-btn" data-sub="pc"   data-url="https://rexagames.com/">RexaGames</button>
+            <button class="tool-btn" data-sub="roms" data-url="https://nswgame.com/">nswgame</button>
+            <button class="tool-btn" data-sub="roms" data-url="https://nxbrew.net/">NXBrew</button>
+            <button class="tool-btn" data-sub="roms" data-url="https://romsim.com/">ROMSIM</button>
+            <button class="tool-btn" data-sub="roms" data-url="https://romsfun.com/">ROMSFUN</button>
+            <button class="tool-btn" data-sub="roms" data-url="https://romslab.com/">ROMSLAB</button>
+            <button class="tool-btn" data-sub="roms" data-url="https://www.switchgamesmall.icu/">SwitchGamesMall</button>
+            <button class="tool-btn" data-sub="roms" data-url="https://not.ultranx.ru/en">UltraNX</button>
+            <button class="tool-btn" data-sub="roms" data-url="https://www.ziperto.com/">Ziperto</button>
+          </div>
+        </div>
+
+        <!-- Music -->
+        <div class="cat-panel" data-cat="music">
+          <div class="btn-grid">
+            <button class="tool-btn" data-url="https://dabmusic.xyz/">DAB Music Player</button>
+            <button class="tool-btn" data-url="https://github.com/afkarxyz/SpotiFLAC/releases/">SpotiFlac (app)</button>
+          </div>
+        </div>
+
+        <!-- Software -->
+        <div class="cat-panel" data-cat="software">
+          <div class="btn-grid">
+            <button class="tool-btn" data-url="https://www.fcportables.com/">FC Portables</button>
+            <button class="tool-btn" data-url="https://lrepacks.net/#">LRepacks</button>
+            <button class="tool-btn" data-url="https://forum.mobilism.org/index.php">Mobilism</button>
+            <button class="tool-btn" data-url="https://ggntw.com/steam/">Steam WS</button>
+          </div>
+        </div>
+
+        <!-- Sports -->
+        <div class="cat-panel" data-cat="sports">
+          <div class="btn-grid">
+            <button class="tool-btn" data-url="https://buffsports.io/">Buffstreams</button>
+            <button class="tool-btn" data-url="https://hesgoal.im/">Hesgoal</button>
+            <button class="tool-btn" data-url="https://ntvstream.cx/">NTVSTREAM</button>
+            <button class="tool-btn" data-url="https://ppv.to/">PPV</button>
+          </div>
+        </div>
+
+        <!-- Misc -->
+        <div class="cat-panel" data-cat="misc">
+          <div class="btn-grid">
+            <button class="tool-btn" data-url="https://www.curseforge.com/wow/addons/critsound">CritSound</button>
+            <button class="tool-btn" data-url="https://modrinth.com/plugin/gbjc">GeyserGBJC</button>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="contact-note">
+        please <a href="https://nexio.network/#Contact">contact</a> me if any of the links are not working anymore.
+      </p>
+    </section>
+
+    <footer>
+      <div class="quote">Malo periculosam libertatem quam quietum servitium.</div>
+    </footer>
+  </main>
+
+  <script src="compendium.js"></script>
+  <script src="../../../assets/js/nav.js"></script>
+  <script src="../../../assets/js/particles.js"></script>
+</body>
+</html>
