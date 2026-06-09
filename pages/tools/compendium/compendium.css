@@ -1,0 +1,123 @@
+/* ============================================================
+   compendium.css — Styles for the Compendium module
+   ============================================================ */
+
+/* ── Shared tool card ─────────────────────────────────────── */
+.tool-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 30px;
+  margin-bottom: 40px;
+}
+
+.tool-card h2 {
+  font-size: 1.5rem;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 1px;
+  margin: 0 0 30px;
+}
+
+/* ── Category tabs ────────────────────────────────────────── */
+.cat-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cat-tab {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #888;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: inherit;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.cat-tab:hover { background: rgba(255, 255, 255, 0.1); color: #e0e0e0; }
+.cat-tab.active { background: rgba(255, 255, 255, 0.15); color: #fff; border-color: rgba(255, 255, 255, 0.3); }
+
+/* ── Sub-filter bar ───────────────────────────────────────── */
+.sub-filter {
+  display: none;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+}
+
+.sub-filter.visible { display: flex; }
+.sub-filter label { font-size: 13px; color: #888; }
+
+.sub-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #888;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-family: inherit;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.sub-btn:hover { background: rgba(255, 255, 255, 0.1); color: #e0e0e0; }
+.sub-btn.active { background: rgba(255, 255, 255, 0.15); color: #fff; border-color: rgba(255, 255, 255, 0.3); }
+.sub-btn.hidden { display: none; }
+
+/* ── Category panels ──────────────────────────────────────── */
+.cat-panel { display: none; }
+.cat-panel.active { display: block; }
+
+/* ── Tool button grid ─────────────────────────────────────── */
+.btn-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.tool-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #e0e0e0;
+  padding: 14px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: inherit;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.tool-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #0af;
+  transform: translateY(-2px);
+}
+
+/* Language/platform badge via data attribute */
+.tool-btn[data-sub="de"]::after  { content: ' [DE]'; font-size: 10px; color: #888; }
+.tool-btn[data-sub="en"]::after  { content: ' [EN]'; font-size: 10px; color: #888; }
+.tool-btn[data-sub="pc"]::after  { content: ' [PC]'; font-size: 10px; color: #888; }
+.tool-btn[data-sub="roms"]::after { content: ' [ROM]'; font-size: 10px; color: #888; }
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .tool-card { padding: 15px; }
+  .btn-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .cat-tabs { gap: 6px; }
+  .cat-tab { padding: 6px 10px; font-size: 11px; }
+  .tool-btn { padding: 10px 12px; font-size: 12px; }
+}

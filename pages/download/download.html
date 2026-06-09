@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <title>nexio.network — Download</title>
+
+  <link rel="stylesheet" href="../../assets/css/main.css" />
+</head>
+<body>
+
+  <a href="../../index.html" class="back-button">&lt; Back</a>
+
+  <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+
+  <nav class="menu" id="menu" aria-hidden="true">
+    <a href="../../index.html">Home</a>
+    <a href="../../index.html#Whatisthis">What is this?</a>
+    <a href="../../index.html#Contact">Contact</a>
+    <a href="download.html">Download</a>
+    <a href="../tools/tools.html">Tools</a>
+    <a href="../extra/extra.html">Extra</a>
+  </nav>
+
+  <main>
+    <h1 class="page-header">Download</h1>
+
+    <section id="frame">
+      <div id="mod-item-1"></div>
+      <div id="mod-item-2"></div>
+      <div id="mod-item-3"></div>
+
+      <p class="contact-note">
+        please <a href="https://nexio.network/#Contact">contact</a> me if any of the links are not working anymore.
+      </p>
+    </section>
+
+    <footer>
+      <div class="quote">Malo periculosam libertatem quam quietum servitium.</div>
+    </footer>
+  </main>
+
+  <script src="../../assets/js/loader.js"></script>
+  <script src="../../assets/js/nav.js"></script>
+  <script src="../../assets/js/particles.js"></script>
+  <script>
+    loadModule({
+      html:      'item-1/item-1.html',
+      css:       'item-1/item-1.css',
+      script:    'item-1/item-1.js',
+      container: document.getElementById('mod-item-1'),
+    });
+
+    loadModule({
+      html:      'item-2/item-2.html',
+      css:       'item-2/item-2.css',
+      script:    'item-2/item-2.js',
+      container: document.getElementById('mod-item-2'),
+    });
+
+    loadModule({
+      html:      'item-3/item-3.html',
+      css:       'item-3/item-3.css',
+      script:    'item-3/item-3.js',
+      container: document.getElementById('mod-item-3'),
+    });
+  </script>
+</body>
+</html>
