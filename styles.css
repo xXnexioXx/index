@@ -68,6 +68,11 @@ section {
   padding-top: 2rem;
 }
 
+/* ── Module spacing ─── */
+#frame [data-module] {
+  margin-bottom: 20rem;
+}
+
 /* ── Typography ────────────────────────────────────────────────────────────── */
 h1 {
   font-size: 3rem;
