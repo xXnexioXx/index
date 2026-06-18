@@ -10,8 +10,17 @@
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 12px;
-    padding: 30px 30px 14px 30px;
+    padding: 30px 30px 8px 30px;
     margin-bottom: 40px;
+  }
+
+  /* iframes sind standardmäßig "inline" -> dadurch entsteht durch die
+     normale Zeilenhöhe des umgebenden Texts unsichtbarer Extra-Abstand
+     UNTER dem Iframe, der die Zentrierung verfälscht hat. display:block
+     entfernt diesen versteckten Abstand, damit margin-top der .spotify-msg
+     und padding-bottom vom Container 1:1 vergleichbar sind. */
+  .spotify-container iframe {
+    display: block;
   }
 
   .spotify-msg {
@@ -21,18 +30,18 @@
     text-align: center;
     /* margin-top entspricht bewusst dem padding-bottom oben am Container,
        damit der Text mittig zwischen Iframe-Unterkante und Container-Rand sitzt */
-    margin: 14px 0 0 0;
+    margin: 8px 0 0 0;
   }
 
   /* ── Responsive (vorher in styles.css, jetzt modul-lokal) ── */
   @media (max-width: 768px) {
     .spotify-container {
       margin: 0 auto 2rem auto;
-      padding: 1.5rem 1.5rem 0.75rem 1.5rem;
+      padding: 1.5rem 1.5rem 0.4rem 1.5rem;
     }
 
     .spotify-msg {
-      margin-top: 0.75rem;
+      margin-top: 0.4rem;
     }
   }
 
