@@ -88,9 +88,45 @@ function animate() {
   requestAnimationFrame(animate);
 }
 
+function resizeCanvas() {
+  const oldWidth = canvas.width;
+  const oldHeight = canvas.height;
+  const newWidth = window.innerWidth;
+  const newHeight = window.innerHeight;
+
+  // Ohne diese Skalierung bleiben alle Partikel auf ihren alten
+  // Pixel-Koordinaten stehen. Nach einer Drehung (z.B. Hochformat -> Querformat)
+  // ist der Canvas zwar neu/breiter, aber alle Partikel sitzen weiterhin nur
+  // im Bereich der alten (engeren) Breite -> Partikel wirken auf eine Seite
+  // gequetscht, der Rest des Screens bleibt leer.
+  if (oldWidth > 0 && oldHeight > 0) {
+    const scaleX = newWidth / oldWidth;
+    const scaleY = newHeight / oldHeight;
+    particles.forEach(p => {
+      p.x *= scaleX;
+      p.y *= scaleY;
+    });
+  }
+
+  canvas.width = newWidth;
+  canvas.height = newHeight;
+}
+
+let resizeTimeout;
 window.addEventListener('resize', () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  // Mobile Browser (besonders beim Drehen) liefern kurz nach dem Event teils
+  // noch nicht final aktualisierte innerWidth/innerHeight-Werte (z.B. während
+  // die Adressleiste ein-/ausfährt). Ein kurzer Debounce sorgt dafür, dass wir
+  // mit den endgültigen, stabilen Maßen rechnen.
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(resizeCanvas, 150);
+});
+
+// orientationchange zusätzlich abhören: auf manchen Android-Browsern
+// (inkl. Opera) feuert das resize-Event nach einer Drehung nicht zuverlässig.
+window.addEventListener('orientationchange', () => {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(resizeCanvas, 200);
 });
 
 // Starten
