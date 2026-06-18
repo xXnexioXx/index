@@ -5,22 +5,40 @@
 ══════════════════════════════════════════ -->
 
 <style>
+  /* ── Spotify container ── */
+  .spotify-container {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 40px;
+  }
+
   .spotify-msg {
     color: #666;
     font-size: 0.75em;
     font-style: italic;
-    position: absolute;
-    bottom: 0.65rem;
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 0;
-    white-space: nowrap;
+    text-align: center;
+    margin: 1.5rem 0 0 0;
+  }
+
+  /* ── Responsive (vorher in styles.css, jetzt modul-lokal) ── */
+  @media (max-width: 768px) {
+    .spotify-container {
+      margin: 0 auto 2rem auto;
+      padding: 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .spotify-container iframe {
+      width: 95%;
+      height: 300px;
+    }
   }
 </style>
 
-<div class="download-item">
-  <h3></h3>
-  <p></p>
+<div class="spotify-container">
   <iframe
     data-testid="embed-iframe"
     style="border-radius:5px; width: 100%; height: 352px;"
