@@ -269,20 +269,10 @@ section p[style*="margin-top: 100px"] {
 
   h1 { font-size: 2.5rem; }
   h2 { font-size: 2rem; }
-
-  .download-item {
-    margin: 0 auto 2rem auto;
-    padding: 1.5rem;
-  }
 }
 
 @media (max-width: 480px) {
   body.landing .frame { padding: 1rem; }
   #frame { padding-top: 3rem; }
   h1 { font-size: 2rem; }
-
-  .download-item iframe {
-    width: 95%;
-    height: 300px;
-  }
 }
