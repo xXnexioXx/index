@@ -23,9 +23,25 @@ canvas.style.left = '0';
 canvas.style.zIndex = '-1';
 document.body.appendChild(canvas);
 
+// In manchen mobilen Browsern liefert window.innerWidth/innerHeight im
+// erzwungenen "Desktop-Modus" beim Drehen kurzzeitig stark abweichende/
+// unsinnige Werte (weil die erzwungene Desktop-Breite neu berechnet wird).
+// window.visualViewport spiegelt zuverlässiger die tatsächlich sichtbare
+// Fläche wider und wird daher bevorzugt, falls verfügbar.
+function getViewportSize() {
+  if (window.visualViewport) {
+    return {
+      width: window.visualViewport.width,
+      height: window.visualViewport.height
+    };
+  }
+  return { width: window.innerWidth, height: window.innerHeight };
+}
+
 const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+const initialViewport = getViewportSize();
+canvas.width = initialViewport.width;
+canvas.height = initialViewport.height;
 const particles = [];
 
 class Particle {
@@ -91,21 +107,42 @@ function animate() {
 function resizeCanvas() {
   const oldWidth = canvas.width;
   const oldHeight = canvas.height;
-  const newWidth = window.innerWidth;
-  const newHeight = window.innerHeight;
+  const { width: newWidth, height: newHeight } = getViewportSize();
 
-  // Ohne diese Skalierung bleiben alle Partikel auf ihren alten
-  // Pixel-Koordinaten stehen. Nach einer Drehung (z.B. Hochformat -> Querformat)
-  // ist der Canvas zwar neu/breiter, aber alle Partikel sitzen weiterhin nur
-  // im Bereich der alten (engeren) Breite -> Partikel wirken auf eine Seite
-  // gequetscht, der Rest des Screens bleibt leer.
+  // Manche Browser melden während einer Drehung im Desktop-Modus kurzzeitig
+  // 0 oder unsinnig kleine Werte (z.B. während die erzwungene Desktop-Breite
+  // neu berechnet wird). Solche Zwischenwerte ignorieren wir komplett.
+  if (!newWidth || !newHeight) return;
+
   if (oldWidth > 0 && oldHeight > 0) {
     const scaleX = newWidth / oldWidth;
     const scaleY = newHeight / oldHeight;
-    particles.forEach(p => {
-      p.x *= scaleX;
-      p.y *= scaleY;
-    });
+
+    // Sicherheitsnetz: Im Desktop-Modus auf Mobilgeräten kann der gemeldete
+    // Skalierungsfaktor beim Rotieren völlig unrealistisch ausfallen (z.B.
+    // weil die "Desktop-Breite" anders neu berechnet wird als die echte
+    // Bildschirmbreite). Ein extremer Faktor würde alle Partikel auf einen
+    // winzigen Fleck zusammenquetschen -> sieht aus wie "viel zu viele
+    // Partikel" (dichte Häufung + extrem viele Verbindungslinien).
+    // In so einem Fall verteilen wir die Partikel stattdessen einfach neu,
+    // statt sie zu skalieren.
+    const MAX_SCALE = 4;
+    const MIN_SCALE = 0.25;
+    const scaleIsSane =
+      scaleX <= MAX_SCALE && scaleX >= MIN_SCALE &&
+      scaleY <= MAX_SCALE && scaleY >= MIN_SCALE;
+
+    if (scaleIsSane) {
+      particles.forEach(p => {
+        p.x *= scaleX;
+        p.y *= scaleY;
+      });
+    } else {
+      particles.forEach(p => {
+        p.x = Math.random() * newWidth;
+        p.y = Math.random() * newHeight;
+      });
+    }
   }
 
   canvas.width = newWidth;
@@ -128,6 +165,17 @@ window.addEventListener('orientationchange', () => {
   clearTimeout(resizeTimeout);
   resizeTimeout = setTimeout(resizeCanvas, 200);
 });
+
+// Zusätzlich auf visualViewport-Resize hören: in einigen mobilen Browsern
+// (besonders im erzwungenen "Desktop-Modus") feuert das normale window
+// 'resize'-Event bei einer Drehung nicht zuverlässig oder mit veralteten
+// Maßen, visualViewport dagegen schon.
+if (window.visualViewport) {
+  window.visualViewport.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(resizeCanvas, 150);
+  });
+}
 
 // Starten
 initParticles();
