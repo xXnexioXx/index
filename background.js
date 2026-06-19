@@ -1,9 +1,6 @@
 // Particle Background System
 
 // ─── Guard: Doppelter Lauf verhindern ────────────────────────────────────────
-// Im Desktop-Modus mancher mobiler Browser (z.B. Opera Android) wird das
-// Skript beim Drehen des Geräts erneut ausgeführt, ohne dass die Seite neu
-// geladen wird. Ohne Schutz entsteht ein zweiter Partikel-Layer auf dem alten.
 if (window._particleAnimId != null) {
   cancelAnimationFrame(window._particleAnimId);
   window._particleAnimId = null;
@@ -22,16 +19,34 @@ function getViewportSize() {
 // ─── Konfiguration ────────────────────────────────────────────────────────────
 const isMobile = getViewportSize().width < 768;
 const particleConfig = {
-  count:       isMobile ?  80 : 180,
-  color:       'rgba(136, 136, 136, 0.5)',
-  minSize:     isMobile ? 0.3 : 0.7,
-  maxSize:     isMobile ? 1.8 : 2.8,
-  minSpeed:    isMobile ? -0.2 : -0.3,
-  maxSpeed:    isMobile ?  0.2 :  0.3,
-  lineWidth:   isMobile ? 0.7 : 0.8,
-  maxDistance: isMobile ? 100 : 160,
-  lineColor:   'rgba(85, 85, 85, {opacity})'
+  count:     isMobile ?  80 : 180,
+  color:     'rgba(136, 136, 136, 0.5)',
+  minSize:   isMobile ? 0.3 : 0.7,
+  maxSize:   isMobile ? 1.8 : 2.8,
+  minSpeed:  isMobile ? -0.2 : -0.3,
+  maxSpeed:  isMobile ?  0.2 :  0.3,
+  lineWidth: isMobile ? 0.7 : 0.8,
+  maxDistance: 0, // wird dynamisch berechnet (siehe updateMaxDistance)
+  lineColor: 'rgba(85, 85, 85, {opacity})'
 };
+
+// ─── Dynamische Verbindungsdistanz ───────────────────────────────────────────
+// Kernproblem: Ein fester maxDistance-Wert erzeugt auf kleinen Canvas-Flächen
+// (z.B. Querformat) eine viel zu hohe Verbindungsdichte, auf großen Flächen
+// (z.B. Hochformat Desktop) dagegen zu wenige Verbindungen.
+//
+// Lösung: maxDistance so berechnen, dass jedes Partikel im Schnitt immer
+// dieselbe Anzahl Nachbarn hat – unabhängig von Canvas-Größe und Modus.
+//
+// Formel:   n_nachbarn = (count / fläche) × π × maxDistance²
+// Auflösen: maxDistance = √(n_nachbarn × fläche / (π × count))
+function updateMaxDistance() {
+  const TARGET_NEIGHBORS = 10; // angestrebte Nachbarn pro Partikel
+  const area = canvas.width * canvas.height;
+  const raw  = Math.sqrt(TARGET_NEIGHBORS * area / (Math.PI * particleConfig.count));
+  // Sinnvolle Grenzen: nicht zu kurz (unsichtbar) und nicht zu lang (zu dicht)
+  particleConfig.maxDistance = Math.max(60, Math.min(220, raw));
+}
 
 // ─── Canvas ───────────────────────────────────────────────────────────────────
 const canvas = document.createElement('canvas');
@@ -48,6 +63,7 @@ const ctx = canvas.getContext('2d');
 const { width: initW, height: initH } = getViewportSize();
 canvas.width  = initW;
 canvas.height = initH;
+updateMaxDistance(); // initiale Distanz berechnen
 
 // ─── Partikel ─────────────────────────────────────────────────────────────────
 const particles = [];
@@ -118,9 +134,9 @@ function resizeCanvas(forceRandomize) {
   const oldWidth  = canvas.width;
   const oldHeight = canvas.height;
 
-  // Canvas-Größe ZUERST setzen, damit randomize() die richtigen Maße nutzt
   canvas.width  = newWidth;
   canvas.height = newHeight;
+  updateMaxDistance(); // Verbindungsdistanz an neue Fläche anpassen
 
   if (forceRandomize) {
     particles.forEach(p => p.randomize());
@@ -139,10 +155,6 @@ function resizeCanvas(forceRandomize) {
 
 // ─── Event-Listener ───────────────────────────────────────────────────────────
 let resizeTimeout;
-
-// Wenn eine Gerätedrehung erkannt wurde, darf kein normaler resize-Event
-// den 500ms-Orientation-Timeout überschreiben – sonst läuft die fehlerhafte
-// Skalierung mit noch nicht finalen Viewport-Werten durch.
 let orientationChangePending = false;
 
 window.addEventListener('orientationchange', () => {
@@ -150,12 +162,11 @@ window.addEventListener('orientationchange', () => {
   orientationChangePending = true;
   resizeTimeout = setTimeout(() => {
     orientationChangePending = false;
-    resizeCanvas(true); // immer neu verteilen nach Drehung
+    resizeCanvas(true);
   }, 500);
 });
 
 window.addEventListener('resize', () => {
-  // Während eines Orientierungswechsels ignorieren – der hat Vorrang
   if (orientationChangePending) return;
   clearTimeout(resizeTimeout);
   resizeTimeout = setTimeout(() => resizeCanvas(false), 150);
