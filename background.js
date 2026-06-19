@@ -12,9 +12,6 @@ const _existingCanvas = document.getElementById('particles');
 if (_existingCanvas) _existingCanvas.remove();
 
 // ─── Viewport-Größe ───────────────────────────────────────────────────────────
-// document.documentElement.clientWidth/Height ist konsistenter als
-// window.innerWidth/visualViewport – gilt im normalen Modus UND im
-// erzwungenen Desktop-Modus auf Mobilgeräten.
 function getViewportSize() {
   return {
     width:  document.documentElement.clientWidth,
@@ -114,37 +111,22 @@ function animate() {
 }
 
 // ─── Resize ───────────────────────────────────────────────────────────────────
-// Bei echtem Orientierungswechsel (Hoch ↔ Quer) ist clientHeight kurz nach dem
-// Event noch nicht fertig neu berechnet – ein Skalieren führt dann zu falschen
-// Y-Faktoren und quetscht alle Partikel in einen schmalen Streifen.
-// Lösung: Bei Orientierungswechsel IMMER neu zufällig verteilen (nach einer
-// ausreichend langen Wartezeit), statt unsicher zu skalieren.
-// Bei normalem Resize (z.B. Fenstergröße auf Desktop) wird weiterhin skaliert.
-
-let _lastOrientation = canvas.width > canvas.height ? 'landscape' : 'portrait';
-
-function resizeCanvas(forceRandomize = false) {
+function resizeCanvas(forceRandomize) {
   const { width: newWidth, height: newHeight } = getViewportSize();
-
-  // Ungültige Zwischenwerte ignorieren
   if (!newWidth || !newHeight) return;
 
   const oldWidth  = canvas.width;
   const oldHeight = canvas.height;
 
-  // Canvas-Größe zuerst setzen, damit randomize() die richtigen Maße nutzt
+  // Canvas-Größe ZUERST setzen, damit randomize() die richtigen Maße nutzt
   canvas.width  = newWidth;
   canvas.height = newHeight;
 
   if (forceRandomize) {
-    // Orientierungswechsel: neu verteilen, kein Skalieren
     particles.forEach(p => p.randomize());
   } else if (oldWidth > 0 && oldHeight > 0) {
     const scaleX = newWidth  / oldWidth;
     const scaleY = newHeight / oldHeight;
-
-    // Skalierungsfaktor plausibel? → proportional verschieben.
-    // Unplausibel (Viewport-Sprung im Desktop-Modus) → neu verteilen.
     const MAX_SCALE = 4, MIN_SCALE = 0.25;
     if (scaleX <= MAX_SCALE && scaleX >= MIN_SCALE &&
         scaleY <= MAX_SCALE && scaleY >= MIN_SCALE) {
@@ -158,30 +140,30 @@ function resizeCanvas(forceRandomize = false) {
 // ─── Event-Listener ───────────────────────────────────────────────────────────
 let resizeTimeout;
 
-// Normaler Resize (Fenstergröße, Adressleiste, etc.) – skalieren
+// Wenn eine Gerätedrehung erkannt wurde, darf kein normaler resize-Event
+// den 500ms-Orientation-Timeout überschreiben – sonst läuft die fehlerhafte
+// Skalierung mit noch nicht finalen Viewport-Werten durch.
+let orientationChangePending = false;
+
+window.addEventListener('orientationchange', () => {
+  clearTimeout(resizeTimeout);
+  orientationChangePending = true;
+  resizeTimeout = setTimeout(() => {
+    orientationChangePending = false;
+    resizeCanvas(true); // immer neu verteilen nach Drehung
+  }, 500);
+});
+
 window.addEventListener('resize', () => {
+  // Während eines Orientierungswechsels ignorieren – der hat Vorrang
+  if (orientationChangePending) return;
   clearTimeout(resizeTimeout);
   resizeTimeout = setTimeout(() => resizeCanvas(false), 150);
 });
 
-// Orientierungswechsel: längere Wartezeit (500 ms) damit der Browser die
-// Layout-Höhe vollständig neu berechnet hat, dann IMMER neu verteilen.
-// Auf manchen Android-Browsern feuert orientationchange zuverlässiger als
-// resize; daher beide Events abhören und doppelte Ausführung via Timeout
-// verhindern.
-function handleOrientationChange() {
-  clearTimeout(resizeTimeout);
-  resizeTimeout = setTimeout(() => resizeCanvas(true), 500);
-}
-
-window.addEventListener('orientationchange', handleOrientationChange);
-
-// visualViewport-Resize als Ergänzung: feuert im Desktop-Modus oft
-// zuverlässiger als window resize.
 if (window.visualViewport) {
   window.visualViewport.addEventListener('resize', () => {
-    // Nur als normaler Resize behandeln – orientationchange deckt die
-    // Drehung bereits ab.
+    if (orientationChangePending) return;
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => resizeCanvas(false), 150);
   });
