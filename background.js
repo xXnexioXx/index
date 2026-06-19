@@ -3,10 +3,7 @@
 // ─── Guard: Doppelter Lauf verhindern ────────────────────────────────────────
 // Im Desktop-Modus mancher mobiler Browser (z.B. Opera Android) wird das
 // Skript beim Drehen des Geräts erneut ausgeführt, ohne dass die Seite neu
-// geladen wird. Ohne Schutz entsteht ein zweiter (oder dritter) Partikel-Layer
-// auf dem alten – sieht aus wie "extrem viele Partikel".
-// Wir merken uns die laufende Animation global und räumen sie auf, bevor wir
-// einen neuen Lauf starten.
+// geladen wird. Ohne Schutz entsteht ein zweiter Partikel-Layer auf dem alten.
 if (window._particleAnimId != null) {
   cancelAnimationFrame(window._particleAnimId);
   window._particleAnimId = null;
@@ -15,11 +12,9 @@ const _existingCanvas = document.getElementById('particles');
 if (_existingCanvas) _existingCanvas.remove();
 
 // ─── Viewport-Größe ───────────────────────────────────────────────────────────
-// document.documentElement.clientWidth/Height ist die zuverlässigste Quelle
-// für die tatsächliche Layout-Viewport-Größe in CSS-Pixeln – konsistent im
-// normalen Modus, im erzwungenen Desktop-Modus UND nach Gerätedrehung.
-// (window.innerWidth und visualViewport können im Desktop-Modus auf Android
-// stark schwanken oder falsche Zwischenwerte liefern.)
+// document.documentElement.clientWidth/Height ist konsistenter als
+// window.innerWidth/visualViewport – gilt im normalen Modus UND im
+// erzwungenen Desktop-Modus auf Mobilgeräten.
 function getViewportSize() {
   return {
     width:  document.documentElement.clientWidth,
@@ -75,7 +70,7 @@ class Particle {
     this.x += this.speedX;
     this.y += this.speedY;
     if (this.x < 0 || this.x > canvas.width)  this.speedX = -this.speedX;
-    if (this.y < 0 || this.y > canvas.height) this.speedY = -this.speedY;
+    if (this.y < 0 || this.y > canvas.height)  this.speedY = -this.speedY;
   }
 
   draw() {
@@ -119,20 +114,37 @@ function animate() {
 }
 
 // ─── Resize ───────────────────────────────────────────────────────────────────
-function resizeCanvas() {
-  const oldWidth  = canvas.width;
-  const oldHeight = canvas.height;
+// Bei echtem Orientierungswechsel (Hoch ↔ Quer) ist clientHeight kurz nach dem
+// Event noch nicht fertig neu berechnet – ein Skalieren führt dann zu falschen
+// Y-Faktoren und quetscht alle Partikel in einen schmalen Streifen.
+// Lösung: Bei Orientierungswechsel IMMER neu zufällig verteilen (nach einer
+// ausreichend langen Wartezeit), statt unsicher zu skalieren.
+// Bei normalem Resize (z.B. Fenstergröße auf Desktop) wird weiterhin skaliert.
+
+let _lastOrientation = canvas.width > canvas.height ? 'landscape' : 'portrait';
+
+function resizeCanvas(forceRandomize = false) {
   const { width: newWidth, height: newHeight } = getViewportSize();
 
-  // Ungültige Zwischenwerte (z.B. kurz nach dem Drehen) ignorieren
+  // Ungültige Zwischenwerte ignorieren
   if (!newWidth || !newHeight) return;
 
-  if (oldWidth > 0 && oldHeight > 0) {
+  const oldWidth  = canvas.width;
+  const oldHeight = canvas.height;
+
+  // Canvas-Größe zuerst setzen, damit randomize() die richtigen Maße nutzt
+  canvas.width  = newWidth;
+  canvas.height = newHeight;
+
+  if (forceRandomize) {
+    // Orientierungswechsel: neu verteilen, kein Skalieren
+    particles.forEach(p => p.randomize());
+  } else if (oldWidth > 0 && oldHeight > 0) {
     const scaleX = newWidth  / oldWidth;
     const scaleY = newHeight / oldHeight;
 
     // Skalierungsfaktor plausibel? → proportional verschieben.
-    // Unplausibel (z.B. nach Viewport-Sprung im Desktop-Modus) → neu verteilen.
+    // Unplausibel (Viewport-Sprung im Desktop-Modus) → neu verteilen.
     const MAX_SCALE = 4, MIN_SCALE = 0.25;
     if (scaleX <= MAX_SCALE && scaleX >= MIN_SCALE &&
         scaleY <= MAX_SCALE && scaleY >= MIN_SCALE) {
@@ -141,28 +153,38 @@ function resizeCanvas() {
       particles.forEach(p => p.randomize());
     }
   }
-
-  canvas.width  = newWidth;
-  canvas.height = newHeight;
 }
 
 // ─── Event-Listener ───────────────────────────────────────────────────────────
 let resizeTimeout;
 
-function scheduleResize(delay) {
+// Normaler Resize (Fenstergröße, Adressleiste, etc.) – skalieren
+window.addEventListener('resize', () => {
   clearTimeout(resizeTimeout);
-  resizeTimeout = setTimeout(resizeCanvas, delay);
+  resizeTimeout = setTimeout(() => resizeCanvas(false), 150);
+});
+
+// Orientierungswechsel: längere Wartezeit (500 ms) damit der Browser die
+// Layout-Höhe vollständig neu berechnet hat, dann IMMER neu verteilen.
+// Auf manchen Android-Browsern feuert orientationchange zuverlässiger als
+// resize; daher beide Events abhören und doppelte Ausführung via Timeout
+// verhindern.
+function handleOrientationChange() {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(() => resizeCanvas(true), 500);
 }
 
-// window resize – mit Debounce gegen schnell aufeinanderfolgende Events
-window.addEventListener('resize', () => scheduleResize(150));
+window.addEventListener('orientationchange', handleOrientationChange);
 
-// orientationchange – auf manchen Android-Browsern zuverlässiger als resize
-window.addEventListener('orientationchange', () => scheduleResize(200));
-
-// visualViewport – feuert im Desktop-Modus oft zuverlässiger als window resize
+// visualViewport-Resize als Ergänzung: feuert im Desktop-Modus oft
+// zuverlässiger als window resize.
 if (window.visualViewport) {
-  window.visualViewport.addEventListener('resize', () => scheduleResize(150));
+  window.visualViewport.addEventListener('resize', () => {
+    // Nur als normaler Resize behandeln – orientationchange deckt die
+    // Drehung bereits ab.
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => resizeCanvas(false), 150);
+  });
 }
 
 // ─── Start ────────────────────────────────────────────────────────────────────
