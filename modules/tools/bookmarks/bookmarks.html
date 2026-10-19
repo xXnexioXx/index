@@ -1,0 +1,536 @@
+<!-- ══════════════════════════════════════════
+     MODULE: BOOKMARKS
+     Pfad: modules/tools/bookmarks/bookmarks.html
+     Zugehörige Daten: bookmarks_clean.html (gleicher Ordner)
+     Eingebunden via tools.html
+══════════════════════════════════════════ -->
+
+<style>
+  /* ── Bookmarks container ── */
+  .bookmarks-container {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 40px;
+  }
+
+  .bookmarks-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 12px;
+  }
+
+  .bookmarks-title {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin: 0;
+    letter-spacing: 1px;
+  }
+
+  /* ── Download button ── */
+  .download-bookmarks-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #ccc;
+    padding: 9px 18px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: inherit;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .download-bookmarks-btn:hover {
+    background: rgba(255, 255, 255, 0.10);
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-1px);
+  }
+
+  .download-bookmarks-btn svg { width: 14px; height: 14px; fill: currentColor; }
+
+  /* ── Outer toggle ── */
+  .bm-toggle-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    color: #888;
+    padding: 8px 20px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: inherit;
+    letter-spacing: 0.5px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .bm-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.09);
+    color: #ccc;
+  }
+
+  .bm-toggle-chevron {
+    font-size: 10px;
+    transition: transform 0.2s;
+    display: inline-block;
+  }
+
+  .bm-toggle-btn.open .bm-toggle-chevron { transform: rotate(180deg); }
+
+  .bm-list-wrapper { display: none; }
+  .bm-list-wrapper.open { display: block; }
+
+  /* ── Accordion ── */
+  .bm-category {
+    margin-bottom: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .bm-category-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 18px;
+    background: rgba(255, 255, 255, 0.04);
+    cursor: pointer;
+    transition: background 0.2s;
+    user-select: none;
+  }
+
+  .bm-category-header:hover { background: rgba(255, 255, 255, 0.08); }
+
+  .bm-category-name { font-size: 14px; font-weight: 500; color: #e0e0e0; letter-spacing: 0.5px; }
+
+  .bm-category-meta { display: flex; align-items: center; gap: 10px; }
+
+  .bm-count {
+    font-size: 11px;
+    color: #555;
+    background: rgba(255,255,255,0.05);
+    padding: 2px 7px;
+    border-radius: 10px;
+  }
+
+  .bm-chevron { color: #555; font-size: 11px; transition: transform 0.2s; display: inline-block; }
+  .bm-category.open .bm-chevron { transform: rotate(180deg); }
+
+  .bm-links {
+    display: none;
+    padding: 12px 14px;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.15);
+  }
+
+  .bm-category.open .bm-links { display: grid; }
+
+  .bm-link {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    color: #c8c8c8;
+    padding: 10px 13px;
+    border-radius: 6px;
+    font-size: 13px;
+    text-decoration: none;
+    transition: all 0.18s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+  }
+
+  .bm-link:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: #0af;
+    color: #fff;
+    transform: translateY(-1px);
+    text-decoration: none;
+  }
+
+  .bm-sublabel {
+    grid-column: 1 / -1;
+    font-size: 10px;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 4px 2px 2px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    margin-bottom: 2px;
+  }
+
+  /* ── Status (loading / error) ── */
+  .bm-status {
+    text-align: center;
+    padding: 30px;
+    color: #555;
+    font-size: 13px;
+  }
+
+  .bm-status.error { color: #f55; }
+
+  /* ── Download Modal ── */
+  .bm-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 3000;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(4px);
+  }
+
+  .bm-modal-overlay.visible { display: flex; }
+
+  .bm-modal {
+    background: #111;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 32px 28px;
+    max-width: 420px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+  }
+
+  .bm-modal-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 16px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bm-modal-icon svg { width: 22px; height: 22px; fill: #ccc; }
+
+  .bm-modal h3 { font-size: 1.1rem; font-weight: 500; margin: 0 0 10px; color: #fff; }
+
+  .bm-modal p {
+    font-size: 13px;
+    color: #888;
+    margin: 0 0 22px;
+    line-height: 1.6;
+  }
+
+  .bm-modal p code {
+    background: rgba(255,255,255,0.08);
+    padding: 1px 6px;
+    border-radius: 4px;
+    color: #ccc;
+    font-size: 12px;
+  }
+
+  .bm-modal-btns { display: flex; gap: 10px; justify-content: center; }
+
+  .bm-btn-download {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #e0e0e0;
+    padding: 10px 22px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: inherit;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .bm-btn-download:hover { background: rgba(255,255,255,0.14); color: #fff; text-decoration: none; }
+
+  .bm-btn-cancel {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #888;
+    padding: 10px 22px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+
+  .bm-btn-cancel:hover { background: rgba(255,255,255,0.09); color: #ccc; }
+
+  .bm-modal-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: none;
+    border: none;
+    color: #555;
+    font-size: 18px;
+    cursor: pointer;
+    font-family: inherit;
+    line-height: 1;
+    transition: color 0.2s;
+  }
+
+  .bm-modal-close:hover { color: #ccc; }
+
+  /* ── Responsive ── */
+  @media (max-width: 600px) {
+    .bookmarks-container { padding: 15px; }
+    .bm-links { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+
+<!-- ── Bookmarks UI ── -->
+<div class="bookmarks-container">
+  <div class="bookmarks-header">
+    <h2 class="bookmarks-title">Bookmarks</h2>
+    <button class="bm-toggle-btn" id="bmToggleList">
+      <span id="bmToggleLabel">Show bookmarks</span>
+      <span class="bm-toggle-chevron">▼</span>
+    </button>
+    <button class="download-bookmarks-btn" id="openDownloadModal">
+      <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L3 7h3V2h4v5h3L8 12zM2 14h12v-1.5H2V14z"/>
+      </svg>
+      Download all
+    </button>
+  </div>
+
+  <div class="bm-list-wrapper" id="bmListWrapper">
+    <div id="bookmarks-list">
+      <div class="bm-status">Loading bookmarks…</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Download Modal ── -->
+<div class="bm-modal-overlay" id="bmModalOverlay">
+  <div class="bm-modal">
+    <button class="bm-modal-close" id="bmModalClose">✕</button>
+    <div class="bm-modal-icon">
+      <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L3 7h3V2h4v5h3L8 12zM2 14h12v-1.5H2V14z"/>
+      </svg>
+    </div>
+    <h3>Download Bookmarks</h3>
+    <p>
+      Downloads a Firefox-compatible <code>.html</code> file.<br>
+      Import via <code>Bookmarks → Manage Bookmarks → Import &amp; Backup → Import Bookmarks from HTML</code>.
+    </p>
+    <div class="bm-modal-btns">
+      <a class="bm-btn-download"
+         href="modules/tools/bookmarks/bookmarks_clean.html"
+         download="bookmarks.html">
+        <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" style="width:13px;height:13px;fill:currentColor;">
+          <path d="M8 12L3 7h3V2h4v5h3L8 12zM2 14h12v-1.5H2V14z"/>
+        </svg>
+        Download .html
+      </a>
+      <button class="bm-btn-cancel" id="bmModalCancel">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  // ── Modal ──────────────────────────────────────────────────────────────────
+  const overlay   = document.getElementById('bmModalOverlay');
+  const openBtn   = document.getElementById('openDownloadModal');
+  const closeBtn  = document.getElementById('bmModalClose');
+  const cancelBtn = document.getElementById('bmModalCancel');
+
+  openBtn.addEventListener('click',   () => { overlay.classList.add('visible'); document.body.style.overflow = 'hidden'; });
+  closeBtn.addEventListener('click',  () => { overlay.classList.remove('visible'); document.body.style.overflow = ''; });
+  cancelBtn.addEventListener('click', () => { overlay.classList.remove('visible'); document.body.style.overflow = ''; });
+  overlay.addEventListener('click', e => { if (e.target === overlay) { overlay.classList.remove('visible'); document.body.style.overflow = ''; } });
+
+  // ── Outer toggle ───────────────────────────────────────────────────────────
+  const toggleBtn   = document.getElementById('bmToggleList');
+  const toggleLabel = document.getElementById('bmToggleLabel');
+  const listWrapper = document.getElementById('bmListWrapper');
+
+  toggleBtn.addEventListener('click', function () {
+    var isOpen = listWrapper.classList.toggle('open');
+    toggleBtn.classList.toggle('open', isOpen);
+    toggleLabel.textContent = isOpen ? 'Hide bookmarks' : 'Show bookmarks';
+  });
+
+  // ── Helpers ────────────────────────────────────────────────────────────────
+  function isNoisyLink() { return false; }
+
+  function getLinkLabel(title, href) {
+    if (!title || title.length > 60) {
+      try { return new URL(href).hostname.replace(/^www\./, ''); }
+      catch (e) { return title || href; }
+    }
+    return title;
+  }
+
+  function isSeparator(href) {
+    return /^https?:\/\/\.?\/?$/.test(href) || href === 'http://./' || href === 'https://./';
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  // ── Parser ─────────────────────────────────────────────────────────────────
+  function parseDL(dl, name) {
+    var result = { name: name, links: [], children: [] };
+    dl.querySelectorAll(':scope > dt').forEach(function(dt) {
+      var h3    = dt.querySelector(':scope > h3');
+      var a     = dt.querySelector(':scope > a');
+      var subDL = dt.querySelector(':scope > dl');
+      if (h3 && subDL) {
+        result.children.push(parseDL(subDL, h3.textContent.trim()));
+      } else if (a) {
+        var href  = a.getAttribute('href') || '';
+        var title = a.textContent.trim();
+        if (!isSeparator(href) && !isNoisyLink(href)) {
+          result.links.push({ href: href, label: getLinkLabel(title, href) });
+        }
+      }
+    });
+    return result;
+  }
+
+  function collectAllLinks(cat) {
+    var all = cat.links.slice();
+    cat.children.forEach(function(c) {
+      collectAllLinks(c).forEach(function(l) { all.push(l); });
+    });
+    return all;
+  }
+
+  // ── DOM builder ────────────────────────────────────────────────────────────
+  function toggleCategory(header) { header.parentElement.classList.toggle('open'); }
+  window.toggleCategory = toggleCategory;
+
+  function buildCategoryEl(category) {
+    var segments = [];
+    if (category.links.length) segments.push({ links: category.links });
+    category.children.forEach(function(child) {
+      var links = collectAllLinks(child);
+      if (links.length) segments.push({ sublabel: child.name, links: links });
+    });
+    if (!segments.length) return null;
+
+    var total = segments.reduce(function(s, seg) { return s + seg.links.length; }, 0);
+
+    var wrapper = document.createElement('div');
+    wrapper.className = 'bm-category';
+    wrapper.innerHTML =
+      '<div class="bm-category-header" onclick="toggleCategory(this)">' +
+        '<span class="bm-category-name">' + escapeHtml(category.name) + '</span>' +
+        '<div class="bm-category-meta">' +
+          '<span class="bm-count">' + total + '</span>' +
+          '<span class="bm-chevron">▼</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="bm-links"></div>';
+
+    var grid = wrapper.querySelector('.bm-links');
+    segments.forEach(function(seg) {
+      if (seg.sublabel) {
+        var lbl = document.createElement('div');
+        lbl.className = 'bm-sublabel';
+        lbl.textContent = seg.sublabel;
+        grid.appendChild(lbl);
+      }
+      seg.links.forEach(function(item) {
+        var a = document.createElement('a');
+        a.className = 'bm-link';
+        a.href = item.href;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.title = item.href;
+        a.textContent = item.label;
+        grid.appendChild(a);
+      });
+    });
+    return wrapper;
+  }
+
+  // ── Loader ─────────────────────────────────────────────────────────────────
+  async function loadBookmarks() {
+    var listEl = document.getElementById('bookmarks-list');
+    var SRC = 'modules/tools/bookmarks/bookmarks_clean.html';
+
+    try {
+      var res = await fetch(SRC, { cache: 'no-cache' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      var html = await res.text();
+
+      var parser = new DOMParser();
+      var doc    = parser.parseFromString(html, 'text/html');
+
+      var toolbarH3 = null;
+      doc.querySelectorAll('h3').forEach(function(h3) {
+        if (!toolbarH3 && (
+          h3.getAttribute('personal_toolbar_folder') === 'true' ||
+          h3.textContent.trim().toLowerCase().includes('toolbar')
+        )) { toolbarH3 = h3; }
+      });
+
+      var topDL;
+      if (toolbarH3) {
+        var closestDt = toolbarH3.closest('dt');
+        topDL = (closestDt && closestDt.querySelector('dl'))
+             || toolbarH3.parentElement.querySelector('dl');
+      } else {
+        topDL = doc.querySelector('dl');
+      }
+
+      if (!topDL) throw new Error('No bookmark folders found.');
+
+      var categories = [];
+      var miscLinks  = [];
+
+      topDL.querySelectorAll(':scope > dt').forEach(function(dt) {
+        var h3    = dt.querySelector(':scope > h3');
+        var a     = dt.querySelector(':scope > a');
+        var subDL = dt.querySelector(':scope > dl');
+
+        if (h3 && subDL) {
+          categories.push(parseDL(subDL, h3.textContent.trim()));
+        } else if (a) {
+          var href  = a.getAttribute('href') || '';
+          var title = a.textContent.trim();
+          if (!isSeparator(href) && !isNoisyLink(href)) {
+            miscLinks.push({ href: href, label: getLinkLabel(title, href) });
+          }
+        }
+      });
+
+      if (miscLinks.length) {
+        categories.push({ name: 'Misc.', links: miscLinks, children: [] });
+      }
+
+      if (!categories.length) throw new Error('No categories found in bookmarks.');
+
+      listEl.innerHTML = '';
+      categories.forEach(function(cat) {
+        var el = buildCategoryEl(cat);
+        if (el) listEl.appendChild(el);
+      });
+
+    } catch (err) {
+      listEl.innerHTML = '<div class="bm-status error">Failed to load bookmarks: ' + escapeHtml(err.message || String(err)) + '</div>';
+      console.error('[bookmarks] Load error:', err);
+    }
+  }
+
+  loadBookmarks();
+})();
+</script>
